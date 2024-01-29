@@ -1,0 +1,6 @@
+@paysys.webapi_HostAddress = http://localhost:5171
+
+GET {{paysys.webapi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
