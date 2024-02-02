@@ -5,7 +5,7 @@ namespace paysys.webapi.Infra.Data;
 
 public class DataContext : DbContext
 {
-    public DbSet<UserType>? UserTypes { get; set; }
+    public DbSet<UserType>? UserTypes { get; private set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
