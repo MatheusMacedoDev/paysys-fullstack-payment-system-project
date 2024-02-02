@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace paysys.webapi.Domain.Entities;
 
+[Table("UserTypes")]
 public class UserType
 {
     [Key]
