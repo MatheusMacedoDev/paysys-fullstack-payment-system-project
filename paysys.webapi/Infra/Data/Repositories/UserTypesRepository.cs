@@ -1,5 +1,5 @@
 ﻿using paysys.webapi.Domain.Entities;
-using paysys.webapi.Interfaces.Repositories;
+using paysys.webapi.Domain.Interfaces.Repositories;
 
 namespace paysys.webapi.Infra.Data.Repositories;
 
@@ -17,7 +17,7 @@ public class UserTypesRepository : IUserTypesRepository
         _context.UserTypes!.Add(userType!);
     }
 
-    public UserType GetUserType(Guid userTypeId)
+    public UserType? GetUserType(Guid userTypeId)
     {
         var findedUserType = _context.UserTypes!
             .FirstOrDefault(userType => userType.UserTypeId == userTypeId);
@@ -28,7 +28,7 @@ public class UserTypesRepository : IUserTypesRepository
         return findedUserType;
     }
 
-    public List<UserType> ListUserTypes()
+    public List<UserType>? ListUserTypes()
     {
         var userTypeList = _context.UserTypes!.ToList();
         return userTypeList;

@@ -1,10 +1,10 @@
 ﻿using paysys.webapi.Domain.Entities;
 
-namespace paysys.webapi.Interfaces.Repositories;
+namespace paysys.webapi.Domain.Interfaces.Repositories;
 
 public interface IUserTypesRepository
 {
-    void CreateUserType();
-    List<UserType> ListUserTypes();
-    UserType GetUserType();
+    void CreateUserType(UserType? userType);
+    List<UserType>? ListUserTypes();
+    UserType? GetUserType(Guid userTypeId);
 }
