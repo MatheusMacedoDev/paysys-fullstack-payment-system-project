@@ -1,4 +1,6 @@
+using paysys.webapi.Domain.Interfaces.Repositories;
 using paysys.webapi.Infra.Data;
+using paysys.webapi.Infra.Data.Repositories;
 using paysys.webapi.Infra.Data.UnityOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
     // DbContext Injection
     builder.Services.AddDbContext<DataContext>();
 
-    // UnityOfWork Injection
+    // UnityOfWork Injectioj
     builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
+
+    // Repository Injections
+    builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
 }
 
 var app = builder.Build();
