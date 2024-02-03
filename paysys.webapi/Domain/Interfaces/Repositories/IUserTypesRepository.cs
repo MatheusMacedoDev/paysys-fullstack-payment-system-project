@@ -2,7 +2,7 @@
 
 namespace paysys.webapi.Interfaces.Repositories;
 
-public interface IUserRepository
+public interface IUserTypesRepository
 {
     void CreateUserType();
     List<UserType> ListUserTypes();
