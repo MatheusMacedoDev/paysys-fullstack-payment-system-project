@@ -11,7 +11,7 @@ public class DataContext : DbContext
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsetting.json")
+            .AddJsonFile("appsettings.json")
             .Build();
 
         // Postgres Config
