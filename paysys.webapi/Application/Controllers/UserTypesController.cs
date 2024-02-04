@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using paysys.webapi.Application.Contracts.Requests;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
 
 namespace paysys.webapi.Application.Controllers;
 
-[Route("api/user-types]")]
+[Route("api/user-types")]
 [ApiController]
 [Produces("application/json")]
 public class UserTypesController : ControllerBase
@@ -32,7 +33,7 @@ public class UserTypesController : ControllerBase
     }
 
     [HttpGet("{userTypeId:Guid}")]
-    public IActionResult GetById([FromQuery] Guid userTypeId)
+    public IActionResult GetById(Guid userTypeId)
     {
         try
         {
@@ -47,10 +48,12 @@ public class UserTypesController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] UserType userType)
+    public IActionResult Create([FromBody] CreateUserTypeRequest request)
     {
         try
         {
+            var userType = UserType.Create(request.userTypeName);
+
             _userTypesRepository.CreateUserType(userType);
 
             return StatusCode(201, userType);
