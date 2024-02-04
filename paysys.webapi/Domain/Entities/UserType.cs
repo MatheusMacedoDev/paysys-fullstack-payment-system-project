@@ -29,6 +29,9 @@ public class UserType
 
     private static string FormatTypeName(string name)
     {
-        return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
+        var lowerCaseName = name.ToLower();
+        var pascalCaseName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(lowerCaseName);
+
+        return pascalCaseName;
     }
 }
