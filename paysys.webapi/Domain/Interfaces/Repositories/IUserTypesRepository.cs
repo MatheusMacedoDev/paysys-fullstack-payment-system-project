@@ -4,7 +4,7 @@ namespace paysys.webapi.Domain.Interfaces.Repositories;
 
 public interface IUserTypesRepository
 {
-    void CreateUserType(UserType? userType);
-    List<UserType>? ListUserTypes();
-    UserType? GetUserType(Guid userTypeId);
+    Task CreateUserType(UserType? userType);
+    Task<List<UserType>>? ListUserTypes();
+    Task<UserType>? GetUserType(Guid userTypeId);
 }

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using paysys.webapi.Application.Contracts.Requests;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
+using paysys.webapi.Infra.Data.UnityOfWork;
 
 namespace paysys.webapi.Application.Controllers;
 
@@ -11,18 +12,20 @@ namespace paysys.webapi.Application.Controllers;
 public class UserTypesController : ControllerBase
 {
     private readonly IUserTypesRepository _userTypesRepository;
+    private readonly IUnityOfWork _unityOfWork;
 
-    public UserTypesController(IUserTypesRepository userTypesRepository)
+    public UserTypesController(IUserTypesRepository userTypesRepository, IUnityOfWork unityOfWork)
     {
         _userTypesRepository = userTypesRepository;
+        _unityOfWork = unityOfWork;
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
         try
         {
-            var userTypesList = _userTypesRepository.ListUserTypes();
+            var userTypesList = await _userTypesRepository.ListUserTypes()!;
 
             return Ok(userTypesList);
         }
@@ -33,11 +36,11 @@ public class UserTypesController : ControllerBase
     }
 
     [HttpGet("{userTypeId:Guid}")]
-    public IActionResult GetById(Guid userTypeId)
+    public async Task<IActionResult> GetById(Guid userTypeId)
     {
         try
         {
-            var findedUserType = _userTypesRepository.GetUserType(userTypeId);
+            var findedUserType = await _userTypesRepository.GetUserType(userTypeId)!;
 
             return Ok(findedUserType);
         }
@@ -48,13 +51,14 @@ public class UserTypesController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] CreateUserTypeRequest request)
+    public async Task<IActionResult> Create([FromBody] CreateUserTypeRequest request)
     {
         try
         {
             var userType = UserType.Create(request.userTypeName);
 
-            _userTypesRepository.CreateUserType(userType);
+            await _userTypesRepository.CreateUserType(userType);
+            await _unityOfWork.Commit();
 
             return StatusCode(201, userType);
         }

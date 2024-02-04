@@ -1,4 +1,5 @@
-﻿using paysys.webapi.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
 
 namespace paysys.webapi.Infra.Data.Repositories;
@@ -12,15 +13,15 @@ public class UserTypesRepository : IUserTypesRepository
         _context = context;
     }
 
-    public void CreateUserType(UserType? userType)
+    public async Task CreateUserType(UserType? userType)
     {
-        _context.UserTypes!.Add(userType!);
+        await _context.UserTypes!.AddAsync(userType!);
     }
 
-    public UserType? GetUserType(Guid userTypeId)
+    public async Task<UserType>? GetUserType(Guid userTypeId)
     {
-        var findedUserType = _context.UserTypes!
-            .FirstOrDefault(userType => userType.UserTypeId == userTypeId);
+        var findedUserType = await _context.UserTypes!
+            .FirstOrDefaultAsync(userType => userType.UserTypeId == userTypeId);
 
         if (findedUserType == null)
             throw new Exception("User type not found");
@@ -28,9 +29,9 @@ public class UserTypesRepository : IUserTypesRepository
         return findedUserType;
     }
 
-    public List<UserType>? ListUserTypes()
+    public async Task<List<UserType>>? ListUserTypes()
     {
-        var userTypeList = _context.UserTypes!.ToList();
+        var userTypeList = await _context.UserTypes!.ToListAsync();
         return userTypeList;
     }
 }
