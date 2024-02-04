@@ -34,4 +34,10 @@ public class UserTypesRepository : IUserTypesRepository
         var userTypeList = await _context.UserTypes!.ToListAsync();
         return userTypeList;
     }
+
+    public async Task DeleteUserType(Guid userTypeId)
+    {
+        var findedUserType = await GetUserType(userTypeId)!;
+        _context.UserTypes!.Remove(findedUserType);
+    }
 }

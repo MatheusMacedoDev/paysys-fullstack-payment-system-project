@@ -67,4 +67,20 @@ public class UserTypesController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+
+    [HttpDelete("{userTypeId:Guid}")]
+    public async Task<IActionResult> Delete(Guid userTypeId)
+    {
+        try
+        {
+            await _userTypesRepository.DeleteUserType(userTypeId);
+            await _unityOfWork.Commit();
+
+            return NoContent();
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }
