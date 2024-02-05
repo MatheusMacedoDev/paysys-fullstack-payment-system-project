@@ -68,6 +68,22 @@ public class UserTypesController : ControllerBase
         }
     }
 
+    [HttpPut]
+    public async Task<IActionResult> UpdateUserTypeName([FromBody] UpdateUserTypeNameRequest request)
+    {
+        try
+        {
+            await _userTypesRepository.UpdateUserTypeName(request.userTypeId, request.newTypeName);
+            await _unityOfWork.Commit();
+
+            return NoContent();
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error);
+        }
+    }
+
     [HttpDelete("{userTypeId:Guid}")]
     public async Task<IActionResult> Delete(Guid userTypeId)
     {

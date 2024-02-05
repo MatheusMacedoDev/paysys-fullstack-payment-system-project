@@ -35,6 +35,15 @@ public class UserTypesRepository : IUserTypesRepository
         return userTypeList;
     }
 
+    public async Task UpdateUserTypeName(Guid userTypeId, string newTypeName)
+    {
+        UserType findedUserType = await GetUserType(userTypeId)!;
+
+        findedUserType.SetTypeName(newTypeName);
+
+        _context.UserTypes!.Update(findedUserType);
+    }
+
     public async Task DeleteUserType(Guid userTypeId)
     {
         var findedUserType = await GetUserType(userTypeId)!;

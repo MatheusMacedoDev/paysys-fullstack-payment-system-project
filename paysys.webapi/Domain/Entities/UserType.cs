@@ -27,6 +27,12 @@ public class UserType
         return userType;
     }
 
+    public void SetTypeName(string newTypeName)
+    {
+        var formatedTypeName = FormatTypeName(newTypeName);
+        TypeName = formatedTypeName;
+    }
+
     private static string FormatTypeName(string name)
     {
         var lowerCaseName = name.ToLower();
