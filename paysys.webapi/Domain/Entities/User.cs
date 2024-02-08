@@ -13,9 +13,6 @@ public class User
     public string? UserName { get; private set; }
 
     [Required]
-    public string? UserRealName { get; private set; }
-
-    [Required]
     public string? Email { get; private set; }
 
     [Required]
@@ -48,14 +45,13 @@ public class User
     {
     }
 
-    public static User Create(string userName, string userRealName, string email, string phoneNumber, byte[] hash, byte[] salt)
+    public static User Create(string userName, string email, string phoneNumber, byte[] hash, byte[] salt)
     {
         User newUser = new User();
 
         newUser.UserId = Guid.NewGuid();
 
         newUser.UserName = userName;
-        newUser.UserRealName = userRealName;
         newUser.Email = email;
         newUser.PhoneNumber = phoneNumber;
         newUser.Hash = hash;
