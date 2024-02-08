@@ -45,7 +45,7 @@ public class User
     {
     }
 
-    public static User Create(string userName, string email, string phoneNumber, byte[] hash, byte[] salt)
+    public static User Create(string userName, string email, string phoneNumber, byte[] hash, byte[] salt, Guid userTypeId)
     {
         User newUser = new User();
 
@@ -61,6 +61,8 @@ public class User
 
         newUser.CreatedOn = currentDateTime;
         newUser.LastUpdatedOn = currentDateTime;
+
+        newUser.UserTypeId = userTypeId;
 
         return newUser;
     }
