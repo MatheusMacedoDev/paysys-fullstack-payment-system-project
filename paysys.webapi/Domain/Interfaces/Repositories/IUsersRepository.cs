@@ -4,11 +4,11 @@ namespace paysys.webapi.Domain.Interfaces.Repositories;
 
 public interface IUsersRepository
 {
-    void CreateUser(User user);
-    User GetUserById(Guid userId);
-    void DeleteUser(Guid userId);
+    Task CreateUser(User user);
+    Task<User> GetUserById(Guid userId);
+    Task DeleteUser(Guid userId);
 
-    void CreateAdministratorUser(AdministratorUser administrator);
-    AdministratorUser GetAdministratorById(Guid administratorId);
-    void DeleteAdministrator(Guid administratorId);
+    Task CreateAdministratorUser(AdministratorUser administrator);
+    Task<AdministratorUser> GetAdministratorById(Guid administratorId);
+    Task DeleteAdministrator(Guid administratorId);
 }

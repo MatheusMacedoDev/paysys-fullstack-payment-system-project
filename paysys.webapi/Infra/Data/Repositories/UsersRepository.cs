@@ -12,32 +12,32 @@ public class UsersRepository : IUsersRepository
         _context = context;
     }
 
-    public void CreateAdministratorUser(AdministratorUser administrator)
+    public async Task CreateAdministratorUser(AdministratorUser administrator)
     {
-        _context.AdministratorUsers!.Add(administrator);
+        await _context.AdministratorUsers!.AddAsync(administrator);
     }
 
-    public AdministratorUser GetAdministratorById(Guid administratorId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void DeleteAdministrator(Guid administratorId)
+    public Task<AdministratorUser> GetAdministratorById(Guid administratorId)
     {
         throw new NotImplementedException();
     }
 
-    public void CreateUser(User user)
-    {
-        _context.Users!.Add(user);
-    }
-
-    public User GetUserById(Guid userId)
+    public Task DeleteAdministrator(Guid administratorId)
     {
         throw new NotImplementedException();
     }
 
-    public void DeleteUser(Guid userId)
+    public async Task CreateUser(User user)
+    {
+        await _context.Users!.AddAsync(user);
+    }
+
+    public Task<User> GetUserById(Guid userId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteUser(Guid userId)
     {
         throw new NotImplementedException();
     }

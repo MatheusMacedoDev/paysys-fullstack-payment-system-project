@@ -5,9 +5,9 @@ using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
 using paysys.webapi.Infra.Data.UnityOfWork;
 
-namespace paysys.webapi.Application.Services;
+namespace paysys.webapi.Application.Services.UsersService;
 
-public class UsersService
+public class UsersService : IUsersService
 {
     private readonly IUsersRepository _usersRepositories;
     private readonly IUnityOfWork _unityOfWork;
@@ -22,7 +22,7 @@ public class UsersService
         _cryptographyStrategy = cryptographyStrategy;
     }
 
-    public CreateAdministratorResponse CreateAdministrator(CreateAdministratorRequest request)
+    public async Task<CreateAdministratorResponse> CreateAdministrator(CreateAdministratorRequest request)
     {
         try
         {
@@ -44,10 +44,10 @@ public class UsersService
                 user.UserId
             );
 
-            _usersRepositories.CreateUser(user);
-            _usersRepositories.CreateAdministratorUser(administrator);
+            await _usersRepositories.CreateUser(user);
+            await _usersRepositories.CreateAdministratorUser(administrator);
 
-            _unityOfWork.Commit();
+            await _unityOfWork.Commit();
 
             var response = new CreateAdministratorResponse(
                 administrator.AdministratorId,
@@ -57,8 +57,9 @@ public class UsersService
 
             return response;
         }
-        catch (Exception)
+        catch (Exception error)
         {
+            System.Console.WriteLine(error);
             throw;
         }
     }
