@@ -1,3 +1,4 @@
+using paysys.webapi.Application.Strategies.Cryptography;
 using paysys.webapi.Domain.Interfaces.Repositories;
 using paysys.webapi.Infra.Data;
 using paysys.webapi.Infra.Data.Repositories;
@@ -17,6 +18,10 @@ var builder = WebApplication.CreateBuilder(args);
 
     // Repository Injections
     builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
+    builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+
+    //Strategies Injections
+    builder.Services.AddSingleton<ICryptographyStrategy, CryptographyStrategy>();
 }
 
 var app = builder.Build();
