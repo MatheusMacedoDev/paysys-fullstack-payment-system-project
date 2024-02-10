@@ -57,7 +57,7 @@ public class User
         newUser.Hash = hash;
         newUser.Salt = salt;
 
-        var currentDateTime = DateTime.Now;
+        var currentDateTime = DateTime.UtcNow;
 
         newUser.CreatedOn = currentDateTime;
         newUser.LastUpdatedOn = currentDateTime;
