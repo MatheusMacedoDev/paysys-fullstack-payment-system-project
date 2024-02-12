@@ -42,9 +42,9 @@ public class UsersRepository : IUsersRepository
         throw new NotImplementedException();
     }
 
-    public Task CreateCommonUser(CommonUser commonUser)
+    public async Task CreateCommonUser(CommonUser commonUser)
     {
-        throw new NotImplementedException();
+        await _context.CommonUsers!.AddAsync(commonUser);
     }
 
     public Task<CommonUser> GetCommonUserById(Guid commonUserId)
