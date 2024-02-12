@@ -26,15 +26,11 @@ public class UsersService : IUsersService
     {
         try
         {
-            var salt = _cryptographyStrategy.MakeSalt();
-            var hash = _cryptographyStrategy.MakeHashedPassword(request.password, salt);
-
-            var user = User.Create(
+            var user = await CreateUser(
                 request.userName,
                 request.email,
                 request.phoneNumber,
-                hash,
-                salt,
+                request.password,
                 request.userTypeId
             );
 
@@ -44,7 +40,6 @@ public class UsersService : IUsersService
                 user.UserId
             );
 
-            await _usersRepositories.CreateUser(user);
             await _usersRepositories.CreateAdministratorUser(administrator);
 
             await _unityOfWork.Commit();
@@ -67,15 +62,11 @@ public class UsersService : IUsersService
     {
         try
         {
-            var salt = _cryptographyStrategy.MakeSalt();
-            var hash = _cryptographyStrategy.MakeHashedPassword(request.password, salt);
-
-            var user = User.Create(
+            var user = await CreateUser(
                 request.userName,
                 request.email,
                 request.phoneNumber,
-                hash,
-                salt,
+                request.password,
                 request.userTypeId
             );
 
@@ -85,7 +76,6 @@ public class UsersService : IUsersService
                 user.UserId
             );
 
-            await _usersRepositories.CreateUser(user);
             await _usersRepositories.CreateCommonUser(commonUser);
 
             await _unityOfWork.Commit();
@@ -102,5 +92,24 @@ public class UsersService : IUsersService
         {
             throw;
         }
+    }
+
+    private async Task<User> CreateUser(string userName, string email, string phoneNumber, string password, Guid userTypeId)
+    {
+        var salt = _cryptographyStrategy.MakeSalt();
+        var hash = _cryptographyStrategy.MakeHashedPassword(password, salt);
+
+        var user = User.Create(
+            userName,
+            email,
+            phoneNumber,
+            hash,
+            salt,
+            userTypeId
+        );
+
+        await _usersRepositories.CreateUser(user);
+
+        return user;
     }
 }
