@@ -11,4 +11,7 @@ public interface IUsersRepository
     Task CreateAdministratorUser(AdministratorUser administrator);
     Task<AdministratorUser> GetAdministratorById(Guid administratorId);
     Task DeleteAdministrator(Guid administratorId);
+
+    Task CreateCommonUser(CommonUser commonUser);
+    Task<CommonUser> GetCommonUserById(Guid commonUserId);
 }

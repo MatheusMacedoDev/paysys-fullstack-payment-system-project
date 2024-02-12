@@ -71,10 +71,17 @@ public class MemoryUsersRepository : IUsersRepository
 {
     private List<User> Users = new List<User>();
     private List<AdministratorUser> AdministratorUsers = new List<AdministratorUser>();
+    private List<CommonUser> CommonUsers = new List<CommonUser>();
 
     public Task CreateAdministratorUser(AdministratorUser administrator)
     {
         AdministratorUsers.Add(administrator);
+        return Task.CompletedTask;
+    }
+
+    public Task CreateCommonUser(CommonUser commonUser)
+    {
+        CommonUsers.Add(commonUser);
         return Task.CompletedTask;
     }
 
@@ -105,6 +112,17 @@ public class MemoryUsersRepository : IUsersRepository
         }
 
         throw new Exception("Administrator not found.");
+    }
+
+    public Task<CommonUser> GetCommonUserById(Guid commonUserId)
+    {
+        foreach (CommonUser commonUser in CommonUsers)
+        {
+            if (commonUser.CommonUserId == commonUserId)
+                return Task.Factory.StartNew(() => commonUser);
+        }
+
+        throw new Exception("Common User not found.");
     }
 
     public Task<User> GetUserById(Guid userId)

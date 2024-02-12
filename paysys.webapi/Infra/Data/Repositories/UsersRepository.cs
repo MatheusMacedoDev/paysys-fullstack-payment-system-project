@@ -41,4 +41,14 @@ public class UsersRepository : IUsersRepository
     {
         throw new NotImplementedException();
     }
+
+    public Task CreateCommonUser(CommonUser commonUser)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<CommonUser> GetCommonUserById(Guid commonUserId)
+    {
+        throw new NotImplementedException();
+    }
 }
