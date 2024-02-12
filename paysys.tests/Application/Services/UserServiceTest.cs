@@ -43,6 +43,28 @@ public class UserServiceTest
         Assert.Equal("matheus@email.com", memoryUserEmail);
         Assert.Equal("Matheus Macedo Santos", memoryAdministratorName);
     }
+
+    [Fact]
+    public async Task CreateCommonUser()
+    {
+        var request = new CreateCommonUserRequest(
+            "Lucas Santos",
+            "53342849834",
+            "Machado342",
+            "lucas@email.com",
+            "974735847",
+            "12345",
+            Guid.NewGuid()
+        );
+
+        var response = await _usersService.CreateCommonUser(request);
+
+        var memoryUserEmail = (await _usersRepository.GetUserById(response.userId)).Email;
+        var memoryCommonUserName = (await _usersRepository.GetCommonUserById(response.commonUserId)).CommonUserName;
+
+        Assert.Equal("lucas@email.com", memoryUserEmail);
+        Assert.Equal("Lucas Santos", memoryCommonUserName);
+    }
 }
 
 public class MemoryUsersRepository : IUsersRepository
