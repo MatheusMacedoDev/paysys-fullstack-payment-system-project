@@ -57,9 +57,49 @@ public class UsersService : IUsersService
 
             return response;
         }
-        catch (Exception error)
+        catch (Exception)
         {
-            System.Console.WriteLine(error);
+            throw;
+        }
+    }
+
+    public async Task<CreateCommonUserResponse> CreateCommonUser(CreateCommonUserRequest request)
+    {
+        try
+        {
+            var salt = _cryptographyStrategy.MakeSalt();
+            var hash = _cryptographyStrategy.MakeHashedPassword(request.password, salt);
+
+            var user = User.Create(
+                request.userName,
+                request.email,
+                request.phoneNumber,
+                hash,
+                salt,
+                request.userTypeId
+            );
+
+            var commonUser = CommonUser.Create(
+                request.commonUserName,
+                request.cpf,
+                user.UserId
+            );
+
+            await _usersRepositories.CreateUser(user);
+            await _usersRepositories.CreateCommonUser(commonUser);
+
+            await _unityOfWork.Commit();
+
+            var response = new CreateCommonUserResponse(
+                commonUser.CommonUserId,
+                user.UserId,
+                commonUser.CommonUserName!
+            );
+
+            return response;
+        }
+        catch (Exception)
+        {
             throw;
         }
     }
