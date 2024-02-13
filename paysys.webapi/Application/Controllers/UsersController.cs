@@ -16,12 +16,27 @@ public class UsersController : ControllerBase
         _usersService = usersService;
     }
 
-    [HttpPost]
+    [HttpPost("administrator")]
     public async Task<IActionResult> CreateAdministrator([FromBody] CreateAdministratorRequest request)
     {
         try
         {
             var response = await _usersService.CreateAdministrator(request);
+
+            return StatusCode(201, response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpPost("common")]
+    public async Task<IActionResult> CreateCommonUser([FromBody] CreateCommonUserRequest request)
+    {
+        try
+        {
+            var response = await _usersService.CreateCommonUser(request);
 
             return StatusCode(201, response);
         }
