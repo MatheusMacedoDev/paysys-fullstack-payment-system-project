@@ -51,4 +51,14 @@ public class UsersRepository : IUsersRepository
     {
         throw new NotImplementedException();
     }
+
+    public async Task CreateShopkeeper(Shopkeeper shopkeeper)
+    {
+        await _context.Shopkeepers!.AddAsync(shopkeeper);
+    }
+
+    public Task<Shopkeeper> GetShopkeeperById(Guid shopkeeperId)
+    {
+        throw new NotImplementedException();
+    }
 }
