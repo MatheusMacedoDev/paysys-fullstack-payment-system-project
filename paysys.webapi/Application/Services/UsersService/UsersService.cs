@@ -94,6 +94,43 @@ public class UsersService : IUsersService
         }
     }
 
+    public async Task<CreateShopkeeperResponse> CreateShopkeeper(CreateShopkeeperRequest request)
+    {
+        try
+        {
+            var user = await CreateUser(
+                request.userName,
+                request.email,
+                request.phoneNumber,
+                request.password,
+                request.userTypeId
+            );
+
+            var shopkeeper = Shopkeeper.Create(
+                request.fancyName,
+                request.companyName,
+                request.cnpj,
+                user.UserId
+            );
+
+            await _usersRepositories.CreateShopkeeper(shopkeeper);
+
+            await _unityOfWork.Commit();
+
+            var response = new CreateShopkeeperResponse(
+                shopkeeper.ShopkeeperId,
+                user.UserId,
+                shopkeeper.FancyName!
+            );
+
+            return response;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
     private async Task<User> CreateUser(string userName, string email, string phoneNumber, string password, Guid userTypeId)
     {
         var salt = _cryptographyStrategy.MakeSalt();
