@@ -45,4 +45,19 @@ public class UsersController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+
+    [HttpPost("shopkeeper")]
+    public async Task<IActionResult> CreateShopkeeper([FromBody] CreateShopkeeperRequest request)
+    {
+        try
+        {
+            var response = await _usersService.CreateShopkeeper(request);
+
+            return StatusCode(201, response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }
