@@ -65,6 +65,29 @@ public class UserServiceTest
         Assert.Equal("lucas@email.com", memoryUserEmail);
         Assert.Equal("Lucas Santos", memoryCommonUserName);
     }
+
+    [Fact]
+    public async Task CreateShopkeeper()
+    {
+        var request = new CreateShopkeeperRequest(
+            "Amazon",
+            "Amazon LTDA",
+            "15436940000103",
+            "AmazonBR1",
+            "store@amazon.com",
+            "11943827463",
+            "12345",
+            Guid.NewGuid()
+        );
+
+        var response = await _usersService.CreateShopkeeper(request);
+
+        var memoryUserEmail = (await _usersRepository.GetUserById(response.userId)).Email;
+        var memoryShopkeeperFancyName = (await _usersRepository.GetShopkeeperById(response.shopkeeperId)).FancyName;
+
+        Assert.Equal("store@amazon.com", memoryUserEmail);
+        Assert.Equal("Amazon", memoryShopkeeperFancyName);
+    }
 }
 
 public class MemoryUsersRepository : IUsersRepository
@@ -72,6 +95,7 @@ public class MemoryUsersRepository : IUsersRepository
     private List<User> Users = new List<User>();
     private List<AdministratorUser> AdministratorUsers = new List<AdministratorUser>();
     private List<CommonUser> CommonUsers = new List<CommonUser>();
+    private List<Shopkeeper> Shopkeepers = new List<Shopkeeper>();
 
     public Task CreateAdministratorUser(AdministratorUser administrator)
     {
@@ -82,6 +106,12 @@ public class MemoryUsersRepository : IUsersRepository
     public Task CreateCommonUser(CommonUser commonUser)
     {
         CommonUsers.Add(commonUser);
+        return Task.CompletedTask;
+    }
+
+    public Task CreateShopkeeper(Shopkeeper shopkeeper)
+    {
+        Shopkeepers.Add(shopkeeper);
         return Task.CompletedTask;
     }
 
@@ -123,6 +153,17 @@ public class MemoryUsersRepository : IUsersRepository
         }
 
         throw new Exception("Common User not found.");
+    }
+
+    public Task<Shopkeeper> GetShopkeeperById(Guid shopkeeperId)
+    {
+        foreach (Shopkeeper shopkeeper in Shopkeepers)
+        {
+            if (shopkeeper.ShopkeeperId == shopkeeperId)
+                return Task.Factory.StartNew(() => shopkeeper);
+        }
+
+        throw new Exception("Shopkeeper not found.");
     }
 
     public Task<User> GetUserById(Guid userId)
