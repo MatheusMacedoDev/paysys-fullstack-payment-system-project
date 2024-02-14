@@ -9,22 +9,22 @@ namespace paysys.webapi.Domain.Entities;
 public class AdministratorUser
 {
     [Key]
-    public Guid AdministratorId { get; set; }
+    public Guid AdministratorId { get; private set; }
 
     [Required]
-    public string? AdministratorName { get; set; }
+    public string? AdministratorName { get; private set; }
 
     [Required]
     [Column(TypeName = "CHAR(11)")]
-    public string? AdministratorCPF { get; set; }
+    public string? AdministratorCPF { get; private set; }
 
     // User Reference
 
     [Required]
-    public Guid UserId { get; set; }
+    public Guid UserId { get; private set; }
 
     [ForeignKey(nameof(UserId))]
-    public User? User { get; set; }
+    public User? User { get; private set; }
 
     private AdministratorUser()
     {

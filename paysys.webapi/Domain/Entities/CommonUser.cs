@@ -9,22 +9,22 @@ namespace paysys.webapi.Domain.Entities;
 public class CommonUser
 {
     [Key]
-    public Guid CommonUserId { get; set; }
+    public Guid CommonUserId { get; private set; }
 
     [Required]
-    public string? CommonUserName { get; set; }
+    public string? CommonUserName { get; private set; }
 
     [Required]
     [Column(TypeName = "CHAR(11)")]
-    public string? CommonUserCPF { get; set; }
+    public string? CommonUserCPF { get; private set; }
 
     // User Reference
 
     [Required]
-    public Guid UserId { get; set; }
+    public Guid UserId { get; private set; }
 
     [ForeignKey(nameof(UserId))]
-    public User? User { get; set; }
+    public User? User { get; private set; }
 
     private CommonUser()
     {
