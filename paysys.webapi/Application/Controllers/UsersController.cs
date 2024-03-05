@@ -46,6 +46,21 @@ public class UsersController : ControllerBase
         }
     }
 
+    [HttpGet("common/listShort")]
+    public async Task<IActionResult> GetShortCommonUsers()
+    {
+        try
+        {
+            var response = await _usersService.GetShortCommonUsers();
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error);
+        }
+    }
+
     [HttpPost("shopkeeper")]
     public async Task<IActionResult> CreateShopkeeper([FromBody] CreateShopkeeperRequest request)
     {

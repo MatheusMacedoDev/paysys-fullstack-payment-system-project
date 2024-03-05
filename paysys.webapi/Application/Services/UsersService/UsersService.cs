@@ -3,6 +3,7 @@ using paysys.webapi.Application.Contracts.Responses;
 using paysys.webapi.Application.Strategies.Cryptography;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
+using paysys.webapi.Infra.Data.DAOs.Interfaces;
 using paysys.webapi.Infra.Data.UnityOfWork;
 
 namespace paysys.webapi.Application.Services.UsersService;
@@ -12,12 +13,16 @@ public class UsersService : IUsersService
     private readonly IUsersRepository _usersRepositories;
     private readonly IUnityOfWork _unityOfWork;
 
+    private readonly ICommonUserDAO _commonUserDAO;
+
     private readonly ICryptographyStrategy _cryptographyStrategy;
 
-    public UsersService(IUsersRepository usersRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy)
+    public UsersService(IUsersRepository usersRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, ICommonUserDAO commonUserDAO)
     {
         _usersRepositories = usersRepository;
         _unityOfWork = unityOfWork;
+
+        _commonUserDAO = commonUserDAO;
 
         _cryptographyStrategy = cryptographyStrategy;
     }
@@ -129,6 +134,16 @@ public class UsersService : IUsersService
         {
             throw;
         }
+    }
+
+    public async Task<GetShortCommonUsersResponse> GetShortCommonUsers()
+    {
+        var commonUsersQuantity = 0;
+        var shortCommonUsersList = await _commonUserDAO.getShortCommonUsers();
+
+        var response = new GetShortCommonUsersResponse(commonUsersQuantity, shortCommonUsersList);
+
+        return response;
     }
 
     private async Task<User> CreateUser(string userName, string email, string phoneNumber, string password, Guid userTypeId)

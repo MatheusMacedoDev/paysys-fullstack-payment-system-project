@@ -2,6 +2,8 @@ using paysys.webapi.Application.Services.UsersService;
 using paysys.webapi.Application.Strategies.Cryptography;
 using paysys.webapi.Domain.Interfaces.Repositories;
 using paysys.webapi.Infra.Data;
+using paysys.webapi.Infra.Data.DAOs.Implementation;
+using paysys.webapi.Infra.Data.DAOs.Interfaces;
 using paysys.webapi.Infra.Data.Repositories;
 using paysys.webapi.Infra.Data.UnityOfWork;
 
@@ -20,6 +22,9 @@ var builder = WebApplication.CreateBuilder(args);
     // Repository Injections
     builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
     builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+
+    // DAOs Injections
+    builder.Services.AddScoped<ICommonUserDAO, CommonUserDAO>();
 
     // Strategies Injections
     builder.Services.AddSingleton<ICryptographyStrategy, CryptographyStrategy>();

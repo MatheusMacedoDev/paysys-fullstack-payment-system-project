@@ -7,5 +7,6 @@ public interface IUsersService
 {
     Task<CreateAdministratorResponse> CreateAdministrator(CreateAdministratorRequest request);
     Task<CreateCommonUserResponse> CreateCommonUser(CreateCommonUserRequest request);
+    Task<GetShortCommonUsersResponse> GetShortCommonUsers();
     Task<CreateShopkeeperResponse> CreateShopkeeper(CreateShopkeeperRequest request);
 }
