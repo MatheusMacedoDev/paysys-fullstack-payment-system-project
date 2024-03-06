@@ -4,31 +4,35 @@ using Microsoft.EntityFrameworkCore;
 
 namespace paysys.webapi.Domain.Entities;
 
-[Table("Shopkeepers")]
+[Table("shopkeeper")]
 [Index(nameof(UserId), IsUnique = true)]
 public class Shopkeeper
 {
     [Key]
+    [Column("shopkeeper_id")]
     public Guid ShopkeeperId { get; private set; }
 
     [Required]
+    [Column("fancy_name")]
     public string? FancyName { get; private set; }
 
     [Required]
+    [Column("company_name")]
     public string? CompanyName { get; private set; }
 
 
     [Required]
-    [Column(TypeName = "CHAR(14)")]
+    [Column("shopkeeper_cnpj", TypeName = "CHAR(14)")]
     public string? ShopkeeperCNJP { get; private set; }
 
     [Required]
-    [Column(TypeName = "MONEY")]
+    [Column("balance", TypeName = "MONEY")]
     public double Balance { get; private set; }
 
     // User Reference
 
     [Required]
+    [Column("user_id")]
     public Guid UserId { get; private set; }
 
     [ForeignKey(nameof(UserId))]
