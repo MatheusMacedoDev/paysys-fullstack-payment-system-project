@@ -4,27 +4,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace paysys.webapi.Domain.Entities;
 
-[Table("AdministratorUsers")]
+[Table("administrator_users")]
 [Index(nameof(UserId), IsUnique = true)]
 public class AdministratorUser
 {
     [Key]
+    [Column("administrator_id")]
     public Guid AdministratorId { get; private set; }
 
     [Required]
+    [Column("administrator_name")]
     public string? AdministratorName { get; private set; }
 
     [Required]
-    [Column(TypeName = "CHAR(11)")]
+    [Column("administrator_cpf", TypeName = "CHAR(11)")]
     public string? AdministratorCPF { get; private set; }
 
     // User Reference
 
     [Required]
-    public Guid UserId { get; private set; }
+    [Column("user_id")]
+    public Guid UserId { get; set; }
 
     [ForeignKey(nameof(UserId))]
-    public User? User { get; private set; }
+    public User? User { get; set; }
 
     private AdministratorUser()
     {
