@@ -3,39 +3,45 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace paysys.webapi.Domain.Entities;
 
-[Table("Users")]
+[Table("users")]
 public class User
 {
     [Key]
+    [Column("user_id")]
     public Guid UserId { get; private set; }
 
     [Required]
+    [Column("user_name")]
     public string? UserName { get; private set; }
 
     [Required]
+    [Column("email")]
     public string? Email { get; private set; }
 
     [Required]
-    [Column(TypeName = "CHAR(11)")]
+    [Column("phone_number", TypeName = "CHAR(11)")]
     public string? PhoneNumber { get; private set; }
 
     [Required]
-    [Column(TypeName = "BYTEA")]
+    [Column("hash", TypeName = "BYTEA")]
     public byte[]? Hash { get; private set; }
 
     [Required]
-    [Column(TypeName = "BYTEA")]
+    [Column("salt", TypeName = "BYTEA")]
     public byte[]? Salt { get; private set; }
 
     [Required]
+    [Column("created_on")]
     public DateTime CreatedOn { get; private set; }
 
     [Required]
+    [Column("last_updated_on")]
     public DateTime LastUpdatedOn { get; private set; }
 
     // User Type Reference
 
     [Required]
+    [Column("user_type_id")]
     public Guid UserTypeId { get; private set; }
 
     [ForeignKey(nameof(UserTypeId))]
