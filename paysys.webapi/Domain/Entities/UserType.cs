@@ -4,12 +4,14 @@ using System.Globalization;
 
 namespace paysys.webapi.Domain.Entities;
 
-[Table("UserTypes")]
+[Table("user_types")]
 public class UserType
 {
     [Key]
+    [Column("user_type_id")]
     public Guid UserTypeId { get; private set; }
 
+    [Column("user_type_name")]
     public String? TypeName { get; private set; }
 
     private UserType()
