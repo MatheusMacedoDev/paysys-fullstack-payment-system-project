@@ -3,6 +3,8 @@ using paysys.webapi.Application.Services.UsersService;
 using paysys.webapi.Application.Strategies.Cryptography;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
+using paysys.webapi.Infra.Data.DAOs.Implementation;
+using paysys.webapi.Infra.Data.DAOs.Interfaces;
 using paysys.webapi.Infra.Data.UnityOfWork;
 
 namespace paysys.tests.Application.Services;
@@ -18,8 +20,9 @@ public class UserServiceTest
 
         IUnityOfWork unityOfWork = new FakeUnityOfWork();
         ICryptographyStrategy cryptographyStrategy = new CryptographyStrategy();
+        ICommonUserDAO commonUserDAO = new CommonUserDAO();
 
-        _usersService = new UsersService(_usersRepository, unityOfWork, cryptographyStrategy);
+        _usersService = new UsersService(_usersRepository, unityOfWork, cryptographyStrategy, commonUserDAO);
     }
 
     [Fact]

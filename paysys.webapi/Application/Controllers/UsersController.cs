@@ -51,9 +51,9 @@ public class UsersController : ControllerBase
     {
         try
         {
-            var response = await _usersService.GetShortCommonUsers();
+            var shortCommonUsers = await _usersService.GetShortCommonUsers();
 
-            return Ok(response);
+            return Ok(shortCommonUsers);
         }
         catch (Exception error)
         {

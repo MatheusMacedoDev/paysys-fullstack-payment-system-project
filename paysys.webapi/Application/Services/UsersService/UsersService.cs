@@ -138,7 +138,7 @@ public class UsersService : IUsersService
 
     public async Task<GetShortCommonUsersResponse> GetShortCommonUsers()
     {
-        var commonUsersQuantity = 0;
+        var commonUsersQuantity = await _commonUserDAO.getCommonUsersQuantity();
         var shortCommonUsersList = await _commonUserDAO.getShortCommonUsers();
 
         var response = new GetShortCommonUsersResponse(commonUsersQuantity, shortCommonUsersList);
@@ -164,4 +164,5 @@ public class UsersService : IUsersService
 
         return user;
     }
+
 }

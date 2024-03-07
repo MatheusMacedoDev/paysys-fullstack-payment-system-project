@@ -21,17 +21,43 @@ public class CommonUserDAO : ICommonUserDAO
 
     public async Task<IEnumerable<ShortCommonUserTO>> getShortCommonUsers()
     {
-        using (var connection = new NpgsqlConnection(ConnectionString))
+        try
         {
-            string sql = @"
-                SELECT Commons.CommonUserId, Commons.CommonUserName, Users.Email AS CommonUserEmailFROM
-                FROM CommonUsers AS Commons
-                INNER JOIN Users ON Commons.UserId = Users.UserId
-            ";
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                string query = @"
+                    SELECT 
+                        commons.common_user_id AS commonUserId, 
+                        users.user_name AS commonUserName, 
+                        users.email AS commonUserEmail 
+                    FROM public.common_users AS commons
+                    JOIN public.users AS users 
+                    ON users.user_id = commons.user_id
+                ";
 
-            var shortCommonUsers = await connection.QueryAsync<ShortCommonUserTO>(sql);
+                return await connection.QueryAsync<ShortCommonUserTO>(query);
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 
-            return shortCommonUsers;
+    public async Task<int> getCommonUsersQuantity()
+    {
+        try
+        {
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                string query = "SELECT COUNT(common_user_id) FROM common_users";
+
+                return (await connection.QueryAsync<int>(query)).First();
+            }
+        }
+        catch (System.Exception)
+        {
+            throw;
         }
     }
 }
