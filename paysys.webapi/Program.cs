@@ -25,6 +25,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     // DAOs Injections
     builder.Services.AddScoped<ICommonUserDAO, CommonUserDAO>();
+    builder.Services.AddScoped<IShopkeeperDAO, ShopkeeperDAO>();
 
     // Strategies Injections
     builder.Services.AddSingleton<ICryptographyStrategy, CryptographyStrategy>();
