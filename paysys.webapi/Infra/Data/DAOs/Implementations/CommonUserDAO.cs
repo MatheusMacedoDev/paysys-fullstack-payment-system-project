@@ -55,7 +55,40 @@ public class CommonUserDAO : ICommonUserDAO
                 return (await connection.QueryAsync<int>(query)).First();
             }
         }
-        catch (System.Exception)
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<FullCommonUserTO> getFullCommonUserById(Guid commonUserId)
+    {
+        try
+        {
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                string query = @"
+                    SELECT 
+                        commons.common_user_id AS commonUserId,
+                        commons.common_user_name AS commonUserRealName,
+                        users.user_name AS commonUserName,
+                        users.email AS commonUserEmail,
+                        users.phone_number AS commonUserPhoneNumber,
+                        types.user_type_name AS userTypeName,
+                        users.created_on AS createdOn,
+                        users.last_updated_on AS lastUpdatedOn
+                    FROM public.common_users AS commons
+                    JOIN public.users AS users
+                        ON users.user_id = commons.user_id
+                    JOIN public.user_types AS types
+                        ON types.user_type_id = users.user_type_id
+                    WHERE commons.common_user_id = @id
+                ";
+
+                return (await connection.QueryFirstOrDefaultAsync<FullCommonUserTO>(query, new { id = commonUserId }))!;
+            }
+        }
+        catch (Exception)
         {
             throw;
         }
