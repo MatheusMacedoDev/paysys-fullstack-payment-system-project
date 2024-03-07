@@ -14,15 +14,17 @@ public class UsersService : IUsersService
     private readonly IUnityOfWork _unityOfWork;
 
     private readonly ICommonUserDAO _commonUserDAO;
+    private readonly IShopkeeperDAO _shopkeeperDAO;
 
     private readonly ICryptographyStrategy _cryptographyStrategy;
 
-    public UsersService(IUsersRepository usersRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, ICommonUserDAO commonUserDAO)
+    public UsersService(IUsersRepository usersRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, ICommonUserDAO commonUserDAO, IShopkeeperDAO shopkeeperDAO)
     {
         _usersRepositories = usersRepository;
         _unityOfWork = unityOfWork;
 
         _commonUserDAO = commonUserDAO;
+        _shopkeeperDAO = shopkeeperDAO;
 
         _cryptographyStrategy = cryptographyStrategy;
     }
@@ -149,6 +151,16 @@ public class UsersService : IUsersService
         var shortCommonUsersList = await _commonUserDAO.getShortCommonUsers();
 
         var response = new GetShortCommonUsersResponse(commonUsersQuantity, shortCommonUsersList);
+
+        return response;
+    }
+
+    public async Task<GetShortShopkeeperResponse> GetShortShopkeepers()
+    {
+        var shopkeepersQuantity = await _shopkeeperDAO.getShopkeepersQuantity();
+        var shortShopkeepersList = await _shopkeeperDAO.getShortShopkeepers();
+
+        var response = new GetShortShopkeeperResponse(shopkeepersQuantity, shortShopkeepersList);
 
         return response;
     }

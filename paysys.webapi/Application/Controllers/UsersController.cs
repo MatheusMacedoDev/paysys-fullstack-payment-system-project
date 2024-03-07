@@ -95,4 +95,19 @@ public class UsersController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+
+    [HttpGet("shopkeeper/listShort")]
+    public async Task<IActionResult> GetShortShopkeepers()
+    {
+        try
+        {
+            var response = await _usersService.GetShortShopkeepers();
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }
