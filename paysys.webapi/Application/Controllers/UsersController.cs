@@ -51,13 +51,33 @@ public class UsersController : ControllerBase
     {
         try
         {
-            var shortCommonUsers = await _usersService.GetShortCommonUsers();
+            var response = await _usersService.GetShortCommonUsers();
 
-            return Ok(shortCommonUsers);
+            return Ok(response);
         }
         catch (Exception error)
         {
-            return BadRequest(error);
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpGet("common/{commonUserId}")]
+    public async Task<IActionResult> GetFullCommonUser([FromRoute] Guid commonUserId)
+    {
+        try
+        {
+            var request = new GetFullCommonUserRequest(commonUserId);
+            var response = await _usersService.GetFullCommonUser(request);
+
+            if (response.commonUser == null)
+                return NotFound("O usuário comum não foi encontrado.");
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+            throw;
         }
     }
 

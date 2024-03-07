@@ -136,6 +136,13 @@ public class UsersService : IUsersService
         }
     }
 
+    public async Task<GetFullCommonUserResponse> GetFullCommonUser(GetFullCommonUserRequest request)
+    {
+        var fullCommonUser = await _commonUserDAO.getFullCommonUserById(request.commonUserId);
+        var response = new GetFullCommonUserResponse(fullCommonUser);
+        return response;
+    }
+
     public async Task<GetShortCommonUsersResponse> GetShortCommonUsers()
     {
         var commonUsersQuantity = await _commonUserDAO.getCommonUsersQuantity();
