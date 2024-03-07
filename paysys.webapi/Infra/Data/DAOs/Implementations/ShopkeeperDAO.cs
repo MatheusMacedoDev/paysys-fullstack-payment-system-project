@@ -30,8 +30,8 @@ public class ShopkeeperDAO : IShopkeeperDAO
                         shopkeepers.shopkeeper_id AS shopkeeperId,
                         shopkeepers.fancy_name AS shopkeeperFancyName,
                         users.email AS shopkeeperEmail
-                    FROM public.shopkeepers AS shopkeepers
-                    JOIN public.users AS users
+                    FROM shopkeepers
+                    JOIN users
                     ON users.user_id = shopkeepers.user_id
                 ";
 

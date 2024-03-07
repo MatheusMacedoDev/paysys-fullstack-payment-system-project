@@ -30,8 +30,8 @@ public class CommonUserDAO : ICommonUserDAO
                         commons.common_user_id AS commonUserId, 
                         users.user_name AS commonUserName, 
                         users.email AS commonUserEmail 
-                    FROM public.common_users AS commons
-                    JOIN public.users AS users 
+                    FROM common_users AS commons
+                    JOIN users 
                     ON users.user_id = commons.user_id
                 ";
 
@@ -77,10 +77,10 @@ public class CommonUserDAO : ICommonUserDAO
                         types.user_type_name AS userTypeName,
                         users.created_on AS createdOn,
                         users.last_updated_on AS lastUpdatedOn
-                    FROM public.common_users AS commons
-                    JOIN public.users AS users
+                    FROM common_users AS commons
+                    JOIN users
                         ON users.user_id = commons.user_id
-                    JOIN public.user_types AS types
+                    JOIN user_types AS types
                         ON types.user_type_id = users.user_type_id
                     WHERE commons.common_user_id = @id
                 ";
