@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace paysys.webapi.Domain.Entities;
 
-[Table("shopkeeper")]
+[Table("shopkeepers")]
 [Index(nameof(UserId), IsUnique = true)]
 public class Shopkeeper
 {
