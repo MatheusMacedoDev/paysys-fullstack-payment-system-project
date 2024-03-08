@@ -110,4 +110,23 @@ public class UsersController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+
+    [HttpGet("shopkeeper/{shopkeeperId}")]
+    public async Task<IActionResult> GetFullShopkeeper([FromRoute] Guid shopkeeperId)
+    {
+        try
+        {
+            var request = new GetFullShopkeeperRequest(shopkeeperId);
+            var response = await _usersService.GetFullShopkeeper(request);
+
+            if (response.shopkeeper == null)
+                return NotFound("O lojista não foi encontrado.");
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }

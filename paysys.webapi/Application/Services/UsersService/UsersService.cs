@@ -145,6 +145,13 @@ public class UsersService : IUsersService
         return response;
     }
 
+    public async Task<GetFullShopkeeperResponse> GetFullShopkeeper(GetFullShopkeeperRequest request)
+    {
+        var fullShopkeeper = await _shopkeeperDAO.GetFullShopkeeperById(request.shopkeeperId);
+        var response = new GetFullShopkeeperResponse(fullShopkeeper);
+        return response;
+    }
+
     public async Task<GetShortCommonUsersResponse> GetShortCommonUsers()
     {
         var commonUsersQuantity = await _commonUserDAO.getCommonUsersQuantity();
@@ -157,8 +164,8 @@ public class UsersService : IUsersService
 
     public async Task<GetShortShopkeeperResponse> GetShortShopkeepers()
     {
-        var shopkeepersQuantity = await _shopkeeperDAO.getShopkeepersQuantity();
-        var shortShopkeepersList = await _shopkeeperDAO.getShortShopkeepers();
+        var shopkeepersQuantity = await _shopkeeperDAO.GetShopkeepersQuantity();
+        var shortShopkeepersList = await _shopkeeperDAO.GetShortShopkeepers();
 
         var response = new GetShortShopkeeperResponse(shopkeepersQuantity, shortShopkeepersList);
 

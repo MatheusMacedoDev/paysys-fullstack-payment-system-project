@@ -11,4 +11,5 @@ public interface IUsersService
     Task<GetFullCommonUserResponse> GetFullCommonUser(GetFullCommonUserRequest request);
     Task<CreateShopkeeperResponse> CreateShopkeeper(CreateShopkeeperRequest request);
     Task<GetShortShopkeeperResponse> GetShortShopkeepers();
+    Task<GetFullShopkeeperResponse> GetFullShopkeeper(GetFullShopkeeperRequest request);
 }
