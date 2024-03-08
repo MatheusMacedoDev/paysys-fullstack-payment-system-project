@@ -4,6 +4,7 @@ namespace paysys.webapi.Infra.Data.DAOs.Interfaces;
 
 public interface IShopkeeperDAO
 {
-    Task<IEnumerable<ShortShopkeeperTO>> getShortShopkeepers();
-    Task<int> getShopkeepersQuantity();
+    Task<IEnumerable<ShortShopkeeperTO>> GetShortShopkeepers();
+    Task<int> GetShopkeepersQuantity();
+    Task<FullShopkeeperTO> GetFullShopkeeperById(Guid shopkeeperId);
 }

@@ -19,7 +19,7 @@ public class ShopkeeperDAO : IShopkeeperDAO
         ConnectionString = configuration.GetConnectionString("LocalConnection");
     }
 
-    public async Task<IEnumerable<ShortShopkeeperTO>> getShortShopkeepers()
+    public async Task<IEnumerable<ShortShopkeeperTO>> GetShortShopkeepers()
     {
         try
         {
@@ -44,7 +44,7 @@ public class ShopkeeperDAO : IShopkeeperDAO
         }
     }
 
-    public async Task<int> getShopkeepersQuantity()
+    public async Task<int> GetShopkeepersQuantity()
     {
         try
         {
@@ -53,6 +53,41 @@ public class ShopkeeperDAO : IShopkeeperDAO
                 string query = "SELECT COUNT(shopkeeper_id) FROM shopkeepers";
 
                 return (await connection.QueryAsync<int>(query)).First();
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<FullShopkeeperTO> GetFullShopkeeperById(Guid shopkeeperId)
+    {
+        try
+        {
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                string query = @"
+                    SELECT
+                        shopkeepers.shopkeeper_id AS shopkeeperId,
+                        users.user_name AS shopkeeperUserName,
+                        shopkeepers.fancy_name AS shopkeeperFancyName,
+                        shopkeepers.company_name AS shopkeeperCompanyName,
+                        shopkeepers.shopkeeper_cnpj AS shopkeeperCNPJ,
+                        users.email AS shopkeeperEmail,
+                        users.phone_number AS shopkeeperPhoneNumber,
+                        types.user_type_name AS userTypeName,
+                        users.created_on AS createdOn,
+                        users.last_updated_on AS lastUpdatedOn
+                    FROM shopkeepers
+                    JOIN users
+                        ON users.user_id = shopkeepers.user_id
+                    JOIN user_types AS types
+                        ON types.user_type_id = users.user_type_id
+                    WHERE shopkeepers.shopkeeper_id = @id
+                ";
+
+                return (await connection.QueryFirstOrDefaultAsync<FullShopkeeperTO>(query, new { id = shopkeeperId }))!;
             }
         }
         catch (Exception)
