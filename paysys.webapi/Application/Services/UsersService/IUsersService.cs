@@ -6,6 +6,7 @@ namespace paysys.webapi.Application.Services.UsersService;
 public interface IUsersService
 {
     Task<CreateAdministratorResponse> CreateAdministrator(CreateAdministratorRequest request);
+    Task<GetShortAdministratorsResponse> GetShortAdministrators();
     Task<CreateCommonUserResponse> CreateCommonUser(CreateCommonUserRequest request);
     Task<GetShortCommonUsersResponse> GetShortCommonUsers();
     Task<GetFullCommonUserResponse> GetFullCommonUser(GetFullCommonUserRequest request);

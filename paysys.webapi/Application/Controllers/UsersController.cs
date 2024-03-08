@@ -31,6 +31,21 @@ public class UsersController : ControllerBase
         }
     }
 
+    [HttpGet("administrator/listShort")]
+    public async Task<IActionResult> GetShortAdministrators()
+    {
+        try
+        {
+            var response = await _usersService.GetShortAdministrators();
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
     [HttpPost("common")]
     public async Task<IActionResult> CreateCommonUser([FromBody] CreateCommonUserRequest request)
     {

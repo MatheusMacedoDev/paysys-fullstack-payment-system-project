@@ -15,16 +15,18 @@ public class UsersService : IUsersService
 
     private readonly ICommonUserDAO _commonUserDAO;
     private readonly IShopkeeperDAO _shopkeeperDAO;
+    private readonly IAdministratorDAO _administratorDAO;
 
     private readonly ICryptographyStrategy _cryptographyStrategy;
 
-    public UsersService(IUsersRepository usersRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, ICommonUserDAO commonUserDAO, IShopkeeperDAO shopkeeperDAO)
+    public UsersService(IUsersRepository usersRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, ICommonUserDAO commonUserDAO, IShopkeeperDAO shopkeeperDAO, IAdministratorDAO administratorDAO)
     {
         _usersRepositories = usersRepository;
         _unityOfWork = unityOfWork;
 
         _commonUserDAO = commonUserDAO;
         _shopkeeperDAO = shopkeeperDAO;
+        _administratorDAO = administratorDAO;
 
         _cryptographyStrategy = cryptographyStrategy;
     }
@@ -149,6 +151,16 @@ public class UsersService : IUsersService
     {
         var fullShopkeeper = await _shopkeeperDAO.GetFullShopkeeperById(request.shopkeeperId);
         var response = new GetFullShopkeeperResponse(fullShopkeeper);
+        return response;
+    }
+
+    public async Task<GetShortAdministratorsResponse> GetShortAdministrators()
+    {
+        var administratosQuantity = await _administratorDAO.GetAdministratorsQuantity();
+        var shortAdministratorsList = await _administratorDAO.GetShortAdministrators();
+
+        var response = new GetShortAdministratorsResponse(administratosQuantity, shortAdministratorsList);
+
         return response;
     }
 
