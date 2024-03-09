@@ -140,6 +140,13 @@ public class UsersService : IUsersService
         }
     }
 
+    public async Task<GetFullAdministratorResponse> GetFullAdministrator(GetFullAdministratorRequest request)
+    {
+        var fullAdminstrator = await _administratorDAO.GetFullAdministratorById(request.administratorId);
+        var response = new GetFullAdministratorResponse(fullAdminstrator);
+        return response;
+    }
+
     public async Task<GetFullCommonUserResponse> GetFullCommonUser(GetFullCommonUserRequest request)
     {
         var fullCommonUser = await _commonUserDAO.getFullCommonUserById(request.commonUserId);

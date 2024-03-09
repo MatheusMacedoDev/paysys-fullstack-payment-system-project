@@ -46,6 +46,25 @@ public class UsersController : ControllerBase
         }
     }
 
+    [HttpGet("administrator/{administratorId}")]
+    public async Task<IActionResult> GetFullAdministrator([FromRoute] Guid administratorId)
+    {
+        try
+        {
+            var request = new GetFullAdministratorRequest(administratorId);
+            var response = await _usersService.GetFullAdministrator(request);
+
+            if (response.administrator == null)
+                return NotFound("Administrator not found.");
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
     [HttpPost("common")]
     public async Task<IActionResult> CreateCommonUser([FromBody] CreateCommonUserRequest request)
     {
