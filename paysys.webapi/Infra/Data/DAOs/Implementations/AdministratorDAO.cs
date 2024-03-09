@@ -60,4 +60,37 @@ public class AdministratorDAO : IAdministratorDAO
             throw;
         }
     }
+
+    public async Task<FullAdministratorTO> GetFullAdministratorById(Guid administratorId)
+    {
+        try
+        {
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                var query = @"
+                    SELECT
+                        administrators.administrator_id AS administratorId,
+                        administrators.administrator_name AS administratorRealName,
+                        users.user_name AS administratorUserName,
+                        users.email AS administratorEmail,
+                        users.phone_number AS administratorPhoneNumber,
+                        administrators.administrator_cpf AS administratorCPF,
+                        users.created_on AS createdOn,
+                        users.last_updated_on AS lastUpdatedOn
+                    FROM administrator_users AS administrators
+                    JOIN users
+                        ON users.user_id = administrators.user_id
+                    JOIN user_types AS types
+                        ON types.user_type_id = users.user_type_id
+                    WHERE administrators.administrator_id = @Id
+                ";
+
+                return (await connection.QueryFirstOrDefaultAsync<FullAdministratorTO>(query, new { Id = administratorId }))!;
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }

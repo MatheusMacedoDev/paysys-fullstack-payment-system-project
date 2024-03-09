@@ -6,4 +6,5 @@ public interface IAdministratorDAO
 {
     Task<int> GetAdministratorsQuantity();
     Task<IEnumerable<ShortAdministratorTO>> GetShortAdministrators();
+    Task<FullAdministratorTO> GetFullAdministratorById(Guid administratorId);
 }
