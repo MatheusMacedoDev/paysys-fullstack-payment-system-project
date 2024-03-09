@@ -74,6 +74,7 @@ public class CommonUserDAO : ICommonUserDAO
                         users.user_name AS commonUserName,
                         users.email AS commonUserEmail,
                         users.phone_number AS commonUserPhoneNumber,
+                        commons.common_user_cpf AS commonUserCPF,
                         types.user_type_name AS userTypeName,
                         users.created_on AS createdOn,
                         users.last_updated_on AS lastUpdatedOn

@@ -7,6 +7,7 @@ public record FullCommonUserTO
     string? commonUsername,
     string? commonUserEmail,
     string? commonUserPhoneNumber,
+    string? commonUserCPF,
     string? userTypeName,
     DateTime createdOn,
     DateTime lastUpdatedOn
