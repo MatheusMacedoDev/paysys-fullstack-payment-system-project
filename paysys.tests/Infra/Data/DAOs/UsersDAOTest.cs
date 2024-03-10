@@ -30,20 +30,60 @@ public class UsersDAOTest : DatabaseTestCase
         var outputedUser = await _userDAO.GetUserByEmail(email);
 
         if (outputedUser == null)
-        {
             Assert.Fail("User not found.");
-        }
 
         Assert.Equal(expectedUserName, outputedUser.userName);
+    }
+
+    [Fact]
+    public async Task GetUsersByNameOrUsername()
+    {
+        var name = "Matheus";
+
+        await StartInitialDatabaseData();
+        var outputedUsers = await _userDAO.GetUsersByNameOrUsername(name);
+
+        if (outputedUsers == null)
+        {
+            Assert.Fail("There is no users list.");
+            return;
+        }
+
+        if (outputedUsers.Count() == 0)
+        {
+            Assert.Fail("No users founded.");
+            return;
+        }
+
+        var searchWorked = true;
+        name = name.ToLower();
+
+        foreach (var user in outputedUsers)
+        {
+            if (!user.userName.ToLower().Contains(name)
+                && !user.commonUserName.ToLower().Contains(name)
+                && !user.shopkeeperFancyName.ToLower().Contains(name)
+                || user.userTypeName.ToLower() == "lojista")
+            {
+                searchWorked = false;
+            }
+        }
+
+        Assert.True(searchWorked);
     }
 
     private async Task StartInitialDatabaseData()
     {
         var commonUserType = UserType.Create("Comum");
+        var shopkeeperUserType = UserType.Create("Lojista");
+        var administratorUserType = UserType.Create("Administrador");
 
         var userTypesRepository = new UserTypesRepository(DbContext);
 
         await userTypesRepository.CreateUserType(commonUserType);
+        await userTypesRepository.CreateUserType(shopkeeperUserType);
+        await userTypesRepository.CreateUserType(administratorUserType);
+
         await DbContext.SaveChangesAsync();
 
         var usersService = new UsersService(
@@ -66,5 +106,18 @@ public class UsersDAOTest : DatabaseTestCase
         );
 
         await usersService.CreateCommonUser(createCommonUserRequest);
+
+
+        var createAdministratorRequest = new CreateAdministratorRequest(
+            administratorName: "Matheus da Rocha",
+            cpf: "52228475764",
+            userName: "MaHahaha",
+            email: "rocha@email.com",
+            phoneNumber: "11947365477",
+            password: "12345",
+            userTypeId: administratorUserType.UserTypeId
+        );
+
+        await usersService.CreateAdministrator(createAdministratorRequest);
     }
 }
