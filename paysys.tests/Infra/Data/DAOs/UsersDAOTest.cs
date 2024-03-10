@@ -44,16 +44,10 @@ public class UsersDAOTest : DatabaseTestCase
         var outputedUsers = await _userDAO.GetUsersByNameOrUsername(name);
 
         if (outputedUsers == null)
-        {
             Assert.Fail("There is no users list.");
-            return;
-        }
 
-        if (outputedUsers.Count() == 0)
-        {
+        if (!outputedUsers.Any())
             Assert.Fail("No users founded.");
-            return;
-        }
 
         var searchWorked = true;
         name = name.ToLower();
