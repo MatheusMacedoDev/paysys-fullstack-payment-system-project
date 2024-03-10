@@ -5,7 +5,8 @@ namespace paysys.tests.Infra.Data.Database;
 
 public class DatabaseTestCase : IDisposable
 {
-    public DataContext DbContext { get; }
+    protected DataContext DbContext { get; }
+    protected string? LocalConnetionString { get; }
 
     protected DatabaseTestCase(DatabaseFixture databaseFixture)
     {
@@ -23,8 +24,8 @@ public class DatabaseTestCase : IDisposable
                 command.ExecuteNonQuery();
             }
 
-            var connetionString = databaseFixture.GenerateConnectionString(databaseName);
-            DbContext = new DataContext(connetionString);
+            LocalConnetionString = databaseFixture.GenerateConnectionString(databaseName);
+            DbContext = new DataContext(LocalConnetionString);
         }
     }
 

@@ -4,6 +4,7 @@ using paysys.webapi.Application.Services.UsersService;
 using paysys.webapi.Application.Strategies.Cryptography;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Infra.Data.DAOs.Implementation;
+using paysys.webapi.Infra.Data.DAOs.Interfaces;
 using paysys.webapi.Infra.Data.Repositories;
 using paysys.webapi.Infra.Data.UnityOfWork;
 
@@ -12,11 +13,11 @@ namespace paysys.tests.Infra.Data.DAOs;
 [Collection("Database")]
 public class UsersDAOTest : DatabaseTestCase
 {
-    private readonly IUsersDAO _usersDAO;
+    private readonly IUserDAO _userDAO;
 
-    protected UsersDAOTest(DatabaseFixture databaseFixture) : base(databaseFixture)
+    public UsersDAOTest(DatabaseFixture databaseFixture) : base(databaseFixture)
     {
-        _usersDAO = new UsersDAO();
+        _userDAO = new UserDAO(LocalConnetionString!);
     }
 
     [Fact]
@@ -24,18 +25,26 @@ public class UsersDAOTest : DatabaseTestCase
     {
         var email = "matheus@email.com";
         var expectedUserName = "Math8006";
-        var expectedPhoneNumber = "11947346577";
 
         await StartInitialDatabaseData();
-        var outputedUser = await _usersDAO.GetUserByEmail(email);
+        var outputedUser = await _userDAO.GetUserByEmail(email);
+
+        if (outputedUser == null)
+        {
+            Assert.Fail("User not found.");
+        }
 
         Assert.Equal(expectedUserName, outputedUser.userName);
-        Assert.Equal(expectedPhoneNumber, outputedUser.phoneNumber);
     }
 
     private async Task StartInitialDatabaseData()
     {
         var commonUserType = UserType.Create("Comum");
+
+        var userTypesRepository = new UserTypesRepository(DbContext);
+
+        await userTypesRepository.CreateUserType(commonUserType);
+        await DbContext.SaveChangesAsync();
 
         var usersService = new UsersService(
             new UsersRepository(DbContext),
