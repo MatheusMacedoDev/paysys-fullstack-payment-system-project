@@ -11,16 +11,27 @@ public class DataContext : DbContext
     public DbSet<CommonUser>? CommonUsers { get; private set; }
     public DbSet<Shopkeeper>? Shopkeepers { get; private set; }
 
+    private string? _connectionString;
+
+    public DataContext(string connectionString = "")
+    {
+        _connectionString = connectionString;
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json")
-            .Build();
+        if (_connectionString == "")
+        {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            _connectionString = configuration.GetConnectionString("LocalConnection");
+        }
 
         // Postgres Config
-        var connectionString = configuration.GetConnectionString("LocalConnection");
-        optionsBuilder.UseNpgsql(connectionString);
+        optionsBuilder.UseNpgsql(_connectionString);
 
         // ORM Config
         optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);

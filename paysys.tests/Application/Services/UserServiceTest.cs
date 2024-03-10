@@ -1,4 +1,5 @@
-﻿using paysys.webapi.Application.Contracts.Requests;
+﻿using paysys.tests.Infra.Data.Database;
+using paysys.webapi.Application.Contracts.Requests;
 using paysys.webapi.Application.Services.UsersService;
 using paysys.webapi.Application.Strategies.Cryptography;
 using paysys.webapi.Domain.Entities;
@@ -9,20 +10,23 @@ using paysys.webapi.Infra.Data.UnityOfWork;
 
 namespace paysys.tests.Application.Services;
 
-public class UserServiceTest
+[Collection("Database")]
+public class UserServiceTest : DatabaseTestCase
 {
     private readonly IUsersService _usersService;
     private readonly IUsersRepository _usersRepository;
 
-    public UserServiceTest()
+    public UserServiceTest(DatabaseFixture databaseFixture) : base(databaseFixture)
     {
         _usersRepository = new MemoryUsersRepository();
 
         IUnityOfWork unityOfWork = new FakeUnityOfWork();
         ICryptographyStrategy cryptographyStrategy = new CryptographyStrategy();
         ICommonUserDAO commonUserDAO = new CommonUserDAO();
+        IShopkeeperDAO shopkeeperDAO = new ShopkeeperDAO();
+        IAdministratorDAO administratorDAO = new AdministratorDAO();
 
-        _usersService = new UsersService(_usersRepository, unityOfWork, cryptographyStrategy, commonUserDAO);
+        _usersService = new UsersService(_usersRepository, unityOfWork, cryptographyStrategy, commonUserDAO, shopkeeperDAO, administratorDAO);
     }
 
     [Fact]
