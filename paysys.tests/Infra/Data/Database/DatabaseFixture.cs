@@ -40,13 +40,6 @@ public class DatabaseFixture : IDisposable
 
         _context.Database.EnsureCreated();
 
-        AddInitialData(_context);
-
         _context.Database.CloseConnection();
-    }
-
-    private void AddInitialData(DataContext context)
-    {
-
     }
 }
