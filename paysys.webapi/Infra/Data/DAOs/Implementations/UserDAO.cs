@@ -34,8 +34,11 @@ public class UserDAO : IUserDAO
                     SELECT
                         users.user_name AS userName,
                         users.hash AS userHash,
-                        users.salt AS userSalt
+                        users.salt AS userSalt,
+                        types.user_type_name AS userTypeName
                     FROM users
+                    JOIN user_types AS types
+                        ON types.user_type_id = users.user_type_id
                     WHERE users.email = @email
                 ";
 

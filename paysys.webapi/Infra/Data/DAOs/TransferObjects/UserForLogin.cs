@@ -4,5 +4,6 @@ public record UserForLoginTO
 (
     string userName,
     byte[] userHash,
-    byte[] userSalt
+    byte[] userSalt,
+    string userTypeName
 );

@@ -25,6 +25,7 @@ public class UsersDAOTest : DatabaseTestCase
     {
         var email = "matheus@email.com";
         var expectedUserName = "Math8006";
+        var expectedUserTypeName = "Comum";
 
         await StartInitialDatabaseData();
         var outputedUser = await _userDAO.GetUserByEmail(email);
@@ -33,6 +34,7 @@ public class UsersDAOTest : DatabaseTestCase
             Assert.Fail("User not found.");
 
         Assert.Equal(expectedUserName, outputedUser.userName);
+        Assert.Equal(expectedUserTypeName, outputedUser.userTypeName);
     }
 
     [Fact]
