@@ -1,7 +1,9 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using paysys.webapi.Configuration;
 using paysys.webapi.Infra.Data.DAOs.TransferObjects;
 
 namespace paysys.webapi.Application.Strategies.Token;
@@ -11,10 +13,10 @@ public class TokenStrategy : ITokenStrategy
     private readonly string SecurityKey;
     private readonly int TokenExpirationHours;
 
-    public TokenStrategy()
+    public TokenStrategy(IOptions<TokenSettings> settings)
     {
-        SecurityKey = "some-key";
-        TokenExpirationHours = 2;
+        SecurityKey = settings.Value.SecurityKey!;
+        TokenExpirationHours = settings.Value.HoursToExpiration;
     }
 
     public string GenerateToken(UserForLoginTO user)
