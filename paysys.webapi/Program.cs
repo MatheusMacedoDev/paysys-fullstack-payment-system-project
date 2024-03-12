@@ -1,5 +1,6 @@
 using paysys.webapi.Application.Services.UsersService;
 using paysys.webapi.Application.Strategies.Cryptography;
+using paysys.webapi.Application.Strategies.Token;
 using paysys.webapi.Domain.Interfaces.Repositories;
 using paysys.webapi.Infra.Data;
 using paysys.webapi.Infra.Data.DAOs.Implementation;
@@ -30,6 +31,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     // Strategies Injections
     builder.Services.AddSingleton<ICryptographyStrategy, CryptographyStrategy>();
+    builder.Services.AddSingleton<ITokenStrategy, TokenStrategy>();
 
     // Application Services Injection
     builder.Services.AddScoped<IUsersService, UsersService>();
