@@ -1,9 +1,11 @@
 ﻿using paysys.webapi.Application.Contracts.Requests;
 using paysys.webapi.Application.Contracts.Responses;
 using paysys.webapi.Application.Strategies.Cryptography;
+using paysys.webapi.Application.Strategies.Token;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
 using paysys.webapi.Infra.Data.DAOs.Interfaces;
+using paysys.webapi.Infra.Data.DAOs.TransferObjects;
 using paysys.webapi.Infra.Data.UnityOfWork;
 
 namespace paysys.webapi.Application.Services.UsersService;
@@ -16,10 +18,12 @@ public class UsersService : IUsersService
     private readonly ICommonUserDAO _commonUserDAO;
     private readonly IShopkeeperDAO _shopkeeperDAO;
     private readonly IAdministratorDAO _administratorDAO;
+    private readonly IUserDAO _userDAO;
 
     private readonly ICryptographyStrategy _cryptographyStrategy;
+    private readonly ITokenStrategy _tokenStrategy;
 
-    public UsersService(IUsersRepository usersRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, ICommonUserDAO commonUserDAO, IShopkeeperDAO shopkeeperDAO, IAdministratorDAO administratorDAO)
+    public UsersService(IUsersRepository usersRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, ICommonUserDAO commonUserDAO, IShopkeeperDAO shopkeeperDAO, IAdministratorDAO administratorDAO, ITokenStrategy tokenStrategy, IUserDAO userDAO)
     {
         _usersRepositories = usersRepository;
         _unityOfWork = unityOfWork;
@@ -27,8 +31,10 @@ public class UsersService : IUsersService
         _commonUserDAO = commonUserDAO;
         _shopkeeperDAO = shopkeeperDAO;
         _administratorDAO = administratorDAO;
+        _userDAO = userDAO;
 
         _cryptographyStrategy = cryptographyStrategy;
+        _tokenStrategy = tokenStrategy;
     }
 
     public async Task<CreateAdministratorResponse> CreateAdministrator(CreateAdministratorRequest request)
@@ -210,4 +216,20 @@ public class UsersService : IUsersService
         return user;
     }
 
+    public async Task<LoginResponse> Login(LoginRequest request)
+    {
+        UserForLoginTO findedUser = await _userDAO.GetUserByEmail(request.userEmail);
+
+        if (findedUser == null)
+            throw new Exception("Dados inválidos.");
+
+        var hashMatching = _cryptographyStrategy.VerifyHashedPassword(request.userPassword, findedUser.userHash, findedUser.userSalt);
+
+        if (!hashMatching)
+            throw new Exception("Dados inválidos.");
+
+        var loginToken = _tokenStrategy.GenerateToken(findedUser);
+
+        return new LoginResponse(loginToken);
+    }
 }

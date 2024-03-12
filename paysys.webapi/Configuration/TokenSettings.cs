@@ -2,6 +2,6 @@ namespace paysys.webapi.Configuration;
 
 public class TokenSettings
 {
-    public string? SecurityKey { get; }
-    public int HoursToExpiration { get; }
+    public string? SecurityKey { get; set; }
+    public int HoursToExpiration { get; set; }
 }
