@@ -27,6 +27,7 @@ public class TokenStrategy : ITokenStrategy
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
             Subject = new ClaimsIdentity(new Claim[] {
+                new Claim(JwtRegisteredClaimNames.Jti, user.userId.ToString()),
                 new Claim(ClaimTypes.Name, user.userName),
                 new Claim(ClaimTypes.Role, user.userTypeName)
             }),

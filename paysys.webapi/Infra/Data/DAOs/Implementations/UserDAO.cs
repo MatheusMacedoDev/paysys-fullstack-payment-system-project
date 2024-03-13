@@ -32,6 +32,7 @@ public class UserDAO : IUserDAO
             {
                 string query = @"
                     SELECT
+                        users.user_id AS userId,
                         users.user_name AS userName,
                         users.hash AS userHash,
                         users.salt AS userSalt,
