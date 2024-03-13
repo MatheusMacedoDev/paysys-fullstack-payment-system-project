@@ -1,6 +1,9 @@
-﻿using paysys.webapi.Application.Contracts.Requests;
+﻿using Microsoft.Extensions.Options;
+using paysys.webapi.Application.Contracts.Requests;
 using paysys.webapi.Application.Services.UsersService;
 using paysys.webapi.Application.Strategies.Cryptography;
+using paysys.webapi.Application.Strategies.Token;
+using paysys.webapi.Configuration;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
 using paysys.webapi.Infra.Data.DAOs.Implementation;
@@ -24,7 +27,18 @@ public class UserServiceTest
         IShopkeeperDAO shopkeeperDAO = new ShopkeeperDAO();
         IAdministratorDAO administratorDAO = new AdministratorDAO();
 
-        _usersService = new UsersService(_usersRepository, unityOfWork, cryptographyStrategy, commonUserDAO, shopkeeperDAO, administratorDAO);
+        var tokenSettings = new TokenSettings()
+        {
+            SecurityKey = "my_security_key_is_here_for_me_1234544",
+            HoursToExpiration = 2
+        };
+
+        IOptions<TokenSettings> tokenSettingsOptions = Options.Create(tokenSettings);
+        ITokenStrategy tokenStrategy = new TokenStrategy(tokenSettingsOptions);
+
+        IUserDAO userDAO = new UserDAO();
+
+        _usersService = new UsersService(_usersRepository, unityOfWork, cryptographyStrategy, commonUserDAO, shopkeeperDAO, administratorDAO, tokenStrategy, userDAO);
     }
 
     [Fact]

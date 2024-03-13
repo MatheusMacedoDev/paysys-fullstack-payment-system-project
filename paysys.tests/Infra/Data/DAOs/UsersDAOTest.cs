@@ -1,7 +1,10 @@
-﻿using paysys.tests.Infra.Data.Database;
+﻿using Microsoft.Extensions.Options;
+using paysys.tests.Infra.Data.Database;
 using paysys.webapi.Application.Contracts.Requests;
 using paysys.webapi.Application.Services.UsersService;
 using paysys.webapi.Application.Strategies.Cryptography;
+using paysys.webapi.Application.Strategies.Token;
+using paysys.webapi.Configuration;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Infra.Data.DAOs.Implementation;
 using paysys.webapi.Infra.Data.DAOs.Interfaces;
@@ -82,13 +85,23 @@ public class UsersDAOTest : DatabaseTestCase
 
         await DbContext.SaveChangesAsync();
 
+        var tokenSettings = new TokenSettings()
+        {
+            SecurityKey = "my_security_key_is_here_for_me_1234544",
+            HoursToExpiration = 2
+        };
+
+        IOptions<TokenSettings> tokenSettingsOptions = Options.Create(tokenSettings);
+
         var usersService = new UsersService(
             new UsersRepository(DbContext),
             new UnityOfWork(DbContext),
             new CryptographyStrategy(),
             new CommonUserDAO(),
             new ShopkeeperDAO(),
-            new AdministratorDAO()
+            new AdministratorDAO(),
+            new TokenStrategy(tokenSettingsOptions),
+            new UserDAO()
         );
 
         var createCommonUserRequest = new CreateCommonUserRequest(
