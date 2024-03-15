@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using paysys.webapi.Application.Services.TransfersService;
 using paysys.webapi.Application.Services.UsersService;
 using paysys.webapi.Application.Strategies.Cryptography;
 using paysys.webapi.Application.Strategies.Token;
@@ -35,6 +36,7 @@ var builder = WebApplication.CreateBuilder(args);
     // Repository Injections
     builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
     builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+    builder.Services.AddScoped<ITransferStatusRepository, TransferStatusRepository>();
 
     // DAOs Injections
     builder.Services.AddScoped<ICommonUserDAO, CommonUserDAO>();
@@ -48,6 +50,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     // Application Services Injection
     builder.Services.AddScoped<IUsersService, UsersService>();
+    builder.Services.AddScoped<ITransfersService, TransfersService>();
 
     // Authentication
     var key = Encoding.ASCII.GetBytes(configuration.GetValue<string>("SecurityToken:SecurityKey")!);
