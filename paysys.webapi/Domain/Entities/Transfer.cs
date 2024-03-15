@@ -20,10 +20,13 @@ public class Transfer
     public double TransferAmount { get; private set; }
 
     [Required]
-    [Column("tranfer_datetime")]
+    [Column("transfer_datetime")]
     public DateTime TransferDateTime { get; private set; }
 
+    [Required]
     public TransferStatus? TransferStatus { get; private set; }
+
+    [Required]
     public TransferCategory? TransferCategory { get; private set; }
 
     // Sender User Reference

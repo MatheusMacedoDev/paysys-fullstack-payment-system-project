@@ -1,17 +1,19 @@
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace paysys.webapi.Domain.ValueObjects;
 
 public class TransferStatus : ValueObject
 {
-    public string? Name { get; init; }
+    [Column("transfer_status_name")]
+    public string? TransferStatusName { get; private set; }
 
     public TransferStatus(string transferStatusName)
     {
-        Name = transferStatusName;
+        TransferStatusName = transferStatusName;
     }
 
     protected override IEnumerable<object> GetAtomicValues()
     {
-        yield return Name!;
+        yield return TransferStatusName!;
     }
 }

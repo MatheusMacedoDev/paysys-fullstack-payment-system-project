@@ -10,6 +10,7 @@ public class DataContext : DbContext
     public DbSet<AdministratorUser>? AdministratorUsers { get; private set; }
     public DbSet<CommonUser>? CommonUsers { get; private set; }
     public DbSet<Shopkeeper>? Shopkeepers { get; private set; }
+    public DbSet<Transfer>? Transfers { get; private set; }
 
     private string? _connectionString;
 
@@ -35,5 +36,16 @@ public class DataContext : DbContext
 
         // ORM Config
         optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Transfer>()
+            .OwnsOne(transfer => transfer.TransferCategory);
+
+        modelBuilder.Entity<Transfer>()
+            .OwnsOne(transfer => transfer.TransferStatus);
     }
 }
