@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using paysys.webapi.Domain.Entities;
+using paysys.webapi.Infra.Data.DbConfiguration;
 
 namespace paysys.webapi.Infra.Data;
 
@@ -42,10 +43,7 @@ public class DataContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Transfer>()
-            .OwnsOne(transfer => transfer.TransferCategory);
-
-        modelBuilder.Entity<Transfer>()
-            .OwnsOne(transfer => transfer.TransferStatus);
+        modelBuilder.ApplyConfiguration(new TransferCategoryConfiguration());
+        modelBuilder.ApplyConfiguration(new TransferStatusConfiguration());
     }
 }

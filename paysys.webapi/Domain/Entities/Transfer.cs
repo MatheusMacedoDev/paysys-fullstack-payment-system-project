@@ -23,11 +23,23 @@ public class Transfer
     [Column("transfer_datetime")]
     public DateTime TransferDateTime { get; private set; }
 
-    [Required]
-    public TransferStatus? TransferStatus { get; private set; }
+    // Transfer Category Reference
 
     [Required]
+    [Column("transfer_category_id")]
+    public Guid TransferCategoryId { get; private set; }
+
+    [ForeignKey(nameof(TransferCategoryId))]
     public TransferCategory? TransferCategory { get; private set; }
+
+    // Transfer Status Reference
+
+    [Required]
+    [Column("transfer_status_id")]
+    public Guid TransferStatusId { get; private set; }
+
+    [ForeignKey(nameof(TransferStatusId))]
+    public TransferStatus? TransferStatus { get; private set; }
 
     // Sender User Reference
 
