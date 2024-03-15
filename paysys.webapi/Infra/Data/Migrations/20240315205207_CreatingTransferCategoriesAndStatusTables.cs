@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace paysys.webapi.Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class CreatingTransfersValueObjects : Migration
+    public partial class CreatingTransferCategoriesAndStatusTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +34,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
             migrationBuilder.CreateTable(
-                name: "transfer_category",
+                name: "transfer_categories",
                 columns: table => new
                 {
                     transfer_category_id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -42,7 +42,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_transfer_category", x => x.transfer_category_id);
+                    table.PrimaryKey("PK_transfer_categories", x => x.transfer_category_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,10 +68,10 @@ namespace paysys.webapi.Infra.Data.Migrations
                 column: "transfer_status_id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_transfer_transfer_category_transfer_category_id",
+                name: "FK_transfer_transfer_categories_transfer_category_id",
                 table: "transfer",
                 column: "transfer_category_id",
-                principalTable: "transfer_category",
+                principalTable: "transfer_categories",
                 principalColumn: "transfer_category_id",
                 onDelete: ReferentialAction.Cascade);
 
@@ -88,7 +88,7 @@ namespace paysys.webapi.Infra.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_transfer_transfer_category_transfer_category_id",
+                name: "FK_transfer_transfer_categories_transfer_category_id",
                 table: "transfer");
 
             migrationBuilder.DropForeignKey(
@@ -96,7 +96,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                 table: "transfer");
 
             migrationBuilder.DropTable(
-                name: "transfer_category");
+                name: "transfer_categories");
 
             migrationBuilder.DropTable(
                 name: "transfer_status");

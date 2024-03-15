@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using paysys.webapi.Domain.ValueObjects;
 
 namespace paysys.webapi.Domain.Entities;
 
@@ -63,7 +62,7 @@ public class Transfer
     {
     }
 
-    public static Transfer Create(string transferDescription, double transferAmount, string transferStatus, string transferCategory, Guid senderUserId, Guid receiverUserId)
+    public static Transfer Create(string transferDescription, double transferAmount, Guid transferStatusId, Guid transferCategoryId, Guid senderUserId, Guid receiverUserId)
     {
         var transfer = new Transfer();
 
@@ -71,8 +70,8 @@ public class Transfer
         transfer.TransferDescription = transferDescription;
         transfer.TransferAmount = transferAmount;
         transfer.TransferDateTime = DateTime.UtcNow;
-        transfer.TransferStatus = new TransferStatus(transferStatus);
-        transfer.TransferCategory = new TransferCategory(transferCategory);
+        transfer.TransferStatusId = transferStatusId;
+        transfer.TransferCategoryId = transferCategoryId;
 
         transfer.SenderUserId = senderUserId;
         transfer.ReceiverUserId = receiverUserId;

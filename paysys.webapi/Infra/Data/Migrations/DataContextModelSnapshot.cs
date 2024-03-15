@@ -167,6 +167,38 @@ namespace paysys.webapi.Infra.Data.Migrations
                     b.ToTable("transfer");
                 });
 
+            modelBuilder.Entity("paysys.webapi.Domain.Entities.TransferCategory", b =>
+                {
+                    b.Property<Guid>("TransferCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("transfer_category_id");
+
+                    b.Property<string>("TransferCategoryName")
+                        .HasColumnType("text")
+                        .HasColumnName("transfer_category_name");
+
+                    b.HasKey("TransferCategoryId");
+
+                    b.ToTable("transfer_categories");
+                });
+
+            modelBuilder.Entity("paysys.webapi.Domain.Entities.TransferStatus", b =>
+                {
+                    b.Property<Guid>("TransferStatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("transfer_status_id");
+
+                    b.Property<string>("TransferStatusName")
+                        .HasColumnType("text")
+                        .HasColumnName("transfer_status_name");
+
+                    b.HasKey("TransferStatusId");
+
+                    b.ToTable("transfer_status");
+                });
+
             modelBuilder.Entity("paysys.webapi.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -234,36 +266,6 @@ namespace paysys.webapi.Infra.Data.Migrations
                     b.ToTable("user_types");
                 });
 
-            modelBuilder.Entity("paysys.webapi.Domain.ValueObjects.TransferCategory", b =>
-                {
-                    b.Property<Guid>("transfer_category_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("TransferCategoryName")
-                        .HasColumnType("text")
-                        .HasColumnName("transfer_category_name");
-
-                    b.HasKey("transfer_category_id");
-
-                    b.ToTable("transfer_category", (string)null);
-                });
-
-            modelBuilder.Entity("paysys.webapi.Domain.ValueObjects.TransferStatus", b =>
-                {
-                    b.Property<Guid>("transfer_status_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("TransferStatusName")
-                        .HasColumnType("text")
-                        .HasColumnName("transfer_status_name");
-
-                    b.HasKey("transfer_status_id");
-
-                    b.ToTable("transfer_status", (string)null);
-                });
-
             modelBuilder.Entity("paysys.webapi.Domain.Entities.AdministratorUser", b =>
                 {
                     b.HasOne("paysys.webapi.Domain.Entities.User", "User")
@@ -311,13 +313,13 @@ namespace paysys.webapi.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("paysys.webapi.Domain.ValueObjects.TransferCategory", "TransferCategory")
+                    b.HasOne("paysys.webapi.Domain.Entities.TransferCategory", "TransferCategory")
                         .WithMany()
                         .HasForeignKey("TransferCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("paysys.webapi.Domain.ValueObjects.TransferStatus", "TransferStatus")
+                    b.HasOne("paysys.webapi.Domain.Entities.TransferStatus", "TransferStatus")
                         .WithMany()
                         .HasForeignKey("TransferStatusId")
                         .OnDelete(DeleteBehavior.Cascade)

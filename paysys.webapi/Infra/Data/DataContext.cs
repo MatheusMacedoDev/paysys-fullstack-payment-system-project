@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using paysys.webapi.Domain.Entities;
-using paysys.webapi.Infra.Data.DbConfiguration;
 
 namespace paysys.webapi.Infra.Data;
 
@@ -12,6 +11,8 @@ public class DataContext : DbContext
     public DbSet<CommonUser>? CommonUsers { get; private set; }
     public DbSet<Shopkeeper>? Shopkeepers { get; private set; }
     public DbSet<Transfer>? Transfers { get; private set; }
+    public DbSet<TransferStatus>? TransferStatus { get; private set; }
+    public DbSet<TransferCategory>? TransferCategories { get; private set; }
 
     private string? _connectionString;
 
@@ -42,8 +43,5 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.ApplyConfiguration(new TransferCategoryConfiguration());
-        modelBuilder.ApplyConfiguration(new TransferStatusConfiguration());
     }
 }
