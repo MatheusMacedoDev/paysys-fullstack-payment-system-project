@@ -6,5 +6,7 @@ namespace paysys.webapi.Application.Services.TransfersService;
 public interface ITransfersService
 {
     CreateTransferStatusResponse CreateTransferStatus(CreateTransferStatusRequest request);
+    Task<GetAllTransferStatusResponse> GetAllTransferStatus();
+
     CreateTransferCategoryResponse CreateTransferCategory(CreateTransferCategoryRequest request);
 }

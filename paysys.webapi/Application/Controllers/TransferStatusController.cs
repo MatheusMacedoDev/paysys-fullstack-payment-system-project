@@ -31,4 +31,18 @@ public class TransferStatusController : ControllerBase
         }
     }
 
+    [HttpGet("transfer-status")]
+    public async Task<IActionResult> GetAllTransferStatus()
+    {
+        try
+        {
+            var response = await _transfersService.GetAllTransferStatus();
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }

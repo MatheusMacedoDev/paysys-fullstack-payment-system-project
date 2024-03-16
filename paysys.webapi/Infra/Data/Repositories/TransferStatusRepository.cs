@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
 
@@ -15,5 +16,10 @@ public class TransferStatusRepository : ITransferStatusRepository
     public async Task CreateTransferStatus(TransferStatus status)
     {
         await _context.TransferStatus!.AddAsync(status);
+    }
+
+    public async Task<List<TransferStatus>> GetAllTransferStatus()
+    {
+        return await _context.TransferStatus!.ToListAsync();
     }
 }

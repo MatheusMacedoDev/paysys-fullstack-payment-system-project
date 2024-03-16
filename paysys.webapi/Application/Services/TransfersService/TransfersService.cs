@@ -67,4 +67,20 @@ public class TransfersService : ITransfersService
             throw;
         }
     }
+
+    public async Task<GetAllTransferStatusResponse> GetAllTransferStatus()
+    {
+        try
+        {
+            var transferStatusList = await _transferStatusRepository.GetAllTransferStatus();
+            var response = new GetAllTransferStatusResponse(transferStatusList);
+
+            return response;
+        }
+        catch (System.Exception)
+        {
+
+            throw;
+        }
+    }
 }
