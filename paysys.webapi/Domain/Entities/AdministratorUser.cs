@@ -37,6 +37,7 @@ public class AdministratorUser
     {
         var administrator = new AdministratorUser();
 
+        administrator.AdministratorId = Guid.NewGuid();
         administrator.AdministratorName = administratorName;
         administrator.AdministratorCPF = administratorCPF;
 

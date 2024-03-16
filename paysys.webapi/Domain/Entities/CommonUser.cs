@@ -37,6 +37,7 @@ public class CommonUser
     {
         var commonUser = new CommonUser();
 
+        commonUser.CommonUserId = Guid.NewGuid();
         commonUser.CommonUserName = commonUserName;
         commonUser.CommonUserCPF = commonUserCPF;
 

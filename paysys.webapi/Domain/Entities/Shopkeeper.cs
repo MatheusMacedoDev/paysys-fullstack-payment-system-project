@@ -46,6 +46,7 @@ public class Shopkeeper
     {
         var shopkeeper = new Shopkeeper();
 
+        shopkeeper.ShopkeeperId = Guid.NewGuid();
         shopkeeper.FancyName = fancyName;
         shopkeeper.CompanyName = companyName;
         shopkeeper.ShopkeeperCNJP = shopkeeperCNJP;
