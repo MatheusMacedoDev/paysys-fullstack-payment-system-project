@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
 
@@ -17,6 +18,18 @@ public class TransferCategoriesRepository : ITransferCategoriesRepository
         try
         {
             await _context.TransferCategories!.AddAsync(category);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<List<TransferCategory>> GetAllTransferCategories()
+    {
+        try
+        {
+            return await _context.TransferCategories!.ToListAsync();
         }
         catch (Exception)
         {

@@ -44,6 +44,21 @@ public class TransfersService : ITransfersService
         }
     }
 
+    public async Task<GetAllTransferCategoriesResponse> GetAllTransferCategories()
+    {
+        try
+        {
+            var transferCategoriesList = await _transferCategoriesRepository.GetAllTransferCategories();
+            var response = new GetAllTransferCategoriesResponse(transferCategoriesList);
+
+            return response;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
     public CreateTransferStatusResponse CreateTransferStatus(CreateTransferStatusRequest request)
     {
         try

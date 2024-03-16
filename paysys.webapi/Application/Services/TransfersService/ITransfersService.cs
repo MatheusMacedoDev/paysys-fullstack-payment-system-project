@@ -9,4 +9,5 @@ public interface ITransfersService
     Task<GetAllTransferStatusResponse> GetAllTransferStatus();
 
     CreateTransferCategoryResponse CreateTransferCategory(CreateTransferCategoryRequest request);
+    Task<GetAllTransferCategoriesResponse> GetAllTransferCategories();
 }
