@@ -70,9 +70,9 @@ public class Transfer
         transfer.TransferDescription = transferDescription;
         transfer.TransferAmount = transferAmount;
         transfer.TransferDateTime = DateTime.UtcNow;
+
         transfer.TransferStatusId = transferStatusId;
         transfer.TransferCategoryId = transferCategoryId;
-
         transfer.SenderUserId = senderUserId;
         transfer.ReceiverUserId = receiverUserId;
 
