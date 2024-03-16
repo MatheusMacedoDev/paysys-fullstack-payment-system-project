@@ -10,13 +10,16 @@ public class TransfersService : ITransfersService
 {
     private readonly ITransferStatusRepository _transferStatusRepository;
     private readonly ITransferCategoriesRepository _transferCategoriesRepository;
+    private readonly ITransfersRepository _transfersRepository;
 
     private readonly IUnityOfWork _unityOfWork;
 
-    public TransfersService(ITransferStatusRepository transferStatusRepository, ITransferCategoriesRepository transferCategoriesRepository, IUnityOfWork unityOfWork)
+    public TransfersService(ITransferStatusRepository transferStatusRepository, ITransferCategoriesRepository transferCategoriesRepository, ITransfersRepository transfersRepository, IUnityOfWork unityOfWork)
     {
         _transferStatusRepository = transferStatusRepository;
         _transferCategoriesRepository = transferCategoriesRepository;
+        _transfersRepository = transfersRepository;
+
         _unityOfWork = unityOfWork;
     }
 
@@ -95,6 +98,41 @@ public class TransfersService : ITransfersService
         catch (System.Exception)
         {
 
+            throw;
+        }
+    }
+
+    public CreateTransferResponse CreateTransfer(CreateTransferRequest request)
+    {
+        try
+        {
+            var transfer = Transfer.Create(
+                transferDescription: request.transferDescription,
+                transferAmount: request.transferAmount,
+                transferStatusId: request.transferStatusId,
+                transferCategoryId: request.transferCategoryId,
+                senderUserId: request.senderUserId,
+                receiverUserId: request.receiverUserId
+            );
+
+            _transfersRepository.CreateTransfer(transfer);
+            _unityOfWork.Commit();
+
+            var response = new CreateTransferResponse(
+                transferId: transfer.TransferId,
+                transferDescription: transfer.TransferDescription!,
+                transferAmount: transfer.TransferAmount,
+                transferDateTime: transfer.TransferDateTime,
+                transferStatusId: transfer.TransferStatusId,
+                transferCategoryId: transfer.TransferCategoryId,
+                senderUserId: transfer.SenderUserId,
+                receiverUserId: transfer.ReceiverUserId
+            );
+
+            return response;
+        }
+        catch (Exception)
+        {
             throw;
         }
     }
