@@ -33,9 +33,9 @@ public class UsersRepository : IUsersRepository
         await _context.Users!.AddAsync(user);
     }
 
-    public Task<User> GetUserById(Guid userId)
+    public async Task<User> GetUserById(Guid userId)
     {
-        throw new NotImplementedException();
+        return (await _context.Users!.FirstOrDefaultAsync(user => user.UserId == userId))!;
     }
 
     public Task DeleteUser(Guid userId)
@@ -66,12 +66,14 @@ public class UsersRepository : IUsersRepository
     public async Task<CommonUser> GetCommonUserByUserId(Guid userId)
     {
         return (await _context.CommonUsers!
+            .AsTracking()
             .FirstOrDefaultAsync(common => common.UserId == userId))!;
     }
 
     public async Task<Shopkeeper> GetShopkeeperByUserId(Guid userId)
     {
         return (await _context.Shopkeepers!
+            .AsTracking()
             .FirstOrDefaultAsync(shopkeeper => shopkeeper.UserId == userId))!;
     }
 }
