@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Options;
+using paysys.webapi.Configuration;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
 
@@ -6,15 +8,18 @@ namespace paysys.webapi.Domain.Specifications;
 public class HaveEnoughMoneySpecification : AsyncSpecification<Transfer>
 {
     // Configurations
-    private const string CommonUserTypeName = "Comum";
-    private const string ShopkeeperUserTypeName = "Lojista";
+    private readonly string CommonUserTypeName;
+    private readonly string ShopkeeperUserTypeName;
 
     // Repositories
     private readonly IUsersRepository _usersRepository;
     private readonly IUserTypesRepository _userTypesRepository;
 
-    public HaveEnoughMoneySpecification(IUsersRepository usersRepository, IUserTypesRepository userTypesRepository)
+    public HaveEnoughMoneySpecification(IOptions<UserTypeNamesSettings> settings, IUsersRepository usersRepository, IUserTypesRepository userTypesRepository)
     {
+        CommonUserTypeName = settings.Value.CommonTypeName!;
+        ShopkeeperUserTypeName = settings.Value.ShopkeeperTypeName!;
+
         _usersRepository = usersRepository;
         _userTypesRepository = userTypesRepository;
     }

@@ -26,6 +26,7 @@ var builder = WebApplication.CreateBuilder(args);
         .Build();
 
     builder.Services.Configure<TokenSettings>(options => configuration.GetSection("SecurityToken").Bind(options));
+    builder.Services.Configure<UserTypeNamesSettings>(options => configuration.GetSection("UserTypeNames").Bind(options));
 
     // DbContext Injection
     builder.Services.AddDbContext<DataContext>();
