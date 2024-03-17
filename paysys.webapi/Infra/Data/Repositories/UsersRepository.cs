@@ -1,4 +1,5 @@
-﻿using paysys.webapi.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
 
 namespace paysys.webapi.Infra.Data.Repositories;
@@ -60,5 +61,11 @@ public class UsersRepository : IUsersRepository
     public Task<Shopkeeper> GetShopkeeperById(Guid shopkeeperId)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<CommonUser> GetCommonUserByUserId(Guid userId)
+    {
+        return (await _context.CommonUsers!
+            .FirstOrDefaultAsync(common => common.UserId == userId))!;
     }
 }

@@ -14,6 +14,7 @@ public interface IUsersRepository
 
     Task CreateCommonUser(CommonUser commonUser);
     Task<CommonUser> GetCommonUserById(Guid commonUserId);
+    Task<CommonUser> GetCommonUserByUserId(Guid userId);
 
     Task CreateShopkeeper(Shopkeeper shopkeeper);
     Task<Shopkeeper> GetShopkeeperById(Guid shopkeeperId);
