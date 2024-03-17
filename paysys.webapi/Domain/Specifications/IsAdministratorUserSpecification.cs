@@ -4,12 +4,12 @@ using paysys.webapi.Domain.Entities;
 
 namespace paysys.webapi.Domain.Specifications;
 
-public class IsNotAdministratorUserSpecification : Specification<UserType>
+public class IsAdministratorUserSpecification : Specification<UserType>
 {
     // Configurations
     private readonly string? AdministratorTypeName;
 
-    public IsNotAdministratorUserSpecification(IOptions<UserTypeNamesSettings> settings)
+    public IsAdministratorUserSpecification(IOptions<UserTypeNamesSettings> settings)
     {
         AdministratorTypeName = settings.Value.AdministratorTypeName;
     }
@@ -18,7 +18,7 @@ public class IsNotAdministratorUserSpecification : Specification<UserType>
     {
         try
         {
-            if (type.TypeName != AdministratorTypeName)
+            if (type.TypeName == AdministratorTypeName)
             {
                 return true;
             }
