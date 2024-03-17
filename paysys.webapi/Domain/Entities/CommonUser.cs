@@ -49,5 +49,15 @@ public class CommonUser
 
         return commonUser;
     }
+
+    public void DecreaseMoney(double amount)
+    {
+        Balance -= amount;
+    }
+
+    public void IncreaseMoney(double amount)
+    {
+        Balance += amount;
+    }
 }
 

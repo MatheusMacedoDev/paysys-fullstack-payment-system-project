@@ -56,5 +56,15 @@ public class Shopkeeper
 
         return shopkeeper;
     }
+
+    public void DecreaseMoney(double amount)
+    {
+        Balance -= amount;
+    }
+
+    public void IncreaseMoney(double amount)
+    {
+        Balance += amount;
+    }
 }
 
