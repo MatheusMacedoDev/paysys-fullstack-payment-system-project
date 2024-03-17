@@ -11,5 +11,5 @@ public interface ITransfersService
     CreateTransferCategoryResponse CreateTransferCategory(CreateTransferCategoryRequest request);
     Task<GetAllTransferCategoriesResponse> GetAllTransferCategories();
 
-    CreateTransferResponse CreateTransfer(CreateTransferRequest request);
+    Task<CreateTransferResponse> CreateTransfer(CreateTransferRequest request);
 }

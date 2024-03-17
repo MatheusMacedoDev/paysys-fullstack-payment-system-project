@@ -1,24 +1,38 @@
+using Microsoft.Extensions.Options;
 using paysys.webapi.Application.Contracts.Requests;
 using paysys.webapi.Application.Contracts.Responses;
+using paysys.webapi.Configuration;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
+using paysys.webapi.Domain.Specifications;
 using paysys.webapi.Infra.Data.UnityOfWork;
 
 namespace paysys.webapi.Application.Services.TransfersService;
 
 public class TransfersService : ITransfersService
 {
+    // Configuration
+    private readonly IOptions<UserTypeNamesSettings> _userTypeNamesSettings;
+
+    // Repositories
     private readonly ITransferStatusRepository _transferStatusRepository;
     private readonly ITransferCategoriesRepository _transferCategoriesRepository;
     private readonly ITransfersRepository _transfersRepository;
+    private readonly IUsersRepository _usersRepository;
+    private readonly IUserTypesRepository _userTypesRepository;
 
+    // Unity of Work
     private readonly IUnityOfWork _unityOfWork;
 
-    public TransfersService(ITransferStatusRepository transferStatusRepository, ITransferCategoriesRepository transferCategoriesRepository, ITransfersRepository transfersRepository, IUnityOfWork unityOfWork)
+    public TransfersService(IOptions<UserTypeNamesSettings> userTypeNamesSettings, ITransferStatusRepository transferStatusRepository, ITransferCategoriesRepository transferCategoriesRepository, ITransfersRepository transfersRepository, IUsersRepository usersRepository, IUserTypesRepository userTypesRepository, IUnityOfWork unityOfWork)
     {
+        _userTypeNamesSettings = userTypeNamesSettings;
+
         _transferStatusRepository = transferStatusRepository;
         _transferCategoriesRepository = transferCategoriesRepository;
         _transfersRepository = transfersRepository;
+        _usersRepository = usersRepository;
+        _userTypesRepository = userTypesRepository;
 
         _unityOfWork = unityOfWork;
     }
@@ -102,7 +116,7 @@ public class TransfersService : ITransfersService
         }
     }
 
-    public CreateTransferResponse CreateTransfer(CreateTransferRequest request)
+    public async Task<CreateTransferResponse> CreateTransfer(CreateTransferRequest request)
     {
         try
         {
@@ -115,8 +129,25 @@ public class TransfersService : ITransfersService
                 receiverUserId: request.receiverUserId
             );
 
-            _transfersRepository.CreateTransfer(transfer);
-            _unityOfWork.Commit();
+            var senderUser = await _usersRepository.GetUserById(transfer.SenderUserId);
+            var senderUserType = await _userTypesRepository.GetUserType(senderUser.UserTypeId)!;
+
+            var receiverUser = await _usersRepository.GetUserById(transfer.ReceiverUserId);
+            var receiverUserType = await _userTypesRepository.GetUserType(receiverUser.UserTypeId)!;
+
+            var isAdministratorSpecification = new IsAdministratorUserSpecification(
+                _userTypeNamesSettings
+            );
+
+            await MakeSenderUserValidations(isAdministratorSpecification, senderUserType, transfer);
+            MakeReceiverUserValidations(isAdministratorSpecification, receiverUserType);
+
+            await _transfersRepository.CreateTransfer(transfer);
+
+            await DecreaseSenderUserBalance(senderUser, transfer.TransferAmount);
+            await IncreaseReceiverUserBalance(receiverUser, receiverUserType, transfer.TransferAmount);
+
+            await _unityOfWork.Commit();
 
             var response = new CreateTransferResponse(
                 transferId: transfer.TransferId,
@@ -134,6 +165,80 @@ public class TransfersService : ITransfersService
         catch (Exception)
         {
             throw;
+        }
+    }
+
+    private async Task MakeSenderUserValidations(IsAdministratorUserSpecification isAdministratorSpecification, UserType senderUserType, Transfer transfer)
+    {
+        // Sender is not administrator validation
+
+        var senderIsAdministrator = isAdministratorSpecification.IsSatisfiedBy(senderUserType);
+
+        if (senderIsAdministrator)
+        {
+            throw new ArgumentException("The administrator is not allowed to send a transfer.");
+        }
+
+        // Sender is not shopkeeper validation
+
+        var isShopkeeperSpecification = new IsShopkeeperSpecification(
+            _userTypeNamesSettings
+        );
+
+        var senderIsShopkeeper = isShopkeeperSpecification.IsSatisfiedBy(senderUserType);
+
+        if (senderIsShopkeeper)
+        {
+            throw new ArgumentException("The shopkeeper is not allowed to send a transfer.");
+        }
+
+        // Sender have enough money to make transfer
+
+        var haveEnoughMoneySpecification = new HaveEnoughMoneySpecification(
+            _userTypeNamesSettings,
+            _usersRepository,
+            _userTypesRepository
+        );
+
+        var senderHaveNotEnoughMoney = !(await haveEnoughMoneySpecification.IsSatisfiedBy(transfer));
+
+        if (senderHaveNotEnoughMoney)
+        {
+            throw new ArgumentException("The sender have not enough money to make this transfer.");
+        }
+    }
+
+    private void MakeReceiverUserValidations(IsAdministratorUserSpecification isAdministratorSpecification, UserType receiverUserType)
+    {
+        var receiverIsAdministrator = isAdministratorSpecification.IsSatisfiedBy(receiverUserType);
+
+        if (receiverIsAdministrator)
+        {
+            throw new ArgumentException("The administrator is not allowed to receive a transfer");
+        }
+    }
+
+    private async Task DecreaseSenderUserBalance(User senderUser, double decreaseAmount)
+    {
+        CommonUser common = await _usersRepository.GetCommonUserByUserId(senderUser.UserId);
+        common.DecreaseMoney(decreaseAmount);
+    }
+
+    private async Task IncreaseReceiverUserBalance(User receiverUser, UserType receiverUserType, double increaseAmount)
+    {
+        if (receiverUserType.TypeName == _userTypeNamesSettings.Value.CommonTypeName)
+        {
+            CommonUser common = await _usersRepository.GetCommonUserByUserId(receiverUser.UserId);
+            common.IncreaseMoney(increaseAmount);
+        }
+        else if (receiverUserType.TypeName == _userTypeNamesSettings.Value.ShopkeeperTypeName)
+        {
+            Shopkeeper shopkeeper = await _usersRepository.GetShopkeeperByUserId(receiverUser.UserId);
+            shopkeeper.IncreaseMoney(increaseAmount);
+        }
+        else
+        {
+            throw new ArgumentException("You can increase balance only for common and shopkeeper users.");
         }
     }
 }
