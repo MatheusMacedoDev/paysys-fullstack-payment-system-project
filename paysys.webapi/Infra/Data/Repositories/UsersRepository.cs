@@ -68,4 +68,10 @@ public class UsersRepository : IUsersRepository
         return (await _context.CommonUsers!
             .FirstOrDefaultAsync(common => common.UserId == userId))!;
     }
+
+    public async Task<Shopkeeper> GetShopkeeperByUserId(Guid userId)
+    {
+        return (await _context.Shopkeepers!
+            .FirstOrDefaultAsync(shopkeeper => shopkeeper.UserId == userId))!;
+    }
 }

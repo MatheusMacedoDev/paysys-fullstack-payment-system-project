@@ -18,4 +18,5 @@ public interface IUsersRepository
 
     Task CreateShopkeeper(Shopkeeper shopkeeper);
     Task<Shopkeeper> GetShopkeeperById(Guid shopkeeperId);
+    Task<Shopkeeper> GetShopkeeperByUserId(Guid userId);
 }
