@@ -28,24 +28,31 @@ public class HaveEnoughMoneySpecification : AsyncSpecification<Transfer>
     {
         double requiredMoneyAmount = transfer.TransferAmount;
 
-        User senderUser = await _usersRepository.GetUserById(transfer.SenderUserId);
-        UserType senderUserType = await _userTypesRepository.GetUserType(senderUser.UserId)!;
-
-        if (senderUserType.TypeName == CommonUserTypeName)
+        try
         {
-            CommonUser commonSenderUser = await _usersRepository.GetCommonUserByUserId(senderUser.UserId);
+            User senderUser = await _usersRepository.GetUserById(transfer.SenderUserId);
+            UserType senderUserType = await _userTypesRepository.GetUserType(senderUser.UserId)!;
 
-            return commonSenderUser.Balance >= transfer.TransferAmount;
+            if (senderUserType.TypeName == CommonUserTypeName)
+            {
+                CommonUser commonSenderUser = await _usersRepository.GetCommonUserByUserId(senderUser.UserId);
+
+                return commonSenderUser.Balance >= transfer.TransferAmount;
+            }
+            else if (senderUserType.TypeName == ShopkeeperUserTypeName)
+            {
+                Shopkeeper shopkeeperSender = await _usersRepository.GetShopkeeperByUserId(senderUser.UserId);
+
+                return shopkeeperSender.Balance >= transfer.TransferAmount;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid sender user type name.");
+            }
         }
-        else if (senderUserType.TypeName == ShopkeeperUserTypeName)
+        catch (Exception)
         {
-            Shopkeeper shopkeeperSender = await _usersRepository.GetShopkeeperByUserId(senderUser.UserId);
-
-            return shopkeeperSender.Balance >= transfer.TransferAmount;
-        }
-        else
-        {
-            throw new ArgumentException("Invalid sender user type name.");
+            throw;
         }
     }
 }
