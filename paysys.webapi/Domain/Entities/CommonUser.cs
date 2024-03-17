@@ -20,6 +20,10 @@ public class CommonUser
     [Column("common_user_cpf", TypeName = "CHAR(11)")]
     public string? CommonUserCPF { get; private set; }
 
+    [Required]
+    [Column("balance", TypeName = "MONEY")]
+    public double Balance { get; private set; }
+
     // User Reference
 
     [Required]
