@@ -174,6 +174,11 @@ public class MemoryUsersRepository : IUsersRepository
         throw new Exception("Common User not found.");
     }
 
+    public Task<CommonUser> GetCommonUserByUserId(Guid userId)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<Shopkeeper> GetShopkeeperById(Guid shopkeeperId)
     {
         foreach (Shopkeeper shopkeeper in Shopkeepers)
@@ -183,6 +188,11 @@ public class MemoryUsersRepository : IUsersRepository
         }
 
         throw new Exception("Shopkeeper not found.");
+    }
+
+    public Task<Shopkeeper> GetShopkeeperByUserId(Guid userId)
+    {
+        throw new NotImplementedException();
     }
 
     public Task<User> GetUserById(Guid userId)
