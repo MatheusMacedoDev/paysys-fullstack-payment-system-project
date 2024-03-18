@@ -76,4 +76,13 @@ public class UsersRepository : IUsersRepository
             .AsTracking()
             .FirstOrDefaultAsync(shopkeeper => shopkeeper.UserId == userId))!;
     }
+
+    public async Task ChangeCommonUserBalance(Guid commonUserId, double newBalance)
+    {
+        await _context.CommonUsers!
+            .Where(common => common.CommonUserId == commonUserId)
+            .ExecuteUpdateAsync(common =>
+                common.SetProperty(common => common.Balance, newBalance)
+            );
+    }
 }
