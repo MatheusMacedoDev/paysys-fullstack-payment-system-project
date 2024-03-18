@@ -31,7 +31,7 @@ public class HaveEnoughMoneySpecification : AsyncSpecification<Transfer>
         try
         {
             User senderUser = await _usersRepository.GetUserById(transfer.SenderUserId);
-            UserType senderUserType = await _userTypesRepository.GetUserType(senderUser.UserId)!;
+            UserType senderUserType = await _userTypesRepository.GetUserType(senderUser.UserTypeId)!;
 
             if (senderUserType.TypeName == CommonUserTypeName)
             {
