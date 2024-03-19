@@ -4,7 +4,8 @@ namespace paysys.webapi.Infra.Data.DAOs.Interfaces;
 
 public interface ICommonUserDAO
 {
-    Task<IEnumerable<ShortCommonUserTO>> getShortCommonUsers();
-    Task<FullCommonUserTO> getFullCommonUserById(Guid commonUserId);
-    Task<int> getCommonUsersQuantity();
+    Task<IEnumerable<ShortCommonUserTO>> GetShortCommonUsers();
+    Task<FullCommonUserTO> GetFullCommonUserById(Guid commonUserId);
+    Task<int> GetCommonUsersQuantity();
+    Task<double> GetCommonUserBalance(Guid commonUserId);
 }

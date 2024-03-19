@@ -19,7 +19,7 @@ public class CommonUserDAO : ICommonUserDAO
         ConnectionString = configuration.GetConnectionString("LocalConnection");
     }
 
-    public async Task<IEnumerable<ShortCommonUserTO>> getShortCommonUsers()
+    public async Task<IEnumerable<ShortCommonUserTO>> GetShortCommonUsers()
     {
         try
         {
@@ -44,7 +44,7 @@ public class CommonUserDAO : ICommonUserDAO
         }
     }
 
-    public async Task<int> getCommonUsersQuantity()
+    public async Task<int> GetCommonUsersQuantity()
     {
         try
         {
@@ -61,7 +61,7 @@ public class CommonUserDAO : ICommonUserDAO
         }
     }
 
-    public async Task<FullCommonUserTO> getFullCommonUserById(Guid commonUserId)
+    public async Task<FullCommonUserTO> GetFullCommonUserById(Guid commonUserId)
     {
         try
         {
@@ -87,6 +87,27 @@ public class CommonUserDAO : ICommonUserDAO
                 ";
 
                 return (await connection.QueryFirstOrDefaultAsync<FullCommonUserTO>(query, new { id = commonUserId }))!;
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<double> GetCommonUserBalance(Guid commonUserId)
+    {
+        try
+        {
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                string query = @"
+                    SELECT balance
+                    FROM common_users
+                    WHERE common_user_id = @commonUserId
+                ";
+
+                return await connection.QueryFirstOrDefaultAsync<double>(query, new { commonUserId });
             }
         }
         catch (Exception)

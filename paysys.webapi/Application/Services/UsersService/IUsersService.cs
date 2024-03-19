@@ -10,6 +10,7 @@ public interface IUsersService
     Task<GetFullAdministratorResponse> GetFullAdministrator(GetFullAdministratorRequest request);
 
     Task<CreateCommonUserResponse> CreateCommonUser(CreateCommonUserRequest request);
+    Task<IncreaseCommonUserBalanceResponse> IncreaseCommonUserBalance(IncreaseCommonUserBalanceRequest request);
     Task<GetShortCommonUsersResponse> GetShortCommonUsers();
     Task<GetFullCommonUserResponse> GetFullCommonUser(GetFullCommonUserRequest request);
 

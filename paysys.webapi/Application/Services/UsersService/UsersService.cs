@@ -155,7 +155,7 @@ public class UsersService : IUsersService
 
     public async Task<GetFullCommonUserResponse> GetFullCommonUser(GetFullCommonUserRequest request)
     {
-        var fullCommonUser = await _commonUserDAO.getFullCommonUserById(request.commonUserId);
+        var fullCommonUser = await _commonUserDAO.GetFullCommonUserById(request.commonUserId);
         var response = new GetFullCommonUserResponse(fullCommonUser);
         return response;
     }
@@ -179,8 +179,8 @@ public class UsersService : IUsersService
 
     public async Task<GetShortCommonUsersResponse> GetShortCommonUsers()
     {
-        var commonUsersQuantity = await _commonUserDAO.getCommonUsersQuantity();
-        var shortCommonUsersList = await _commonUserDAO.getShortCommonUsers();
+        var commonUsersQuantity = await _commonUserDAO.GetCommonUsersQuantity();
+        var shortCommonUsersList = await _commonUserDAO.GetShortCommonUsers();
 
         var response = new GetShortCommonUsersResponse(commonUsersQuantity, shortCommonUsersList);
 
@@ -231,5 +231,21 @@ public class UsersService : IUsersService
         var loginToken = _tokenStrategy.GenerateToken(findedUser);
 
         return new LoginResponse(loginToken);
+    }
+
+    public async Task<IncreaseCommonUserBalanceResponse> IncreaseCommonUserBalance(IncreaseCommonUserBalanceRequest request)
+    {
+        double oldBalance = await _commonUserDAO.GetCommonUserBalance(request.commonUserId);
+        double newBalance = oldBalance + request.increaseAmount;
+
+        await _usersRepositories.ChangeCommonUserBalance(request.commonUserId, newBalance);
+
+        var response = new IncreaseCommonUserBalanceResponse(
+            commonUserId: request.commonUserId,
+            increasedAmount: request.increaseAmount,
+            newBalance
+        );
+
+        return response;
     }
 }
