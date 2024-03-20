@@ -8,4 +8,5 @@ public interface ICommonUserDAO
     Task<FullCommonUserTO> GetFullCommonUserById(Guid commonUserId);
     Task<int> GetCommonUsersQuantity();
     Task<double> GetCommonUserBalance(Guid commonUserId);
+    Task<double> GetCommonUserBalanceByUserId(Guid userId);
 }

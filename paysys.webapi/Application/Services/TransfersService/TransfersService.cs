@@ -5,6 +5,7 @@ using paysys.webapi.Configuration;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
 using paysys.webapi.Domain.Specifications;
+using paysys.webapi.Infra.Data.DAOs.Interfaces;
 using paysys.webapi.Infra.Data.UnityOfWork;
 
 namespace paysys.webapi.Application.Services.TransfersService;
@@ -21,10 +22,13 @@ public class TransfersService : ITransfersService
     private readonly IUsersRepository _usersRepository;
     private readonly IUserTypesRepository _userTypesRepository;
 
+    // DAOs
+    private readonly ICommonUserDAO _commonUserDAO;
+
     // Unity of Work
     private readonly IUnityOfWork _unityOfWork;
 
-    public TransfersService(IOptions<UserTypeNamesSettings> userTypeNamesSettings, ITransferStatusRepository transferStatusRepository, ITransferCategoriesRepository transferCategoriesRepository, ITransfersRepository transfersRepository, IUsersRepository usersRepository, IUserTypesRepository userTypesRepository, IUnityOfWork unityOfWork)
+    public TransfersService(IOptions<UserTypeNamesSettings> userTypeNamesSettings, ITransferStatusRepository transferStatusRepository, ITransferCategoriesRepository transferCategoriesRepository, ITransfersRepository transfersRepository, IUsersRepository usersRepository, IUserTypesRepository userTypesRepository, ICommonUserDAO commonUserDAO, IUnityOfWork unityOfWork)
     {
         _userTypeNamesSettings = userTypeNamesSettings;
 
@@ -33,6 +37,8 @@ public class TransfersService : ITransfersService
         _transfersRepository = transfersRepository;
         _usersRepository = usersRepository;
         _userTypesRepository = userTypesRepository;
+
+        _commonUserDAO = commonUserDAO;
 
         _unityOfWork = unityOfWork;
     }
@@ -139,7 +145,7 @@ public class TransfersService : ITransfersService
                 _userTypeNamesSettings
             );
 
-            await MakeSenderUserValidations(isAdministratorSpecification, senderUserType, transfer);
+            await MakeSenderUserValidations(isAdministratorSpecification, senderUserType, transfer.SenderUserId, transfer);
             MakeReceiverUserValidations(isAdministratorSpecification, receiverUserType);
 
             await _transfersRepository.CreateTransfer(transfer);
@@ -168,7 +174,7 @@ public class TransfersService : ITransfersService
         }
     }
 
-    private async Task MakeSenderUserValidations(IsAdministratorUserSpecification isAdministratorSpecification, UserType senderUserType, Transfer transfer)
+    private async Task MakeSenderUserValidations(IsAdministratorUserSpecification isAdministratorSpecification, UserType senderUserType, Guid senderUserId, Transfer transfer)
     {
         // Sender is not administrator validation
 
@@ -196,8 +202,9 @@ public class TransfersService : ITransfersService
 
         var haveEnoughMoneySpecification = new HaveEnoughMoneySpecification(
             _userTypeNamesSettings,
-            _usersRepository,
-            _userTypesRepository
+            senderUserId,
+            senderUserType.TypeName!,
+            _commonUserDAO
         );
 
         var senderHaveNotEnoughMoney = !(await haveEnoughMoneySpecification.IsSatisfiedBy(transfer));

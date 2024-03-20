@@ -235,17 +235,27 @@ public class UsersService : IUsersService
 
     public async Task<IncreaseCommonUserBalanceResponse> IncreaseCommonUserBalance(IncreaseCommonUserBalanceRequest request)
     {
-        double oldBalance = await _commonUserDAO.GetCommonUserBalance(request.commonUserId);
-        double newBalance = oldBalance + request.increaseAmount;
+        try
+        {
+            double oldBalance = await _commonUserDAO.GetCommonUserBalance(request.commonUserId);
+            double newBalance = oldBalance + request.increaseAmount;
 
-        await _usersRepositories.ChangeCommonUserBalance(request.commonUserId, newBalance);
+            await _usersRepositories.ChangeCommonUserBalance(request.commonUserId, newBalance);
+            await _unityOfWork.Commit();
 
-        var response = new IncreaseCommonUserBalanceResponse(
-            commonUserId: request.commonUserId,
-            increasedAmount: request.increaseAmount,
-            newBalance
-        );
+            var currentBalance = await _commonUserDAO.GetCommonUserBalance(request.commonUserId);
 
-        return response;
+            var response = new IncreaseCommonUserBalanceResponse(
+                commonUserId: request.commonUserId,
+                increasedAmount: request.increaseAmount,
+                newBalance
+            );
+
+            return response;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 }

@@ -79,10 +79,17 @@ public class UsersRepository : IUsersRepository
 
     public async Task ChangeCommonUserBalance(Guid commonUserId, double newBalance)
     {
-        await _context.CommonUsers!
-            .Where(common => common.CommonUserId == commonUserId)
-            .ExecuteUpdateAsync(common =>
-                common.SetProperty(common => common.Balance, newBalance)
-            );
+        try
+        {
+            await _context.CommonUsers!
+                .Where(common => common.CommonUserId == commonUserId)
+                .ExecuteUpdateAsync(setters =>
+                    setters.SetProperty(common => common.Balance, newBalance)
+                );
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 }

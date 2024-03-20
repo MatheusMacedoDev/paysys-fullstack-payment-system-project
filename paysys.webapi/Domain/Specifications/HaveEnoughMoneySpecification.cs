@@ -2,6 +2,7 @@ using Microsoft.Extensions.Options;
 using paysys.webapi.Configuration;
 using paysys.webapi.Domain.Entities;
 using paysys.webapi.Domain.Interfaces.Repositories;
+using paysys.webapi.Infra.Data.DAOs.Interfaces;
 
 namespace paysys.webapi.Domain.Specifications;
 
@@ -11,17 +12,23 @@ public class HaveEnoughMoneySpecification : AsyncSpecification<Transfer>
     private readonly string CommonUserTypeName;
     private readonly string ShopkeeperUserTypeName;
 
-    // Repositories
-    private readonly IUsersRepository _usersRepository;
-    private readonly IUserTypesRepository _userTypesRepository;
+    // Data
+    private readonly Guid SenderUserId;
+    private readonly string SenderUserTypeName;
 
-    public HaveEnoughMoneySpecification(IOptions<UserTypeNamesSettings> settings, IUsersRepository usersRepository, IUserTypesRepository userTypesRepository)
+    // DAOs
+    private readonly ICommonUserDAO _commonUserDAO;
+
+
+    public HaveEnoughMoneySpecification(IOptions<UserTypeNamesSettings> settings, Guid senderUserId, string senderUserTypeName, ICommonUserDAO commonUserDAO)
     {
         CommonUserTypeName = settings.Value.CommonTypeName!;
         ShopkeeperUserTypeName = settings.Value.ShopkeeperTypeName!;
 
-        _usersRepository = usersRepository;
-        _userTypesRepository = userTypesRepository;
+        SenderUserId = senderUserId;
+        SenderUserTypeName = senderUserTypeName;
+
+        _commonUserDAO = commonUserDAO;
     }
 
     public async Task<bool> IsSatisfiedBy(Transfer transfer)
@@ -30,24 +37,16 @@ public class HaveEnoughMoneySpecification : AsyncSpecification<Transfer>
 
         try
         {
-            User senderUser = await _usersRepository.GetUserById(transfer.SenderUserId);
-            UserType senderUserType = await _userTypesRepository.GetUserType(senderUser.UserTypeId)!;
-
-            if (senderUserType.TypeName == CommonUserTypeName)
+            if (SenderUserTypeName == CommonUserTypeName)
             {
-                CommonUser commonSenderUser = await _usersRepository.GetCommonUserByUserId(senderUser.UserId);
+                double commonUserBalance = await _commonUserDAO.GetCommonUserBalanceByUserId(SenderUserId);
+                System.Console.WriteLine($"Have balance: {commonUserBalance}");
 
-                return commonSenderUser.Balance >= transfer.TransferAmount;
-            }
-            else if (senderUserType.TypeName == ShopkeeperUserTypeName)
-            {
-                Shopkeeper shopkeeperSender = await _usersRepository.GetShopkeeperByUserId(senderUser.UserId);
-
-                return shopkeeperSender.Balance >= transfer.TransferAmount;
+                return commonUserBalance >= requiredMoneyAmount;
             }
             else
             {
-                throw new ArgumentException("Invalid sender user type name.");
+                throw new ArgumentException("Invalid sender user type name. Have enough money specification is maked only for common users.");
             }
         }
         catch (Exception)
