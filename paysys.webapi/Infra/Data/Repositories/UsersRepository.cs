@@ -48,9 +48,11 @@ public class UsersRepository : IUsersRepository
         await _context.CommonUsers!.AddAsync(commonUser);
     }
 
-    public Task<CommonUser> GetCommonUserById(Guid commonUserId)
+    public async Task<CommonUser> GetCommonUserById(Guid commonUserId)
     {
-        throw new NotImplementedException();
+        return (await _context.CommonUsers!
+            .AsTracking()
+            .FirstOrDefaultAsync(common => common.CommonUserId == commonUserId))!;
     }
 
     public async Task CreateShopkeeper(Shopkeeper shopkeeper)
@@ -77,15 +79,18 @@ public class UsersRepository : IUsersRepository
             .FirstOrDefaultAsync(shopkeeper => shopkeeper.UserId == userId))!;
     }
 
-    public async Task ChangeCommonUserBalance(Guid commonUserId, double newBalance)
+    public async Task<double> ChangeCommonUserBalance(Guid commonUserId, double amount)
     {
         try
         {
-            await _context.CommonUsers!
-                .Where(common => common.CommonUserId == commonUserId)
-                .ExecuteUpdateAsync(setters =>
-                    setters.SetProperty(common => common.Balance, newBalance)
-                );
+            var commonUser = await GetCommonUserById(commonUserId);
+
+            if (amount >= 0)
+                commonUser.IncreaseMoney(amount);
+            else
+                commonUser.DecreaseMoney(Math.Abs(amount));
+
+            return commonUser.Balance;
         }
         catch (Exception)
         {

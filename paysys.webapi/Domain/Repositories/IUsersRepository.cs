@@ -13,7 +13,7 @@ public interface IUsersRepository
     Task DeleteAdministrator(Guid administratorId);
 
     Task CreateCommonUser(CommonUser commonUser);
-    Task ChangeCommonUserBalance(Guid commonUserId, double newBalance);
+    Task<double> ChangeCommonUserBalance(Guid commonUserId, double newBalance);
     Task<CommonUser> GetCommonUserById(Guid commonUserId);
     Task<CommonUser> GetCommonUserByUserId(Guid userId);
 

@@ -237,13 +237,8 @@ public class UsersService : IUsersService
     {
         try
         {
-            double oldBalance = await _commonUserDAO.GetCommonUserBalance(request.commonUserId);
-            double newBalance = oldBalance + request.increaseAmount;
-
-            await _usersRepositories.ChangeCommonUserBalance(request.commonUserId, newBalance);
+            var newBalance = await _usersRepositories.ChangeCommonUserBalance(request.commonUserId, request.increaseAmount);
             await _unityOfWork.Commit();
-
-            var currentBalance = await _commonUserDAO.GetCommonUserBalance(request.commonUserId);
 
             var response = new IncreaseCommonUserBalanceResponse(
                 commonUserId: request.commonUserId,

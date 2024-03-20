@@ -116,7 +116,7 @@ public class MemoryUsersRepository : IUsersRepository
     private List<CommonUser> CommonUsers = new List<CommonUser>();
     private List<Shopkeeper> Shopkeepers = new List<Shopkeeper>();
 
-    public Task ChangeCommonUserBalance(Guid commonUserId, double newBalance)
+    public Task<double> ChangeCommonUserBalance(Guid commonUserId, double newBalance)
     {
         throw new NotImplementedException();
     }
