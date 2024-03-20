@@ -28,6 +28,7 @@ public class TransferServiceTest : DatabaseTestCase
     private readonly IUserTypesRepository _userTypesRepositories;
 
     private readonly ICommonUserDAO _commonUserDAO;
+    private readonly IShopkeeperDAO _shopkeeperDAO;
 
     public TransferServiceTest(DatabaseFixture databaseFixture) : base(databaseFixture)
     {
@@ -47,6 +48,7 @@ public class TransferServiceTest : DatabaseTestCase
         _userTypesRepositories = new UserTypesRepository(DbContext);
 
         _commonUserDAO = new CommonUserDAO(LocalConnetionString!);
+        _shopkeeperDAO = new ShopkeeperDAO(LocalConnetionString!);
 
         _transfersService = new TransfersService(
             userTypeNamesSettingsOptions,
@@ -72,7 +74,7 @@ public class TransferServiceTest : DatabaseTestCase
             new UnityOfWork(DbContext),
             new CryptographyStrategy(),
             _commonUserDAO,
-            new ShopkeeperDAO(LocalConnetionString!),
+            _shopkeeperDAO,
             new AdministratorDAO(LocalConnetionString!),
             new TokenStrategy(tokenSettingsOptions),
             new UserDAO(LocalConnetionString!)
@@ -152,6 +154,90 @@ public class TransferServiceTest : DatabaseTestCase
 
         double currentSenderUserFinalBalance = await _commonUserDAO.GetCommonUserBalanceByUserId(senderUserId);
         double currentReceiverUserFinalBalance = await _commonUserDAO.GetCommonUserBalanceByUserId(receiverUserId);
+
+        // Assert
+        Assert.Equal(expectedReceiverUserFinalBalance, currentReceiverUserFinalBalance);
+        Assert.Equal(expectedSenderUserFinalBalance, currentSenderUserFinalBalance);
+    }
+
+    [Fact]
+    public async Task CreateTransferCommonToShopkeeperTest()
+    {
+        // Arrange
+        double initialSenderUserDeposit = 600;
+        double transferAmount = 550;
+        double expectedSenderUserFinalBalance = 50;
+        double expectedReceiverUserFinalBalance = 550;
+
+        Guid transferStatusId;
+        Guid transferCategoryId;
+        Guid senderUserId;
+        Guid receiverUserId;
+
+        var transferStatus = TransferStatus.Create("Realizado");
+        transferStatusId = transferStatus.TransferStatusId;
+        await _transferStatusRepository.CreateTransferStatus(transferStatus);
+
+        var transferCategory = TransferCategory.Create("Alimentos");
+        transferCategoryId = transferCategory.TransferCategoryId;
+        await _transfersCategoriesRepository.CreateTransferCategory(transferCategory);
+
+        var commonType = UserType.Create("Comum");
+        var shopkeeperType = UserType.Create("Lojista");
+
+        await _userTypesRepositories.CreateUserType(commonType);
+        await _userTypesRepositories.CreateUserType(shopkeeperType);
+
+        await DbContext.SaveChangesAsync();
+
+        var createSenderRequest = new CreateCommonUserRequest(
+            commonUserName: "Matheus Macedo Santos",
+            cpf: "58883749578",
+            userName: "Math8006",
+            email: "matheus@email.com",
+            phoneNumber: "11947346577",
+            password: "12345",
+            userTypeId: commonType.UserTypeId
+        );
+
+        var createSenderResponse = await _usersService.CreateCommonUser(createSenderRequest);
+        senderUserId = createSenderResponse.userId;
+
+        var increaseSenderBalanceRequest = new IncreaseCommonUserBalanceRequest(
+            commonUserId: createSenderResponse.commonUserId,
+            increaseAmount: initialSenderUserDeposit
+        );
+
+        await _usersService.IncreaseCommonUserBalance(increaseSenderBalanceRequest);
+
+        var createReceiverRequest = new CreateShopkeeperRequest(
+            fancyName: "Uber",
+            companyName: "Uber LTDA",
+            cnpj: "00895351000108",
+            userName: "uberUser",
+            email: "transfer@uber.com",
+            phoneNumber: "11958475877",
+            password: "12345",
+            userTypeId: shopkeeperType.UserTypeId
+        );
+
+        var createReceiverResponse = await _usersService.CreateShopkeeper(createReceiverRequest);
+        receiverUserId = createReceiverResponse.userId;
+
+        var request = new CreateTransferRequest(
+            transferDescription: "Some description",
+            transferAmount,
+            transferStatusId,
+            transferCategoryId,
+            senderUserId,
+            receiverUserId
+        );
+
+        // Act
+        var response = await _transfersService.CreateTransfer(request);
+
+        double currentSenderUserFinalBalance = await _commonUserDAO.GetCommonUserBalanceByUserId(senderUserId);
+        double currentReceiverUserFinalBalance = await _shopkeeperDAO.GetShopkeeperBalanceByUserId(receiverUserId);
 
         // Assert
         Assert.Equal(expectedReceiverUserFinalBalance, currentReceiverUserFinalBalance);

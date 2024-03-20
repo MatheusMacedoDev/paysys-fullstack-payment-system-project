@@ -100,4 +100,25 @@ public class ShopkeeperDAO : IShopkeeperDAO
             throw;
         }
     }
+
+    public async Task<double> GetShopkeeperBalanceByUserId(Guid userId)
+    {
+        try
+        {
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                string query = @"
+                    SELECT balance
+                    FROM shopkeepers
+                    WHERE user_id = @userId
+                ";
+
+                return await connection.QueryFirstOrDefaultAsync<double>(query, new { userId });
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }
