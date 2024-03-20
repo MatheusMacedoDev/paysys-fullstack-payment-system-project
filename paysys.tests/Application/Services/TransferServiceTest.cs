@@ -80,7 +80,7 @@ public class TransferServiceTest : DatabaseTestCase
     }
 
     [Fact]
-    public async Task CreateTransferTest()
+    public async Task CreateTransferCommonToCommonTest()
     {
         // Arrange
         double initialSenderUserDeposit = 700;
