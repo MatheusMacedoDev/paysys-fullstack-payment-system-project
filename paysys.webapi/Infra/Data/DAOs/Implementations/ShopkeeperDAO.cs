@@ -19,6 +19,11 @@ public class ShopkeeperDAO : IShopkeeperDAO
         ConnectionString = configuration.GetConnectionString("LocalConnection");
     }
 
+    public ShopkeeperDAO(string connectionString)
+    {
+        ConnectionString = connectionString;
+    }
+
     public async Task<IEnumerable<ShortShopkeeperTO>> GetShortShopkeepers()
     {
         try

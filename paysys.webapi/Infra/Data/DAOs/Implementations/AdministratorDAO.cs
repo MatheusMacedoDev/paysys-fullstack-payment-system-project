@@ -19,6 +19,11 @@ public class AdministratorDAO : IAdministratorDAO
         ConnectionString = configuration.GetConnectionString("LocalConnection");
     }
 
+    public AdministratorDAO(string connectionString)
+    {
+        ConnectionString = connectionString;
+    }
+
     public async Task<IEnumerable<ShortAdministratorTO>> GetShortAdministrators()
     {
         try
