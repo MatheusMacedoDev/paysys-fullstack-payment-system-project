@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Options;
 using paysys.webapi.Configuration;
 using paysys.webapi.Domain.Entities;
-using paysys.webapi.Domain.Interfaces.Repositories;
 using paysys.webapi.Infra.Data.DAOs.Interfaces;
 
 namespace paysys.webapi.Domain.Specifications;
@@ -40,7 +39,6 @@ public class HaveEnoughMoneySpecification : AsyncSpecification<Transfer>
             if (SenderUserTypeName == CommonUserTypeName)
             {
                 double commonUserBalance = await _commonUserDAO.GetCommonUserBalanceByUserId(SenderUserId);
-                System.Console.WriteLine($"Have balance: {commonUserBalance}");
 
                 return commonUserBalance >= requiredMoneyAmount;
             }
