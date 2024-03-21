@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using paysys.webapi.Infra.Data;
@@ -11,9 +12,11 @@ using paysys.webapi.Infra.Data;
 namespace paysys.webapi.Infra.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240320232154_ChangingTransfersTableName")]
+    partial class ChangingTransfersTableName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,7 +130,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                     b.Property<Guid>("TransferId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("transfer_id");
+                        .HasColumnName("tranfer_id");
 
                     b.Property<Guid>("ReceiverUserId")
                         .HasColumnType("uuid")

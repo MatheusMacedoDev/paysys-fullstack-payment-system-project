@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace paysys.webapi.Domain.Entities;
 
-[Table("transfer")]
+[Table("transfers")]
 public class Transfer
 {
     [Key]
-    [Column("tranfer_id")]
+    [Column("transfer_id")]
     public Guid TransferId { get; private set; }
 
     [Required]
