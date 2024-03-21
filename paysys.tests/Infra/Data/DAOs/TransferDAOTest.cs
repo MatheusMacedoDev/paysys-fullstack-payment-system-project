@@ -31,7 +31,7 @@ public class TransferDAOTest : DatabaseTestCase
     private readonly IShopkeeperDAO _shopkeeperDAO;
     private readonly ITransferDAO _transferDAO;
 
-    protected TransferDAOTest(DatabaseFixture databaseFixture) : base(databaseFixture)
+    public TransferDAOTest(DatabaseFixture databaseFixture) : base(databaseFixture)
     {
         var userTypeNamesSettings = new UserTypeNamesSettings
         {
@@ -85,17 +85,28 @@ public class TransferDAOTest : DatabaseTestCase
     }
 
     [Fact]
-    public async Task GetCommonUserTransactionHistoryTest()
+    public async Task GetCommonUserTransactionHistoryBySenderUserTest()
     {
-        var transactionCategoryName = "Alimentação";
-        var transactionDescription = "Alguma descrição";
-        var transactionValue = 300;
-
         var senderUserId = await StartInitialDatabaseData();
 
-        var outputedTransfers = _transferDAO.GetCommonUserTransactionHistory(senderUserId);
+        var outputedTransfers = await _transferDAO.GetCommonUserTransferHistory(senderUserId);
 
-        Assert.True(false);
+        bool allTransfersAreFromSenderUser = false;
+
+        foreach (var transfer in outputedTransfers)
+        {
+            if (transfer.isSenderTransferUser)
+            {
+                allTransfersAreFromSenderUser = true;
+            }
+            else
+            {
+                allTransfersAreFromSenderUser = false;
+                break;
+            }
+        }
+
+        Assert.True(allTransfersAreFromSenderUser);
     }
 
     private async Task<Guid> StartInitialDatabaseData()
