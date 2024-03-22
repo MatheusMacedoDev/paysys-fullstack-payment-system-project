@@ -126,6 +126,43 @@ public class TransferDAOTest : DatabaseTestCase
     [Fact]
     public async Task GetShopkeeperTransactionHistoryUserTest()
     {
+        var commonUserTypeId = await CreateCommonUserType();
+        var shopkeeperUserTypeId = await CreateShopkeeperUserType();
+
+        var createReceiverRequest = new CreateShopkeeperRequest(
+            fancyName: "Machado Store",
+            companyName: "Machado LTDA",
+            userName: "Machadão",
+            cnpj: "16382209000105",
+            email: "lucas.machado@email.com",
+            phoneNumber: "11947346577",
+            password: "12345",
+            userTypeId: shopkeeperUserTypeId
+        );
+
+        var createReceiverResponse = await _usersService.CreateShopkeeper(createReceiverRequest);
+
+        await StartInitialDatabaseData(createReceiverResponse.userId, commonUserTypeId);
+
+        var outputedTransfers = await _transferDAO.GetShopkeeperTransferHistory(senderUserId);
+
+        bool allTransfersAreFromReceiverUser = false;
+
+        foreach (var transfer in outputedTransfers)
+        {
+            if (!transfer.isSenderTransferUser)
+            {
+                allTransfersAreFromReceiverUser = true;
+            }
+            else
+            {
+                allTransfersAreFromReceiverUser = false;
+                break;
+            }
+        }
+
+        Assert.True(allTransfersAreFromReceiverUser);
+
         Assert.True(true);
     }
 
