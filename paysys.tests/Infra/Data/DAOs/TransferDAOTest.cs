@@ -187,8 +187,6 @@ public class TransferDAOTest : DatabaseTestCase
 
         var outputedTransfer = await _transferDAO.GetFullTransfer(transferData.transferId, transferData.userId);
 
-        System.Console.WriteLine(outputedTransfer.ToString());
-
         Assert.True(true);
     }
 

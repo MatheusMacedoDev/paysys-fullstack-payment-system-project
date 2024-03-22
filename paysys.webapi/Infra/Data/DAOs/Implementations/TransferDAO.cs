@@ -61,18 +61,25 @@ public class TransferDAO : ITransferDAO
         {
             using (var connection = new NpgsqlConnection(ConnectionString))
             {
+                string findOtherUserIdQuery = @"
+                    SELECT
+                        users.user_id
+                    FROM transfers
+                    LEFT JOIN users
+                        ON users.user_id <> @userId
+                    WHERE transfers.transfer_id = @transferId
+                ";
+
+                Guid otherUserId = await connection.QueryFirstAsync<Guid>(findOtherUserIdQuery, new { transferId, userId });
+
                 string query = @"
                     SELECT
-                        CASE
-                            WHEN transfers.sender_user_id = @userId
-                                THEN COALESCE(
-                                    common_users.common_user_name, 
-                                    shopkeepers.fancy_name
-                                )
-                            WHEN transfers.receiver_user_id = @userId
-                                THEN common_users.common_user_name
-                            ELSE 'There is no another user'
-                        END anotherUserIntoTransferName,
+
+                        COALESCE(
+                            common_users.common_user_name,
+                            shopkeepers.fancy_name
+                        ) AS anotherUserIntoTransferName,
+
                         transfers.transfer_description AS fullTransferDescription,
                         transfers.transfer_datetime AS transferDateTime,
                         transfers.transfer_amount AS transferAmount,
@@ -84,12 +91,13 @@ public class TransferDAO : ITransferDAO
                     LEFT JOIN transfer_categories as categories
                         ON transfers.transfer_category_id = categories.transfer_category_id
                     LEFT JOIN common_users
-                        ON common_users.user_id = @userId
+                        ON common_users.user_id = @otherUserId
                     LEFT JOIN shopkeepers
-                        ON shopkeepers.user_id = @userId
+                        ON shopkeepers.user_id = @otherUserId
+                    WHERE transfers.transfer_id = @transferId
                 ";
 
-                return (await connection.QueryFirstOrDefaultAsync<FullTransferTO>(query, new { transferId, userId }))!;
+                return (await connection.QueryFirstOrDefaultAsync<FullTransferTO>(query, new { transferId, otherUserId }))!;
             }
         }
         catch (Exception)
