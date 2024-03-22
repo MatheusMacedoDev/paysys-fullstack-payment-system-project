@@ -87,7 +87,21 @@ public class TransferDAOTest : DatabaseTestCase
     [Fact]
     public async Task GetCommonUserTransactionHistoryBySenderUserTest()
     {
-        var senderUserId = await StartInitialDatabaseData();
+        var commonUserTypeId = await CreateCommonUserType();
+
+        var createReceiverRequest = new CreateCommonUserRequest(
+            commonUserName: "Lucas Santos Machado",
+            cpf: "38843546598",
+            userName: "Machadão",
+            email: "lucas.machado@email.com",
+            phoneNumber: "11947346577",
+            password: "12345",
+            userTypeId: commonUserTypeId
+        );
+
+        var createReceiverResponse = await _usersService.CreateCommonUser(createReceiverRequest);
+
+        var senderUserId = await StartInitialDatabaseData(createReceiverResponse.userId, commonUserTypeId);
 
         var outputedTransfers = await _transferDAO.GetCommonUserTransferHistory(senderUserId);
 
@@ -109,17 +123,37 @@ public class TransferDAOTest : DatabaseTestCase
         Assert.True(allTransfersAreFromSenderUser);
     }
 
-    private async Task<Guid> StartInitialDatabaseData()
+    [Fact]
+    public async Task GetShopkeeperTransactionHistoryUserTest()
+    {
+        Assert.True(true);
+    }
+
+    private async Task<Guid> CreateCommonUserType()
+    {
+        var commonType = UserType.Create("Comum");
+        await _userTypesRepositories.CreateUserType(commonType);
+        await DbContext.SaveChangesAsync();
+
+        return commonType.UserTypeId;
+    }
+
+    private async Task<Guid> CreateShopkeeperUserType()
+    {
+        var commonType = UserType.Create("Lojista");
+        await _userTypesRepositories.CreateUserType(commonType);
+        await DbContext.SaveChangesAsync();
+
+        return commonType.UserTypeId;
+    }
+
+    private async Task<Guid> StartInitialDatabaseData(Guid receiverUserId, Guid commonUserTypeId)
     {
         var transferStatus = TransferStatus.Create("Realizado");
         await _transferStatusRepository.CreateTransferStatus(transferStatus);
 
         var transferCategory = TransferCategory.Create("Alimentos");
         await _transfersCategoriesRepository.CreateTransferCategory(transferCategory);
-
-        var commonType = UserType.Create("Comum");
-        await _userTypesRepositories.CreateUserType(commonType);
-        await DbContext.SaveChangesAsync();
 
         var createSenderRequest = new CreateCommonUserRequest(
             commonUserName: "Matheus Macedo Santos",
@@ -128,7 +162,7 @@ public class TransferDAOTest : DatabaseTestCase
             email: "matheus@email.com",
             phoneNumber: "11947346577",
             password: "12345",
-            userTypeId: commonType.UserTypeId
+            userTypeId: commonUserTypeId
         );
 
         var createSenderResponse = await _usersService.CreateCommonUser(createSenderRequest);
@@ -140,19 +174,6 @@ public class TransferDAOTest : DatabaseTestCase
         );
 
         await _usersService.IncreaseCommonUserBalance(increaseSenderBalanceRequest);
-
-        var createReceiverRequest = new CreateCommonUserRequest(
-            commonUserName: "Lucas Santos Machado",
-            cpf: "38843546598",
-            userName: "Machadão",
-            email: "lucas.machado@email.com",
-            phoneNumber: "11947346577",
-            password: "12345",
-            userTypeId: commonType.UserTypeId
-        );
-
-        var createReceiverResponse = await _usersService.CreateCommonUser(createSenderRequest);
-        var receiverUserId = createReceiverResponse.userId;
 
         var request = new CreateTransferRequest(
             transferDescription: "Some description",
