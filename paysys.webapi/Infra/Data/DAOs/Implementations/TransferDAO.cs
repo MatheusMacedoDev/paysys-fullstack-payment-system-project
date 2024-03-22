@@ -24,7 +24,7 @@ public class TransferDAO : ITransferDAO
         ConnectionString = connectionString;
     }
 
-    public async Task<IEnumerable<UserTransferHistoryItemTO>> GetCommonUserTransferHistory(Guid userId)
+    public async Task<IEnumerable<UserTransferHistoryItemTO>> GetUserTransferHistory(Guid userId)
     {
         try
         {

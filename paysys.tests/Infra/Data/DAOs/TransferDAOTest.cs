@@ -103,7 +103,7 @@ public class TransferDAOTest : DatabaseTestCase
 
         var senderUserId = await StartInitialDatabaseData(createReceiverResponse.userId, commonUserTypeId);
 
-        var outputedTransfers = await _transferDAO.GetCommonUserTransferHistory(senderUserId);
+        var outputedTransfers = await _transferDAO.GetUserTransferHistory(senderUserId);
 
         bool allTransfersAreFromSenderUser = false;
 
@@ -144,7 +144,7 @@ public class TransferDAOTest : DatabaseTestCase
 
         await StartInitialDatabaseData(createReceiverResponse.userId, commonUserTypeId);
 
-        var outputedTransfers = await _transferDAO.GetShopkeeperTransferHistory(senderUserId);
+        var outputedTransfers = await _transferDAO.GetUserTransferHistory(createReceiverResponse.userId);
 
         bool allTransfersAreFromReceiverUser = false;
 

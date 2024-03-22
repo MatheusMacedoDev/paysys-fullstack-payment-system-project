@@ -4,5 +4,5 @@ namespace paysys.webapi.Infra.Data.DAOs.Interfaces;
 
 public interface ITransferDAO
 {
-    Task<IEnumerable<UserTransferHistoryItemTO>> GetCommonUserTransferHistory(Guid userId);
+    Task<IEnumerable<UserTransferHistoryItemTO>> GetUserTransferHistory(Guid userId);
 }
