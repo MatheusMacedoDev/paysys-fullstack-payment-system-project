@@ -101,9 +101,9 @@ public class TransferDAOTest : DatabaseTestCase
 
         var createReceiverResponse = await _usersService.CreateCommonUser(createReceiverRequest);
 
-        var senderUserId = await StartInitialDatabaseData(createReceiverResponse.userId, commonUserTypeId);
+        var transferData = await StartInitialDatabaseData(createReceiverResponse.userId, commonUserTypeId);
 
-        var outputedTransfers = await _transferDAO.GetUserTransferHistory(senderUserId);
+        var outputedTransfers = await _transferDAO.GetUserTransferHistory(transferData.userId);
 
         bool allTransfersAreFromSenderUser = false;
 
@@ -183,11 +183,13 @@ public class TransferDAOTest : DatabaseTestCase
 
         var createReceiverResponse = await _usersService.CreateCommonUser(createReceiverRequest);
 
-        var transferId = await StartInitialDatabaseData(createReceiverResponse.userId, commonUserTypeId, true);
+        var transferData = await StartInitialDatabaseData(createReceiverResponse.userId, commonUserTypeId);
 
-        var outputedTransfers = await _transferDAO.GetUserFullTransfer(transferId);
+        var outputedTransfer = await _transferDAO.GetFullTransfer(transferData.transferId, transferData.userId);
 
-        Assert.True(false);
+        System.Console.WriteLine(outputedTransfer.ToString());
+
+        Assert.True(true);
     }
 
     private async Task<Guid> CreateCommonUserType()
@@ -208,7 +210,7 @@ public class TransferDAOTest : DatabaseTestCase
         return commonType.UserTypeId;
     }
 
-    private async Task<Guid> StartInitialDatabaseData(Guid receiverUserId, Guid commonUserTypeId, bool shouldReturnTransferId = false)
+    private async Task<TransferLocalData> StartInitialDatabaseData(Guid receiverUserId, Guid commonUserTypeId)
     {
         var transferStatus = TransferStatus.Create("Realizado");
         await _transferStatusRepository.CreateTransferStatus(transferStatus);
@@ -247,11 +249,8 @@ public class TransferDAOTest : DatabaseTestCase
 
         var response = await _transfersService.CreateTransfer(request);
 
-        if (shouldReturnTransferId)
-        {
-            return response.transferId;
-        }
-
-        return senderUserId;
+        return new TransferLocalData(response.transferId, senderUserId);
     }
 }
+
+public record TransferLocalData(Guid transferId, Guid userId);

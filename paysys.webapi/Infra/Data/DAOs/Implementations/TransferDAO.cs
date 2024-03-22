@@ -54,4 +54,47 @@ public class TransferDAO : ITransferDAO
             throw;
         }
     }
+
+    public async Task<FullTransferTO> GetFullTransfer(Guid transferId, Guid userId)
+    {
+        try
+        {
+            using (var connection = new NpgsqlConnection(ConnectionString))
+            {
+                string query = @"
+                    SELECT
+                        CASE
+                            WHEN transfers.sender_user_id = @userId
+                                THEN COALESCE(
+                                    common_users.common_user_name, 
+                                    shopkeepers.fancy_name
+                                )
+                            WHEN transfers.receiver_user_id = @userId
+                                THEN common_users.common_user_name
+                            ELSE 'There is no another user'
+                        END anotherUserIntoTransferName,
+                        transfers.transfer_description AS fullTransferDescription,
+                        transfers.transfer_datetime AS transferDateTime,
+                        transfers.transfer_amount AS transferAmount,
+                        status.transfer_status_name AS transferStatus,
+                        categories.transfer_category_name AS transferCategory
+                    FROM transfers
+                    LEFT JOIN transfer_status AS status
+                        ON transfers.transfer_status_id = status.transfer_status_id
+                    LEFT JOIN transfer_categories as categories
+                        ON transfers.transfer_category_id = categories.transfer_category_id
+                    LEFT JOIN common_users
+                        ON common_users.user_id = @userId
+                    LEFT JOIN shopkeepers
+                        ON shopkeepers.user_id = @userId
+                ";
+
+                return (await connection.QueryFirstOrDefaultAsync<FullTransferTO>(query, new { transferId, userId }))!;
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }
