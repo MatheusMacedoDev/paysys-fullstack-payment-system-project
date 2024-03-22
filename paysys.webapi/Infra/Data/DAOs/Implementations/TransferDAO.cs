@@ -24,7 +24,7 @@ public class TransferDAO : ITransferDAO
         ConnectionString = connectionString;
     }
 
-    public async Task<IEnumerable<CommonUserTransferHistoryItemTO>> GetCommonUserTransferHistory(Guid userId)
+    public async Task<IEnumerable<UserTransferHistoryItemTO>> GetCommonUserTransferHistory(Guid userId)
     {
         try
         {
@@ -46,7 +46,7 @@ public class TransferDAO : ITransferDAO
                     ORDER BY transfers.transfer_datetime
                 ";
 
-                return await connection.QueryAsync<CommonUserTransferHistoryItemTO>(query, new { userId });
+                return await connection.QueryAsync<UserTransferHistoryItemTO>(query, new { userId });
             }
         }
         catch (Exception)

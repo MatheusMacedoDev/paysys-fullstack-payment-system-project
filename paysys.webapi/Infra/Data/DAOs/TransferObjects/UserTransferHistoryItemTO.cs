@@ -1,6 +1,6 @@
 namespace paysys.webapi.Infra.Data.DAOs.TransferObjects;
 
-public record CommonUserTransferHistoryItemTO(
+public record UserTransferHistoryItemTO(
     Guid transferId,
     string? transferDescription,
     string? transferCategoryName,
