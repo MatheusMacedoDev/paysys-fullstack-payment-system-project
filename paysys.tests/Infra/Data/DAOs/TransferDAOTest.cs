@@ -166,6 +166,30 @@ public class TransferDAOTest : DatabaseTestCase
         Assert.True(true);
     }
 
+    [Fact]
+    public async Task GetFullTransactionTest()
+    {
+        var commonUserTypeId = await CreateCommonUserType();
+
+        var createReceiverRequest = new CreateCommonUserRequest(
+            commonUserName: "Lucas Santos Machado",
+            cpf: "38843546598",
+            userName: "Machadão",
+            email: "lucas.machado@email.com",
+            phoneNumber: "11947346577",
+            password: "12345",
+            userTypeId: commonUserTypeId
+        );
+
+        var createReceiverResponse = await _usersService.CreateCommonUser(createReceiverRequest);
+
+        var transferId = await StartInitialDatabaseData(createReceiverResponse.userId, commonUserTypeId, true);
+
+        var outputedTransfers = await _transferDAO.GetUserFullTransfer(transferId);
+
+        Assert.True(false);
+    }
+
     private async Task<Guid> CreateCommonUserType()
     {
         var commonType = UserType.Create("Comum");
@@ -184,7 +208,7 @@ public class TransferDAOTest : DatabaseTestCase
         return commonType.UserTypeId;
     }
 
-    private async Task<Guid> StartInitialDatabaseData(Guid receiverUserId, Guid commonUserTypeId)
+    private async Task<Guid> StartInitialDatabaseData(Guid receiverUserId, Guid commonUserTypeId, bool shouldReturnTransferId = false)
     {
         var transferStatus = TransferStatus.Create("Realizado");
         await _transferStatusRepository.CreateTransferStatus(transferStatus);
@@ -222,6 +246,11 @@ public class TransferDAOTest : DatabaseTestCase
         );
 
         var response = await _transfersService.CreateTransfer(request);
+
+        if (shouldReturnTransferId)
+        {
+            return response.transferId;
+        }
 
         return senderUserId;
     }
