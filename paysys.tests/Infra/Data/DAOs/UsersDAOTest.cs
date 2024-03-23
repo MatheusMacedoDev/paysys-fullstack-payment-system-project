@@ -97,7 +97,7 @@ public class UsersDAOTest : DatabaseTestCase
             new UsersRepository(DbContext),
             new UnityOfWork(DbContext),
             new CryptographyStrategy(),
-            new CommonUserDAO(),
+            new CommonUserDAO(LocalConnetionString!),
             new ShopkeeperDAO(),
             new AdministratorDAO(LocalConnetionString!),
             new TokenStrategy(tokenSettingsOptions),
