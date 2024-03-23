@@ -24,7 +24,7 @@ public class UserServiceTest
         IUnityOfWork unityOfWork = new FakeUnityOfWork();
         ICryptographyStrategy cryptographyStrategy = new CryptographyStrategy();
         ICommonUserDAO commonUserDAO = new CommonUserDAO("");
-        IShopkeeperDAO shopkeeperDAO = new ShopkeeperDAO();
+        IShopkeeperDAO shopkeeperDAO = new ShopkeeperDAO("");
         IAdministratorDAO administratorDAO = new AdministratorDAO("");
 
         var tokenSettings = new TokenSettings()
