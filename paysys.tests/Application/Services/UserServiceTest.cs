@@ -25,7 +25,7 @@ public class UserServiceTest
         ICryptographyStrategy cryptographyStrategy = new CryptographyStrategy();
         ICommonUserDAO commonUserDAO = new CommonUserDAO();
         IShopkeeperDAO shopkeeperDAO = new ShopkeeperDAO();
-        IAdministratorDAO administratorDAO = new AdministratorDAO();
+        IAdministratorDAO administratorDAO = new AdministratorDAO("");
 
         var tokenSettings = new TokenSettings()
         {

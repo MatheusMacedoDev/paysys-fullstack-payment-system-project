@@ -99,7 +99,7 @@ public class UsersDAOTest : DatabaseTestCase
             new CryptographyStrategy(),
             new CommonUserDAO(),
             new ShopkeeperDAO(),
-            new AdministratorDAO(),
+            new AdministratorDAO(LocalConnetionString!),
             new TokenStrategy(tokenSettingsOptions),
             new UserDAO()
         );
