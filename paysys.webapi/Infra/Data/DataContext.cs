@@ -23,6 +23,11 @@ public class DataContext : DbContext
         _connectionString = settings.Value.LocalConnection;
     }
 
+    public DataContext(string connectionString)
+    {
+        _connectionString = connectionString;
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // Postgres Config
