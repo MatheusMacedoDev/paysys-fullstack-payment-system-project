@@ -1,5 +1,7 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Options;
 using Npgsql;
+using paysys.webapi.Configuration;
 using paysys.webapi.Infra.Data.DAOs.Interfaces;
 using paysys.webapi.Infra.Data.DAOs.TransferObjects;
 
@@ -9,14 +11,9 @@ public class UserDAO : IUserDAO
 {
     public string? ConnectionString { private get; init; }
 
-    public UserDAO()
+    public UserDAO(IOptions<ConnectionStringSettings> settings)
     {
-        IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json")
-            .Build();
-
-        ConnectionString = configuration.GetConnectionString("LocalConnection");
+        ConnectionString = settings.Value.LocalConnection;
     }
 
     public UserDAO(string connectionString)

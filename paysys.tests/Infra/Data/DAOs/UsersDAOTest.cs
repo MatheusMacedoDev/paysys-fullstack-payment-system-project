@@ -101,7 +101,7 @@ public class UsersDAOTest : DatabaseTestCase
             new ShopkeeperDAO(LocalConnetionString!),
             new AdministratorDAO(LocalConnetionString!),
             new TokenStrategy(tokenSettingsOptions),
-            new UserDAO()
+            new UserDAO(LocalConnetionString!)
         );
 
         var createCommonUserRequest = new CreateCommonUserRequest(

@@ -36,7 +36,7 @@ public class UserServiceTest
         IOptions<TokenSettings> tokenSettingsOptions = Options.Create(tokenSettings);
         ITokenStrategy tokenStrategy = new TokenStrategy(tokenSettingsOptions);
 
-        IUserDAO userDAO = new UserDAO();
+        IUserDAO userDAO = new UserDAO("");
 
         _usersService = new UsersService(_usersRepository, unityOfWork, cryptographyStrategy, commonUserDAO, shopkeeperDAO, administratorDAO, tokenStrategy, userDAO);
     }
