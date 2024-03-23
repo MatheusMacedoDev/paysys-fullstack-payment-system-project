@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using paysys.webapi.Configuration;
 using paysys.webapi.Domain.Entities;
 
 namespace paysys.webapi.Infra.Data;
@@ -16,23 +18,13 @@ public class DataContext : DbContext
 
     private string? _connectionString;
 
-    public DataContext(string connectionString = "")
+    public DataContext(IOptions<ConnectionStringSettings> settings)
     {
-        _connectionString = connectionString;
+        _connectionString = settings.Value.LocalConnection;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (_connectionString == "")
-        {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            _connectionString = configuration.GetConnectionString("LocalConnection");
-        }
-
         // Postgres Config
         optionsBuilder.UseNpgsql(_connectionString);
 
