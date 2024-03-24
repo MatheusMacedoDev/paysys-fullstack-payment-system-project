@@ -47,6 +47,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IShopkeeperDAO, ShopkeeperDAO>();
     builder.Services.AddScoped<IAdministratorDAO, AdministratorDAO>();
     builder.Services.AddScoped<IUserDAO, UserDAO>();
+    builder.Services.AddScoped<ITransferDAO, TransferDAO>();
 
     // Strategies Injections
     builder.Services.AddSingleton<ICryptographyStrategy, CryptographyStrategy>();

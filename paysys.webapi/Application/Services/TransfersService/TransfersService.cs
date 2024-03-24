@@ -24,11 +24,12 @@ public class TransfersService : ITransfersService
 
     // DAOs
     private readonly ICommonUserDAO _commonUserDAO;
+    private readonly ITransferDAO _transferDAO;
 
     // Unity of Work
     private readonly IUnityOfWork _unityOfWork;
 
-    public TransfersService(IOptions<UserTypeNamesSettings> userTypeNamesSettings, ITransferStatusRepository transferStatusRepository, ITransferCategoriesRepository transferCategoriesRepository, ITransfersRepository transfersRepository, IUsersRepository usersRepository, IUserTypesRepository userTypesRepository, ICommonUserDAO commonUserDAO, IUnityOfWork unityOfWork)
+    public TransfersService(IOptions<UserTypeNamesSettings> userTypeNamesSettings, ITransferStatusRepository transferStatusRepository, ITransferCategoriesRepository transferCategoriesRepository, ITransfersRepository transfersRepository, IUsersRepository usersRepository, IUserTypesRepository userTypesRepository, ICommonUserDAO commonUserDAO, ITransferDAO transferDAO, IUnityOfWork unityOfWork)
     {
         _userTypeNamesSettings = userTypeNamesSettings;
 
@@ -39,6 +40,7 @@ public class TransfersService : ITransfersService
         _userTypesRepository = userTypesRepository;
 
         _commonUserDAO = commonUserDAO;
+        _transferDAO = transferDAO;
 
         _unityOfWork = unityOfWork;
     }
@@ -174,6 +176,14 @@ public class TransfersService : ITransfersService
         }
     }
 
+    public async Task<GetUserTransferHistoryResponse> GetUserTransferHistory(GetUserTransferHistoryRequest request)
+    {
+        var transferHistory = await _transferDAO.GetUserTransferHistory(request.userId);
+        var response = new GetUserTransferHistoryResponse(transferHistory);
+
+        return response;
+    }
+
     private async Task MakeSenderUserValidations(IsAdministratorUserSpecification isAdministratorSpecification, UserType senderUserType, Guid senderUserId, Transfer transfer)
     {
         // Sender is not administrator validation
@@ -248,4 +258,5 @@ public class TransfersService : ITransfersService
             throw new ArgumentException("You can increase balance only for common and shopkeeper users.");
         }
     }
+
 }

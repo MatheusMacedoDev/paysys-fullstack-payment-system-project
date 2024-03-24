@@ -30,4 +30,20 @@ public class TransfersController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+
+    [HttpGet("transfers/getUserTransferHistory/{userId:Guid}")]
+    public IActionResult GetUserTransferHistory([FromRoute] Guid userId)
+    {
+        try
+        {
+            var request = new GetUserTransferHistoryRequest(userId);
+            var response = _transfersService.GetUserTransferHistory(request);
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }

@@ -50,6 +50,7 @@ public class TransferDAOTest : DatabaseTestCase
 
         _commonUserDAO = new CommonUserDAO(LocalConnetionString!);
         _shopkeeperDAO = new ShopkeeperDAO(LocalConnetionString!);
+        _transferDAO = new TransferDAO(LocalConnetionString!);
 
         _transfersService = new TransfersService(
             userTypeNamesSettingsOptions,
@@ -59,6 +60,7 @@ public class TransferDAOTest : DatabaseTestCase
             _usersRepository,
             _userTypesRepositories,
             _commonUserDAO,
+            _transferDAO,
             new UnityOfWork(DbContext)
         );
 
@@ -81,7 +83,6 @@ public class TransferDAOTest : DatabaseTestCase
             new UserDAO(LocalConnetionString!)
         );
 
-        _transferDAO = new TransferDAO(LocalConnetionString!);
     }
 
     [Fact]

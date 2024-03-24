@@ -58,6 +58,7 @@ public class TransferServiceTest : DatabaseTestCase
             _usersRepository,
             _userTypesRepositories,
             _commonUserDAO,
+            new TransferDAO(LocalConnetionString!),
             new UnityOfWork(DbContext)
         );
 

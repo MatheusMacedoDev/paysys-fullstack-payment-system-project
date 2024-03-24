@@ -12,4 +12,5 @@ public interface ITransfersService
     Task<GetAllTransferCategoriesResponse> GetAllTransferCategories();
 
     Task<CreateTransferResponse> CreateTransfer(CreateTransferRequest request);
+    Task<GetUserTransferHistoryResponse> GetUserTransferHistory(GetUserTransferHistoryRequest request);
 }
