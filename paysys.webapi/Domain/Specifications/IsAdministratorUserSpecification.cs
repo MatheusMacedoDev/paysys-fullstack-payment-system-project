@@ -16,18 +16,6 @@ public class IsAdministratorUserSpecification : Specification<UserType>
 
     public bool IsSatisfiedBy(UserType type)
     {
-        try
-        {
-            if (type.TypeName == AdministratorTypeName)
-            {
-                return true;
-            }
-
-            return false;
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        return type.TypeName == AdministratorTypeName;
     }
 }

@@ -6,11 +6,9 @@ public interface IUsersRepository
 {
     Task CreateUser(User user);
     Task<User> GetUserById(Guid userId);
-    Task DeleteUser(Guid userId);
 
     Task CreateAdministratorUser(AdministratorUser administrator);
     Task<AdministratorUser> GetAdministratorById(Guid administratorId);
-    Task DeleteAdministrator(Guid administratorId);
 
     Task CreateCommonUser(CommonUser commonUser);
     Task<double> ChangeCommonUserBalance(Guid commonUserId, double newBalance);

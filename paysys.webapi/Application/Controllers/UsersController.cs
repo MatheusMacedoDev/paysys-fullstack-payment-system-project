@@ -111,7 +111,6 @@ public class UsersController : ControllerBase
         catch (Exception error)
         {
             return BadRequest(error.Message);
-            throw;
         }
     }
 

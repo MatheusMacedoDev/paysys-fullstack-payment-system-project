@@ -23,11 +23,6 @@ public class UsersRepository : IUsersRepository
         throw new NotImplementedException();
     }
 
-    public Task DeleteAdministrator(Guid administratorId)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task CreateUser(User user)
     {
         await _context.Users!.AddAsync(user);
@@ -36,11 +31,6 @@ public class UsersRepository : IUsersRepository
     public async Task<User> GetUserById(Guid userId)
     {
         return (await _context.Users!.FirstOrDefaultAsync(user => user.UserId == userId))!;
-    }
-
-    public Task DeleteUser(Guid userId)
-    {
-        throw new NotImplementedException();
     }
 
     public async Task CreateCommonUser(CommonUser commonUser)

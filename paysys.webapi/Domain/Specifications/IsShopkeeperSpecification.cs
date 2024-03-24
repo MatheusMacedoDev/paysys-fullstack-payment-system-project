@@ -16,18 +16,6 @@ public class IsShopkeeperSpecification : Specification<UserType>
 
     public bool IsSatisfiedBy(UserType type)
     {
-        try
-        {
-            if (type.TypeName == ShopkeeperTypeName)
-            {
-                return true;
-            }
-
-            return false;
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        return type.TypeName == ShopkeeperTypeName;
     }
 }

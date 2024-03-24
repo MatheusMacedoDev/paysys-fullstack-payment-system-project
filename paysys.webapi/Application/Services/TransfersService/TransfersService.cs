@@ -117,7 +117,7 @@ public class TransfersService : ITransfersService
 
             return response;
         }
-        catch (System.Exception)
+        catch (Exception)
         {
 
             throw;
