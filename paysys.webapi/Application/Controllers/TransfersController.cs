@@ -46,4 +46,22 @@ public class TransfersController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+
+    [HttpGet("transfers/getUserTransferHistory/{transferId:Guid}/{userId:Guid}")]
+    public IActionResult GetFullTransfer(
+        [FromRoute] Guid transferId,
+        [FromRoute] Guid userId)
+    {
+        try
+        {
+            var request = new GetFullTransferRequest(transferId, userId);
+            var response = _transfersService.GetFullTransfer(request);
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }

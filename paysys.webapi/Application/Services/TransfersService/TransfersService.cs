@@ -184,6 +184,14 @@ public class TransfersService : ITransfersService
         return response;
     }
 
+    public async Task<GetFullTransferResponse> GetFullTransfer(GetFullTransferRequest request)
+    {
+        var fullTransfer = await _transferDAO.GetFullTransfer(request.transferId, request.userId);
+        var response = new GetFullTransferResponse(fullTransfer);
+
+        return response;
+    }
+
     private async Task MakeSenderUserValidations(IsAdministratorUserSpecification isAdministratorSpecification, UserType senderUserType, Guid senderUserId, Transfer transfer)
     {
         // Sender is not administrator validation
