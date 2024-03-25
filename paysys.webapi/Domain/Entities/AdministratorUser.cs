@@ -6,6 +6,7 @@ namespace paysys.webapi.Domain.Entities;
 
 [Table("administrator_users")]
 [Index(nameof(UserId), IsUnique = true)]
+[Index(nameof(AdministratorCPF), IsUnique = true)]
 public class AdministratorUser
 {
     [Key]

@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace paysys.webapi.Domain.Entities;
 
 [Table("users")]
+[Index(nameof(UserName), IsUnique = true)]
+[Index(nameof(Email), IsUnique = true)]
 public class User
 {
     [Key]

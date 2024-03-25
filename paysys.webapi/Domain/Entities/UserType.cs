@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 
 namespace paysys.webapi.Domain.Entities;
 
 [Table("user_types")]
+[Index(nameof(TypeName), IsUnique = true)]
 public class UserType
 {
     [Key]

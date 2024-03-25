@@ -6,6 +6,7 @@ namespace paysys.webapi.Domain.Entities;
 
 [Table("common_users")]
 [Index(nameof(UserId), IsUnique = true)]
+[Index(nameof(CommonUserCPF), IsUnique = true)]
 public class CommonUser
 {
     [Key]

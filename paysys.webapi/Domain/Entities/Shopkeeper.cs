@@ -6,6 +6,7 @@ namespace paysys.webapi.Domain.Entities;
 
 [Table("shopkeepers")]
 [Index(nameof(UserId), IsUnique = true)]
+[Index(nameof(ShopkeeperCNJP), IsUnique = true)]
 public class Shopkeeper
 {
     [Key]
