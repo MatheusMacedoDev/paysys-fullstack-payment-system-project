@@ -108,11 +108,12 @@ public class TransferServiceTest : DatabaseTestCase
         await _userTypesRepositories.CreateUserType(commonType);
         await DbContext.SaveChangesAsync();
 
+
         var createSenderRequest = new CreateCommonUserRequest(
             commonUserName: "Matheus Macedo Santos",
-            cpf: "58883749578",
-            userName: "Math8006",
-            email: "matheus@email.com",
+            cpf: "58883749573",
+            userName: "Math80064",
+            email: "matheus22@email.com",
             phoneNumber: "11947346577",
             password: "12345",
             userTypeId: commonType.UserTypeId
@@ -138,7 +139,7 @@ public class TransferServiceTest : DatabaseTestCase
             userTypeId: commonType.UserTypeId
         );
 
-        var createReceiverResponse = await _usersService.CreateCommonUser(createSenderRequest);
+        var createReceiverResponse = await _usersService.CreateCommonUser(createReceiverRequest);
         receiverUserId = createReceiverResponse.userId;
 
         var request = new CreateTransferRequest(
