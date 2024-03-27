@@ -75,9 +75,9 @@ public class User : Notifiable<Notification>
         userName = userName.Trim();
 
         AddNotifications(new Contract<User>()
-            .IsNotNullOrEmpty(userName, "O nome de usuário não deve ser nulo ou vazio")
-            .IsGreaterThan(userName, 5, "O nome de usuário deve conter mais de cinco carácteres")
-            .Matches(userName, "[a-zA-Z]+", "O nome de usuário deve conter letras")
+            .IsNotNullOrEmpty(userName, "UserName", "O nome de usuário não deve ser nulo ou vazio")
+            .IsGreaterThan(userName, 5, "UserName", "O nome de usuário deve conter mais de cinco carácteres")
+            .Matches(userName, "[a-zA-Z]+", "UserName", "O nome de usuário deve conter letras")
         );
 
         if (IsValid)
