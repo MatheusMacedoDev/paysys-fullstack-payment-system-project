@@ -128,7 +128,10 @@ public class User : Notifiable<Notification>
         AddNotifications(new Contract<User>()
             .IsNotNullOrEmpty(password, "Password", "A senha não pode ser nula ou vazia")
             .IsGreaterOrEqualsThan(password, 10, "Password", "A senha deve conter ao menos dez caracteres")
-            .Matches(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$", "Password", "A senha deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caracter especial")
+            .Matches(password, @"[0-9]+", "Password", "A senha deve conter ao menos um número")
+            .Matches(password, @"[a-z]+", "Password", "A senha deve conter ao menos um letra minúscula")
+            .Matches(password, @"[A-Z]+", "Password", "A senha deve conter ao menos um letra minúscula")
+            .Matches(password, @"[^a-zA-Z0-9]+", "Password", "A senha deve conter ao menos um caractere especial")
         );
 
         Salt = cryptographyStrategy.MakeSalt();
