@@ -36,7 +36,7 @@ public class AdministratorUser : Notifiable<Notification>
     {
         AdministratorId = Guid.NewGuid();
         ChangeAdministratorName(administratorName);
-        AdministratorCPF = administratorCPF;
+        ChangeAdministratorCPF(administratorCPF);
 
         UserId = userId;
     }
@@ -48,9 +48,21 @@ public class AdministratorUser : Notifiable<Notification>
         AddNotifications(new Contract<AdministratorUser>()
             .IsNotNullOrEmpty(administratorName, "AdministratorName", "O nome do administrador não deve ser nulo ou vazio")
             .IsGreaterOrEqualsThan(administratorName, 8, "AdministratorName", "O nome do administrador deve ter mais que oito letras")
-            .Matches(administratorName, @"^[A-Z][a-z]+([ ][A-Z][a-z]+)+$", "AdministratorName", "O nome conforme descrito é inválido")
+            .Matches(administratorName, @"^[A-Z][a-z]+(\s[A-Z][a-z]+)+$", "AdministratorName", "O nome conforme descrito é inválido")
         );
 
         AdministratorName = administratorName;
+    }
+
+    private void ChangeAdministratorCPF(string administratorCPF)
+    {
+        administratorCPF = administratorCPF.Trim();
+
+        AddNotifications(new Contract<AdministratorUser>()
+            .IsNotNullOrEmpty(administratorCPF, "AdministratorCPF", "O CPF do administrador não deve ser nulo ou vazio")
+            .Matches(administratorCPF, @"^\d{11}$", "AdministratorCPF", "O CPF conforme descrito é inválido")
+        );
+
+        AdministratorCPF = administratorCPF;
     }
 }
