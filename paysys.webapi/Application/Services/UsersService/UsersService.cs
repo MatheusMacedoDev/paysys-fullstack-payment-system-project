@@ -49,7 +49,7 @@ public class UsersService : IUsersService
                 request.userTypeId
             );
 
-            var administrator = AdministratorUser.Create(
+            var administrator = new AdministratorUser(
                 request.administratorName,
                 request.cpf,
                 user.UserId
