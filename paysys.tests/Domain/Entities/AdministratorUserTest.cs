@@ -39,6 +39,21 @@ public class AdministratorUserTest
         Assert.False(administrator.IsValid);
     }
 
+    [Fact]
+    public void CreateAdministratorUserWithCPF()
+    {
+        var administrator = new AdministratorUser(
+            administratorName: "Matheus Macedo santos",
+            administratorCPF: "6777837984e",
+            userId: Guid.Empty
+        );
+
+        var isCPFInvalid = IsUserPropertyInvalid(administrator, "AdministratorCPF");
+
+        Assert.True(isCPFInvalid);
+        Assert.False(administrator.IsValid);
+    }
+
     private bool IsUserPropertyInvalid(AdministratorUser administrator, string propertyName)
     {
         if (!administrator.IsValid)
