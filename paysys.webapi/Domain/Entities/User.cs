@@ -57,7 +57,7 @@ public class User : Notifiable<Notification>
         UserId = Guid.NewGuid();
 
         ChangeUserName(userName);
-        Email = email;
+        ChangeEmail(email);
         PhoneNumber = phoneNumber;
         Hash = hash;
         Salt = salt;
@@ -82,5 +82,18 @@ public class User : Notifiable<Notification>
 
         if (IsValid)
             UserName = userName;
+    }
+
+    private void ChangeEmail(string email)
+    {
+        email = email.Trim();
+
+        AddNotifications(new Contract<User>()
+            .IsNotNullOrEmpty(email, "Email", "O e-mail não deve ser nulo ou vazio")
+            .IsEmail(email, "Email", "O e-mail digitado não é válido")
+        );
+
+        if (IsValid)
+            Email = email;
     }
 }

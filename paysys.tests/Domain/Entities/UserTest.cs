@@ -23,6 +23,14 @@ public class UserTest
             userTypeId: Guid.Empty
         );
 
+        if (!user.IsValid)
+        {
+            foreach (var notification in user.Notifications)
+            {
+                Console.WriteLine(notification.Message);
+            }
+        }
+
         Assert.True(user.IsValid);
     }
 
@@ -37,22 +45,44 @@ public class UserTest
             userTypeId: Guid.Empty
         );
 
-        if (user.IsValid)
-        {
-            bool isUserNameInvalid = false;
+        var isUserNameInvalid = IsUserPropertyInvalid(user, "UserName");
 
+        Assert.True(isUserNameInvalid);
+        Assert.False(user.IsValid);
+    }
+
+    [Fact]
+    public void CreateUserWithIncorrectEmail()
+    {
+        User user = CreateUser(
+            userName: "009487",
+            email: "matheus.macedo",
+            phoneNumber: "984236577",
+            password: "12345",
+            userTypeId: Guid.Empty
+        );
+
+        var isEmailInvalid = IsUserPropertyInvalid(user, "Email");
+
+        Assert.True(isEmailInvalid);
+        Assert.False(user.IsValid);
+    }
+
+    private bool IsUserPropertyInvalid(User user, string propertyName)
+    {
+        if (!user.IsValid)
+        {
             foreach (var notification in user.Notifications)
             {
-                if (notification.Key == "UserName")
+                if (notification.Key == propertyName)
                 {
-                    isUserNameInvalid = true;
+                    return true;
                 }
             }
-
-            Assert.True(isUserNameInvalid);
         }
 
-        Assert.False(user.IsValid);
+        return false;
+
     }
 
     private User CreateUser(string userName, string email, string phoneNumber, string password, Guid userTypeId)
