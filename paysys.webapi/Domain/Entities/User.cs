@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Flunt.Notifications;
+using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
 
 namespace paysys.webapi.Domain.Entities;
@@ -7,7 +9,7 @@ namespace paysys.webapi.Domain.Entities;
 [Table("users")]
 [Index(nameof(UserName), IsUnique = true)]
 [Index(nameof(Email), IsUnique = true)]
-public class User
+public class User : Notifiable<Notification>
 {
     [Key]
     [Column("user_id")]
@@ -50,29 +52,35 @@ public class User
     [ForeignKey(nameof(UserTypeId))]
     public UserType? UserType { get; private set; }
 
-    private User()
+    public User(string userName, string email, string phoneNumber, byte[] hash, byte[] salt, Guid userTypeId)
     {
-    }
+        UserId = Guid.NewGuid();
 
-    public static User Create(string userName, string email, string phoneNumber, byte[] hash, byte[] salt, Guid userTypeId)
-    {
-        User newUser = new User();
-
-        newUser.UserId = Guid.NewGuid();
-
-        newUser.UserName = userName;
-        newUser.Email = email;
-        newUser.PhoneNumber = phoneNumber;
-        newUser.Hash = hash;
-        newUser.Salt = salt;
+        ChangeUserName(userName);
+        Email = email;
+        PhoneNumber = phoneNumber;
+        Hash = hash;
+        Salt = salt;
 
         var currentDateTime = DateTime.UtcNow;
 
-        newUser.CreatedOn = currentDateTime;
-        newUser.LastUpdatedOn = currentDateTime;
+        CreatedOn = currentDateTime;
+        LastUpdatedOn = currentDateTime;
 
-        newUser.UserTypeId = userTypeId;
+        UserTypeId = userTypeId;
+    }
 
-        return newUser;
+    private void ChangeUserName(string userName)
+    {
+        userName = userName.Trim();
+
+        AddNotifications(new Contract<User>()
+            .IsNotNullOrEmpty(userName, "O nome de usuário não deve ser nulo ou vazio")
+            .IsGreaterThan(userName, 5, "O nome de usuário deve conter mais de cinco carácteres")
+            .Matches(userName, "[a-zA-Z]+", "O nome de usuário deve conter letras")
+        );
+
+        if (IsValid)
+            UserName = userName;
     }
 }

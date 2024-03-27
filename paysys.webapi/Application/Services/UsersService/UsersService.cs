@@ -202,7 +202,7 @@ public class UsersService : IUsersService
         var salt = _cryptographyStrategy.MakeSalt();
         var hash = _cryptographyStrategy.MakeHashedPassword(password, salt);
 
-        var user = User.Create(
+        var user = new User(
             userName,
             email,
             phoneNumber,
