@@ -123,6 +123,14 @@ public class User : Notifiable<Notification>
 
     private void ChangePassword(string password, ICryptographyStrategy cryptographyStrategy)
     {
+        password = password.Trim();
+
+        AddNotifications(new Contract<User>()
+            .IsNotNullOrEmpty(password, "Password", "A senha não pode ser nula ou vazia")
+            .IsGreaterOrEqualsThan(password, 10, "Password", "A senha deve conter ao menos dez caracteres")
+            .Matches(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$", "Password", "A senha deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caracter especial")
+        );
+
         Salt = cryptographyStrategy.MakeSalt();
         Hash = cryptographyStrategy.MakeHashedPassword(password, Salt);
     }

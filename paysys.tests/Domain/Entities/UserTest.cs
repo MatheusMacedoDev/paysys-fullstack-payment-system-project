@@ -19,7 +19,7 @@ public class UserTest
             userName: "Mathe1",
             email: "matheus.macedo@email.com",
             phoneNumber: "11984236577",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: Guid.Empty,
             _cryptographyStrategy
         );
