@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Flunt.Notifications;
+using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
 
 namespace paysys.webapi.Domain.Entities;
@@ -7,7 +9,7 @@ namespace paysys.webapi.Domain.Entities;
 [Table("administrator_users")]
 [Index(nameof(UserId), IsUnique = true)]
 [Index(nameof(AdministratorCPF), IsUnique = true)]
-public class AdministratorUser
+public class AdministratorUser : Notifiable<Notification>
 {
     [Key]
     [Column("administrator_id")]
@@ -30,20 +32,25 @@ public class AdministratorUser
     [ForeignKey(nameof(UserId))]
     public User? User { get; set; }
 
-    private AdministratorUser()
+    public AdministratorUser(string administratorName, string administratorCPF, Guid userId)
     {
+        AdministratorId = Guid.NewGuid();
+        ChangeAdministratorName(administratorName);
+        AdministratorCPF = administratorCPF;
+
+        UserId = userId;
     }
 
-    public static AdministratorUser Create(string administratorName, string administratorCPF, Guid userId)
+    private void ChangeAdministratorName(string administratorName)
     {
-        var administrator = new AdministratorUser();
+        administratorName = administratorName.Trim();
 
-        administrator.AdministratorId = Guid.NewGuid();
-        administrator.AdministratorName = administratorName;
-        administrator.AdministratorCPF = administratorCPF;
+        AddNotifications(new Contract<AdministratorUser>()
+            .IsNotNullOrEmpty(administratorName, "AdministratorName", "O nome do administrador não deve ser nulo ou vazio")
+            .IsGreaterOrEqualsThan(administratorName, 8, "AdministratorName", "O nome do administrador deve ter mais que oito letras")
+            .Matches(administratorName, @"^[A-Z][a-z]+([ ][A-Z][a-z]+)+$", "AdministratorName", "O nome conforme descrito é inválido")
+        );
 
-        administrator.UserId = userId;
-
-        return administrator;
+        AdministratorName = administratorName;
     }
 }
