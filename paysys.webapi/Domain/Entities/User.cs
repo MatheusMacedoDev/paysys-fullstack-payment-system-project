@@ -58,7 +58,7 @@ public class User : Notifiable<Notification>
 
         ChangeUserName(userName);
         ChangeEmail(email);
-        PhoneNumber = phoneNumber;
+        ChangePhoneNumber(phoneNumber);
         Hash = hash;
         Salt = salt;
 
@@ -95,5 +95,19 @@ public class User : Notifiable<Notification>
 
         if (IsValid)
             Email = email;
+    }
+
+    private void ChangePhoneNumber(string phoneNumber)
+    {
+        phoneNumber = phoneNumber.Trim();
+
+        AddNotifications(new Contract<User>()
+            .IsNotNullOrEmpty(phoneNumber, "PhoneNumber", "O número de telefone não pode ser nulo ou vazio")
+            .IsGreaterOrEqualsThan(phoneNumber, 11, "PhoneNumber", "O número de telefone deve conter onze dígitos ao todo")
+            .IsLowerOrEqualsThan(phoneNumber, 11, "PhoneNumber", "O número de telefone deve conter onze dígitos ao todo")
+            .Matches(phoneNumber, "^[0-9]*$", "PhoneNumber", "O número de telefone é inválido")
+        );
+
+        PhoneNumber = phoneNumber;
     }
 }

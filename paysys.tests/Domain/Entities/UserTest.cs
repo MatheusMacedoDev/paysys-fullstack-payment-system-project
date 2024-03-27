@@ -18,7 +18,7 @@ public class UserTest
         User user = CreateUser(
             userName: "Mathe1",
             email: "matheus.macedo@email.com",
-            phoneNumber: "984236577",
+            phoneNumber: "11984236577",
             password: "12345",
             userTypeId: Guid.Empty
         );
@@ -40,7 +40,7 @@ public class UserTest
         User user = CreateUser(
             userName: "009487",
             email: "matheus.macedo@email.com",
-            phoneNumber: "984236577",
+            phoneNumber: "11984236577",
             password: "12345",
             userTypeId: Guid.Empty
         );
@@ -57,7 +57,7 @@ public class UserTest
         User user = CreateUser(
             userName: "009487",
             email: "matheus.macedo",
-            phoneNumber: "984236577",
+            phoneNumber: "11984236577",
             password: "12345",
             userTypeId: Guid.Empty
         );
@@ -65,6 +65,23 @@ public class UserTest
         var isEmailInvalid = IsUserPropertyInvalid(user, "Email");
 
         Assert.True(isEmailInvalid);
+        Assert.False(user.IsValid);
+    }
+
+    [Fact]
+    public void CreateUserWithIncorrectPhoneNumber()
+    {
+        User user = CreateUser(
+            userName: "009487",
+            email: "matheus.macedo",
+            phoneNumber: "1198423657A",
+            password: "12345",
+            userTypeId: Guid.Empty
+        );
+
+        var isPhoneNumberInvalid = IsUserPropertyInvalid(user, "PhoneNumber");
+
+        Assert.True(isPhoneNumberInvalid);
         Assert.False(user.IsValid);
     }
 
