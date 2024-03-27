@@ -15,12 +15,13 @@ public class UserTest
     [Fact]
     public void CreateUserCorrectly()
     {
-        User user = CreateUser(
+        User user = new User(
             userName: "Mathe1",
             email: "matheus.macedo@email.com",
             phoneNumber: "11984236577",
             password: "12345",
-            userTypeId: Guid.Empty
+            userTypeId: Guid.Empty,
+            _cryptographyStrategy
         );
 
         if (!user.IsValid)
@@ -37,12 +38,13 @@ public class UserTest
     [Fact]
     public void CreateUserWithIncorrectUserName()
     {
-        User user = CreateUser(
+        User user = new User(
             userName: "009487",
             email: "matheus.macedo@email.com",
             phoneNumber: "11984236577",
             password: "12345",
-            userTypeId: Guid.Empty
+            userTypeId: Guid.Empty,
+            _cryptographyStrategy
         );
 
         var isUserNameInvalid = IsUserPropertyInvalid(user, "UserName");
@@ -54,12 +56,13 @@ public class UserTest
     [Fact]
     public void CreateUserWithIncorrectEmail()
     {
-        User user = CreateUser(
+        User user = new User(
             userName: "009487",
             email: "matheus.macedo",
             phoneNumber: "11984236577",
             password: "12345",
-            userTypeId: Guid.Empty
+            userTypeId: Guid.Empty,
+            _cryptographyStrategy
         );
 
         var isEmailInvalid = IsUserPropertyInvalid(user, "Email");
@@ -71,12 +74,13 @@ public class UserTest
     [Fact]
     public void CreateUserWithIncorrectPhoneNumber()
     {
-        User user = CreateUser(
+        User user = new User(
             userName: "009487",
             email: "matheus.macedo",
             phoneNumber: "1198423657A",
             password: "12345",
-            userTypeId: Guid.Empty
+            userTypeId: Guid.Empty,
+            _cryptographyStrategy
         );
 
         var isPhoneNumberInvalid = IsUserPropertyInvalid(user, "PhoneNumber");
@@ -100,20 +104,5 @@ public class UserTest
 
         return false;
 
-    }
-
-    private User CreateUser(string userName, string email, string phoneNumber, string password, Guid userTypeId)
-    {
-        var salt = _cryptographyStrategy.MakeSalt();
-        var hash = _cryptographyStrategy.MakeHashedPassword(password, salt);
-
-        return new User(
-            userName,
-            email,
-            phoneNumber,
-            hash,
-            salt,
-            userTypeId
-        );
     }
 }

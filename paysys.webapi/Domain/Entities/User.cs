@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Flunt.Notifications;
 using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
+using paysys.webapi.Application.Strategies.Cryptography;
 
 namespace paysys.webapi.Domain.Entities;
 
@@ -52,15 +53,24 @@ public class User : Notifiable<Notification>
     [ForeignKey(nameof(UserTypeId))]
     public UserType? UserType { get; private set; }
 
-    public User(string userName, string email, string phoneNumber, byte[] hash, byte[] salt, Guid userTypeId)
+    public User(string userName, string email, string phoneNumber, byte[] salt, byte[] hash, Guid userTypeId)
+    {
+        UserId = Guid.NewGuid();
+        Email = email;
+        PhoneNumber = phoneNumber;
+        Salt = salt;
+        Hash = hash;
+        UserTypeId = userTypeId;
+    }
+
+    public User(string userName, string email, string phoneNumber, string password, Guid userTypeId, ICryptographyStrategy cryptographyStrategy)
     {
         UserId = Guid.NewGuid();
 
         ChangeUserName(userName);
         ChangeEmail(email);
         ChangePhoneNumber(phoneNumber);
-        Hash = hash;
-        Salt = salt;
+        ChangePassword(password, cryptographyStrategy);
 
         var currentDateTime = DateTime.UtcNow;
 
@@ -109,5 +119,11 @@ public class User : Notifiable<Notification>
         );
 
         PhoneNumber = phoneNumber;
+    }
+
+    private void ChangePassword(string password, ICryptographyStrategy cryptographyStrategy)
+    {
+        Salt = cryptographyStrategy.MakeSalt();
+        Hash = cryptographyStrategy.MakeHashedPassword(password, Salt);
     }
 }

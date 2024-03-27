@@ -199,16 +199,13 @@ public class UsersService : IUsersService
 
     private async Task<User> CreateUser(string userName, string email, string phoneNumber, string password, Guid userTypeId)
     {
-        var salt = _cryptographyStrategy.MakeSalt();
-        var hash = _cryptographyStrategy.MakeHashedPassword(password, salt);
-
         var user = new User(
             userName,
             email,
             phoneNumber,
-            hash,
-            salt,
-            userTypeId
+            password,
+            userTypeId,
+            _cryptographyStrategy
         );
 
         await _usersRepositories.CreateUser(user);
