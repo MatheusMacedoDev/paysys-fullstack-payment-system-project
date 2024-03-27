@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Flunt.Notifications;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using paysys.webapi.Configuration;
 using paysys.webapi.Domain.Entities;
@@ -40,5 +41,7 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Ignore<Notification>();
     }
 }
