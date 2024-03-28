@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Flunt.Notifications;
+using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
 
 namespace paysys.webapi.Domain.Entities;
@@ -7,7 +9,7 @@ namespace paysys.webapi.Domain.Entities;
 [Table("common_users")]
 [Index(nameof(UserId), IsUnique = true)]
 [Index(nameof(CommonUserCPF), IsUnique = true)]
-public class CommonUser
+public class CommonUser : Notifiable<Notification>
 {
     [Key]
     [Column("common_user_id")]
@@ -34,21 +36,39 @@ public class CommonUser
     [ForeignKey(nameof(UserId))]
     public User? User { get; private set; }
 
-    private CommonUser()
+    public CommonUser(string commonUserName, string commonUserCPF, Guid userId)
     {
+        CommonUserId = Guid.NewGuid();
+
+        ChangeCommonUserName(commonUserName);
+        ChangeCommonUserCPF(commonUserCPF);
+
+        UserId = userId;
     }
 
-    public static CommonUser Create(string commonUserName, string commonUserCPF, Guid userId)
+    private void ChangeCommonUserName(string commonUserName)
     {
-        var commonUser = new CommonUser();
+        commonUserName = commonUserName.Trim();
 
-        commonUser.CommonUserId = Guid.NewGuid();
-        commonUser.CommonUserName = commonUserName;
-        commonUser.CommonUserCPF = commonUserCPF;
+        AddNotifications(new Contract<CommonUser>()
+            .IsNotNullOrEmpty(commonUserName, "CommonUserName", "O nome do usuário comum não deve ser nulo ou vazio")
+            .IsGreaterOrEqualsThan(commonUserName, 8, "CommonUserName", "O nome do usuário comum deve ter mais que oito letras")
+            .Matches(commonUserName, @"^[A-Z][a-z]+(\s[A-Z][a-z]+)+$", "CommonUserName", "O nome conforme descrito é inválido")
+        );
 
-        commonUser.UserId = userId;
+        CommonUserName = commonUserName;
+    }
 
-        return commonUser;
+    private void ChangeCommonUserCPF(string commonUserCPF)
+    {
+        commonUserCPF = commonUserCPF.Trim();
+
+        AddNotifications(new Contract<CommonUser>()
+            .IsNotNullOrEmpty(commonUserCPF, "CommonUserCPF", "O CPF do usuário comum não deve ser nulo ou vazio")
+            .Matches(commonUserCPF, @"^\d{11}$", "CommonUserCPF", "O CPF conforme descrito é inválido")
+        );
+
+        CommonUserCPF = commonUserCPF;
     }
 
     public void DecreaseMoney(double amount)
