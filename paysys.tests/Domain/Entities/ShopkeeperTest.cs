@@ -29,8 +29,8 @@ public class ShopkeeperTest
     public void CreateShopkeeperWithIncorrectName()
     {
         var shopkeeper = new Shopkeeper(
-            fancyName: "Contabilizei",
-            companyName: "contabilizei Contabilidade LTDA",
+            fancyName: "Contabilizei empresa",
+            companyName: "Contabilizei Contabilidade LTDA",
             shopkeeperCNJP: "1234567891234",
             userId: Guid.Empty
         );
