@@ -46,7 +46,7 @@ public class Shopkeeper : Notifiable<Notification>
         ShopkeeperId = Guid.NewGuid();
 
         ChangeFancyName(fancyName);
-        CompanyName = companyName;
+        ChangeCompanyName(companyName);
         ShopkeeperCNJP = shopkeeperCNJP;
 
         Balance = 0;
@@ -64,6 +64,20 @@ public class Shopkeeper : Notifiable<Notification>
         );
 
         FancyName = fancyName;
+    }
+
+    private void ChangeCompanyName(string companyName)
+    {
+        companyName = companyName.Trim();
+
+        AddNotifications(new Contract<Shopkeeper>()
+            .IsNotNullOrEmpty(companyName, "CompanyName", "A razão social não pode ser nula ou vazia")
+            .IsGreaterOrEqualsThan(companyName, 10, "CompanyName", "A razão social não pode ter menos que dez caracteres")
+            .IsLowerOrEqualsThan(companyName, 115, "CompanyName", "A razão social não pode exceder 115 caracteres")
+            .Matches(companyName, @"^(\s?[A-Z][a-zA-Z]+\s?)+$", "CompanyName", "Razão social inválida")
+        );
+
+        CompanyName = companyName;
     }
 
     public void IncreaseMoney(double amount)
