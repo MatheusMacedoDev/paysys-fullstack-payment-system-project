@@ -10,7 +10,7 @@ public class ShopkeeperTest
         var shopkeeper = new Shopkeeper(
             fancyName: "Contabilizei",
             companyName: "Contabilizei Contabilidade LTDA",
-            shopkeeperCNJP: "1234567891234",
+            shopkeeperCNJP: "12345678912345",
             userId: Guid.Empty
         );
 
@@ -31,7 +31,7 @@ public class ShopkeeperTest
         var shopkeeper = new Shopkeeper(
             fancyName: "Contabilizei empresa",
             companyName: "Contabilizei Contabilidade LTDA",
-            shopkeeperCNJP: "1234567891234",
+            shopkeeperCNJP: "12345678912345",
             userId: Guid.Empty
         );
 
@@ -47,13 +47,29 @@ public class ShopkeeperTest
         var shopkeeper = new Shopkeeper(
             fancyName: "Contabilizei empresa",
             companyName: "Contabilizei Contabilidade lTDA",
-            shopkeeperCNJP: "1234567891234",
+            shopkeeperCNJP: "12345678912345",
             userId: Guid.Empty
         );
 
         var isCompanyNameInvalid = IsUserPropertyInvalid(shopkeeper, "CompanyName");
 
         Assert.True(isCompanyNameInvalid);
+        Assert.False(shopkeeper.IsValid);
+    }
+
+    [Fact]
+    public void CreateShopkeeperWithIncorrectCNPJ()
+    {
+        var shopkeeper = new Shopkeeper(
+            fancyName: "Contabilizei empresa",
+            companyName: "Contabilizei Contabilidade lTDA",
+            shopkeeperCNJP: "123456a891234",
+            userId: Guid.Empty
+        );
+
+        var isCNPJInvalid = IsUserPropertyInvalid(shopkeeper, "ShopkeeperCNPJ");
+
+        Assert.True(isCNPJInvalid);
         Assert.False(shopkeeper.IsValid);
     }
 
