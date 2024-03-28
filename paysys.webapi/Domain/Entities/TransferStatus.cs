@@ -1,12 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Flunt.Notifications;
+using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
 
 namespace paysys.webapi.Domain.Entities;
 
 [Table("transfer_status")]
 [Index(nameof(TransferStatusName), IsUnique = true)]
-public class TransferStatus
+public class TransferStatus : Notifiable<Notification>
 {
     [Key]
     [Column("transfer_status_id")]
@@ -16,17 +18,23 @@ public class TransferStatus
     [Column("transfer_status_name")]
     public string? TransferStatusName { get; private set; }
 
-    private TransferStatus()
+    public TransferStatus(string transferStatusName)
     {
+        TransferStatusId = Guid.NewGuid();
+
+        ChangeTransferStatusName(transferStatusName);
     }
 
-    public static TransferStatus Create(string transferStatusName)
+    private void ChangeTransferStatusName(string statusName)
     {
-        var transferStatus = new TransferStatus();
+        statusName = statusName.Trim();
 
-        transferStatus.TransferStatusId = Guid.NewGuid();
-        transferStatus.TransferStatusName = transferStatusName;
+        AddNotifications(new Contract<TransferStatus>()
+            .IsNotNullOrEmpty(statusName, "TransferStatusName", "O nome do status da transferência não deve ser nulo ou vazio")
+            .IsGreaterOrEqualsThan(statusName, 4, "TransferStatusName", "O nome do status da transferência deve conter mais de quatro caracteres")
+            .Matches(statusName, @"^(\s?[A-Z][a-z]+\s?)+$", "TransferStatusName", "Nome do status da transferência inválido")
+        );
 
-        return transferStatus;
+        TransferStatusName = statusName;
     }
 }
