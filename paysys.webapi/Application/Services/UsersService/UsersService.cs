@@ -85,7 +85,7 @@ public class UsersService : IUsersService
                 request.userTypeId
             );
 
-            var commonUser = CommonUser.Create(
+            var commonUser = new CommonUser(
                 request.commonUserName,
                 request.cpf,
                 user.UserId
