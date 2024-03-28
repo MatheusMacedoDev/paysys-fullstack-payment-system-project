@@ -39,23 +39,17 @@ public class Shopkeeper
     [ForeignKey(nameof(UserId))]
     public User? User { get; private set; }
 
-    private Shopkeeper()
+    public Shopkeeper(string fancyName, string companyName, string shopkeeperCNJP, Guid userId)
     {
-    }
+        ShopkeeperId = Guid.NewGuid();
 
-    public static Shopkeeper Create(string fancyName, string companyName, string shopkeeperCNJP, Guid userId)
-    {
-        var shopkeeper = new Shopkeeper();
+        FancyName = fancyName;
+        CompanyName = companyName;
+        ShopkeeperCNJP = shopkeeperCNJP;
 
-        shopkeeper.ShopkeeperId = Guid.NewGuid();
-        shopkeeper.FancyName = fancyName;
-        shopkeeper.CompanyName = companyName;
-        shopkeeper.ShopkeeperCNJP = shopkeeperCNJP;
-        shopkeeper.Balance = 0;
+        Balance = 0;
 
-        shopkeeper.UserId = userId;
-
-        return shopkeeper;
+        UserId = userId;
     }
 
     public void IncreaseMoney(double amount)

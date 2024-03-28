@@ -121,7 +121,7 @@ public class UsersService : IUsersService
                 request.userTypeId
             );
 
-            var shopkeeper = Shopkeeper.Create(
+            var shopkeeper = new Shopkeeper(
                 request.fancyName,
                 request.companyName,
                 request.cnpj,
