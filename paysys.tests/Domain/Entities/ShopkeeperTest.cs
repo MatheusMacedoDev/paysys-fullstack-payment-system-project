@@ -26,7 +26,7 @@ public class ShopkeeperTest
     }
 
     [Fact]
-    public void CreateShopkeeperWithIncorrectName()
+    public void CreateShopkeeperWithIncorrectFancyName()
     {
         var shopkeeper = new Shopkeeper(
             fancyName: "Contabilizei empresa",
@@ -38,6 +38,22 @@ public class ShopkeeperTest
         var isFancyNameInvalid = IsUserPropertyInvalid(shopkeeper, "FancyName");
 
         Assert.True(isFancyNameInvalid);
+        Assert.False(shopkeeper.IsValid);
+    }
+
+    [Fact]
+    public void CreateShopkeeperWithIncorrectCompanyName()
+    {
+        var shopkeeper = new Shopkeeper(
+            fancyName: "Contabilizei empresa",
+            companyName: "Contabilizei Contabilidade lTDA",
+            shopkeeperCNJP: "1234567891234",
+            userId: Guid.Empty
+        );
+
+        var isCompanyNameInvalid = IsUserPropertyInvalid(shopkeeper, "CompanyName");
+
+        Assert.True(isCompanyNameInvalid);
         Assert.False(shopkeeper.IsValid);
     }
 
