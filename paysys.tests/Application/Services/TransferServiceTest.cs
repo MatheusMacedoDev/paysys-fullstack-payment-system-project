@@ -96,7 +96,7 @@ public class TransferServiceTest : DatabaseTestCase
         Guid senderUserId;
         Guid receiverUserId;
 
-        var transferStatus = TransferStatus.Create("Realizado");
+        var transferStatus = new TransferStatus("Realizado");
         transferStatusId = transferStatus.TransferStatusId;
         await _transferStatusRepository.CreateTransferStatus(transferStatus);
 
@@ -176,7 +176,7 @@ public class TransferServiceTest : DatabaseTestCase
         Guid senderUserId;
         Guid receiverUserId;
 
-        var transferStatus = TransferStatus.Create("Realizado");
+        var transferStatus = new TransferStatus("Realizado");
         transferStatusId = transferStatus.TransferStatusId;
         await _transferStatusRepository.CreateTransferStatus(transferStatus);
 

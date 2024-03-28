@@ -211,7 +211,7 @@ public class TransferDAOTest : DatabaseTestCase
 
     private async Task<TransferLocalData> StartInitialDatabaseData(Guid receiverUserId, Guid commonUserTypeId)
     {
-        var transferStatus = TransferStatus.Create("Realizado");
+        var transferStatus = new TransferStatus("Realizado");
         await _transferStatusRepository.CreateTransferStatus(transferStatus);
 
         var transferCategory = TransferCategory.Create("Alimentos");

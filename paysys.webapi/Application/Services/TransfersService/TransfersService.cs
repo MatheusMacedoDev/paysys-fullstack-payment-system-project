@@ -88,7 +88,7 @@ public class TransfersService : ITransfersService
     {
         try
         {
-            var transferStatus = TransferStatus.Create(
+            var transferStatus = new TransferStatus(
                 request.transferStatusName
             );
 
