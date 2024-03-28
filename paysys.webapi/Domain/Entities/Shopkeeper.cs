@@ -47,7 +47,7 @@ public class Shopkeeper : Notifiable<Notification>
 
         ChangeFancyName(fancyName);
         ChangeCompanyName(companyName);
-        ShopkeeperCNJP = shopkeeperCNJP;
+        ChangeShopkeeperCNPJ(shopkeeperCNJP);
 
         Balance = 0;
 
@@ -78,6 +78,18 @@ public class Shopkeeper : Notifiable<Notification>
         );
 
         CompanyName = companyName;
+    }
+
+    private void ChangeShopkeeperCNPJ(string shopkeeperCNPJ)
+    {
+        shopkeeperCNPJ = shopkeeperCNPJ.Trim();
+
+        AddNotifications(new Contract<Shopkeeper>()
+            .IsNotNullOrEmpty(shopkeeperCNPJ, "ShopkeeperCNPJ", "O CNPJ não pode ser nulo ou vazio")
+            .Matches(shopkeeperCNPJ, @"^\d{14}$", "ShopkeeperCNPJ", "CNPJ inválido")
+        );
+
+        ShopkeeperCNJP = shopkeeperCNPJ;
     }
 
     public void IncreaseMoney(double amount)
