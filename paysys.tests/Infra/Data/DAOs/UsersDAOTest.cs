@@ -73,9 +73,9 @@ public class UsersDAOTest : DatabaseTestCase
 
     private async Task StartInitialDatabaseData()
     {
-        var commonUserType = UserType.Create("Comum");
-        var shopkeeperUserType = UserType.Create("Lojista");
-        var administratorUserType = UserType.Create("Administrador");
+        var commonUserType = new UserType("Comum");
+        var shopkeeperUserType = new UserType("Lojista");
+        var administratorUserType = new UserType("Administrador");
 
         var userTypesRepository = new UserTypesRepository(DbContext);
 

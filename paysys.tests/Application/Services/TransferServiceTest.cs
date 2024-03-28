@@ -104,7 +104,7 @@ public class TransferServiceTest : DatabaseTestCase
         transferCategoryId = transferCategory.TransferCategoryId;
         await _transfersCategoriesRepository.CreateTransferCategory(transferCategory);
 
-        var commonType = UserType.Create("Comum");
+        var commonType = new UserType("Comum");
         await _userTypesRepositories.CreateUserType(commonType);
         await DbContext.SaveChangesAsync();
 
@@ -184,8 +184,8 @@ public class TransferServiceTest : DatabaseTestCase
         transferCategoryId = transferCategory.TransferCategoryId;
         await _transfersCategoriesRepository.CreateTransferCategory(transferCategory);
 
-        var commonType = UserType.Create("Comum");
-        var shopkeeperType = UserType.Create("Lojista");
+        var commonType = new UserType("Comum");
+        var shopkeeperType = new UserType("Lojista");
 
         await _userTypesRepositories.CreateUserType(commonType);
         await _userTypesRepositories.CreateUserType(shopkeeperType);

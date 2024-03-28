@@ -55,7 +55,7 @@ public class UserTypesController : ControllerBase
     {
         try
         {
-            var userType = UserType.Create(request.userTypeName);
+            var userType = new UserType(request.userTypeName);
 
             await _userTypesRepository.CreateUserType(userType);
             await _unityOfWork.Commit();

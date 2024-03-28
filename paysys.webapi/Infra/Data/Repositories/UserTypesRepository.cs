@@ -39,7 +39,7 @@ public class UserTypesRepository : IUserTypesRepository
     {
         UserType findedUserType = await GetUserType(userTypeId)!;
 
-        findedUserType.SetTypeName(newTypeName);
+        findedUserType.ChangeTypeName(newTypeName);
 
         _context.UserTypes!.Update(findedUserType);
     }

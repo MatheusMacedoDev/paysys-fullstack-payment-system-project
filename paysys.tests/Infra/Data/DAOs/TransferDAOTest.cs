@@ -193,7 +193,7 @@ public class TransferDAOTest : DatabaseTestCase
 
     private async Task<Guid> CreateCommonUserType()
     {
-        var commonType = UserType.Create("Comum");
+        var commonType = new UserType("Comum");
         await _userTypesRepositories.CreateUserType(commonType);
         await DbContext.SaveChangesAsync();
 
@@ -202,7 +202,7 @@ public class TransferDAOTest : DatabaseTestCase
 
     private async Task<Guid> CreateShopkeeperUserType()
     {
-        var commonType = UserType.Create("Lojista");
+        var commonType = new UserType("Lojista");
         await _userTypesRepositories.CreateUserType(commonType);
         await DbContext.SaveChangesAsync();
 
