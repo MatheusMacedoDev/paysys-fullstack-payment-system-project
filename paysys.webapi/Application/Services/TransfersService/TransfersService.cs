@@ -49,7 +49,7 @@ public class TransfersService : ITransfersService
     {
         try
         {
-            var transferCategory = TransferCategory.Create(
+            var transferCategory = new TransferCategory(
                 request.transferCategoryName
             );
 

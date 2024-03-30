@@ -214,7 +214,7 @@ public class TransferDAOTest : DatabaseTestCase
         var transferStatus = new TransferStatus("Realizado");
         await _transferStatusRepository.CreateTransferStatus(transferStatus);
 
-        var transferCategory = TransferCategory.Create("Alimentos");
+        var transferCategory = new TransferCategory("Alimentos");
         await _transfersCategoriesRepository.CreateTransferCategory(transferCategory);
 
         var createSenderRequest = new CreateCommonUserRequest(

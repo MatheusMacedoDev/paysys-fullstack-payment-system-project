@@ -100,7 +100,7 @@ public class TransferServiceTest : DatabaseTestCase
         transferStatusId = transferStatus.TransferStatusId;
         await _transferStatusRepository.CreateTransferStatus(transferStatus);
 
-        var transferCategory = TransferCategory.Create("Alimentos");
+        var transferCategory = new TransferCategory("Alimentos");
         transferCategoryId = transferCategory.TransferCategoryId;
         await _transfersCategoriesRepository.CreateTransferCategory(transferCategory);
 
@@ -180,7 +180,7 @@ public class TransferServiceTest : DatabaseTestCase
         transferStatusId = transferStatus.TransferStatusId;
         await _transferStatusRepository.CreateTransferStatus(transferStatus);
 
-        var transferCategory = TransferCategory.Create("Alimentos");
+        var transferCategory = new TransferCategory("Alimentos");
         transferCategoryId = transferCategory.TransferCategoryId;
         await _transfersCategoriesRepository.CreateTransferCategory(transferCategory);
 
