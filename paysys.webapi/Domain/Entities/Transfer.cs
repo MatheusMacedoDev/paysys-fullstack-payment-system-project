@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Flunt.Notifications;
+using Flunt.Validations;
 
 namespace paysys.webapi.Domain.Entities;
 
 [Table("transfers")]
-public class Transfer
+public class Transfer : Notifiable<Notification>
 {
     [Key]
     [Column("transfer_id")]
@@ -61,7 +63,7 @@ public class Transfer
     public Transfer(string transferDescription, double transferAmount, Guid transferStatusId, Guid transferCategoryId, Guid senderUserId, Guid receiverUserId)
     {
         TransferId = Guid.NewGuid();
-        TransferDescription = transferDescription;
+        ChangeTransferDescription(transferDescription);
         TransferAmount = transferAmount;
         TransferDateTime = DateTime.UtcNow;
 
@@ -69,5 +71,18 @@ public class Transfer
         TransferCategoryId = transferCategoryId;
         SenderUserId = senderUserId;
         ReceiverUserId = receiverUserId;
+    }
+
+    private void ChangeTransferDescription(string description)
+    {
+        description = description.Trim();
+
+        AddNotifications(new Contract<Transfer>()
+            .IsNotNullOrEmpty(description, "TransferDescription", "A descrição da transferência não pode ser nula ou vazia")
+            .IsLowerOrEqualsThan(description, 120, "TransferDescription", "A descrição deve conter no máximo 120 caracteres")
+            .Matches(description, @"[A-Z](\s?[A-Za-z,.();?!%$#&]+\s?)+", "TransferDescription", "Descrição inválida")
+        );
+
+        TransferDescription = description;
     }
 }
