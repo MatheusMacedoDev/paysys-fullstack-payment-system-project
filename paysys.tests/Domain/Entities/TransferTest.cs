@@ -28,10 +28,10 @@ public class TransferTest
     }
 
     [Fact]
-    public void CreateTransferCategoryWithIncorrectCategoryName()
+    public void CreateTransferWithIncorrectDescription()
     {
         var transfer = new Transfer(
-            transferDescription: "Realizando um pagamento atrazado.",
+            transferDescription: "Realiz4ndo um pag4mento atrazado.",
             transferAmount: 500,
             transferStatusId: Guid.Empty,
             transferCategoryId: Guid.Empty,

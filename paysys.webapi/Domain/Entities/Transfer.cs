@@ -80,7 +80,7 @@ public class Transfer : Notifiable<Notification>
         AddNotifications(new Contract<Transfer>()
             .IsNotNullOrEmpty(description, "TransferDescription", "A descrição da transferência não pode ser nula ou vazia")
             .IsLowerOrEqualsThan(description, 120, "TransferDescription", "A descrição deve conter no máximo 120 caracteres")
-            .Matches(description, @"[A-Z](\s?[A-Za-z,.();?!%$#&]+\s?)+", "TransferDescription", "Descrição inválida")
+            .Matches(description, @"^[A-Z](\s?[A-Za-z,.();?!%$#&]+\s?)+$", "TransferDescription", "Descrição inválida")
         );
 
         TransferDescription = description;

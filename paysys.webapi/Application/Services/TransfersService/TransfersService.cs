@@ -128,7 +128,7 @@ public class TransfersService : ITransfersService
     {
         try
         {
-            var transfer = Transfer.Create(
+            var transfer = new Transfer(
                 transferDescription: request.transferDescription,
                 transferAmount: request.transferAmount,
                 transferStatusId: request.transferStatusId,
