@@ -58,24 +58,16 @@ public class Transfer
     [ForeignKey(nameof(ReceiverUserId))]
     public User? ReceiverUser { get; private set; }
 
-    private Transfer()
+    public Transfer(string transferDescription, double transferAmount, Guid transferStatusId, Guid transferCategoryId, Guid senderUserId, Guid receiverUserId)
     {
-    }
+        TransferId = Guid.NewGuid();
+        TransferDescription = transferDescription;
+        TransferAmount = transferAmount;
+        TransferDateTime = DateTime.UtcNow;
 
-    public static Transfer Create(string transferDescription, double transferAmount, Guid transferStatusId, Guid transferCategoryId, Guid senderUserId, Guid receiverUserId)
-    {
-        var transfer = new Transfer();
-
-        transfer.TransferId = Guid.NewGuid();
-        transfer.TransferDescription = transferDescription;
-        transfer.TransferAmount = transferAmount;
-        transfer.TransferDateTime = DateTime.UtcNow;
-
-        transfer.TransferStatusId = transferStatusId;
-        transfer.TransferCategoryId = transferCategoryId;
-        transfer.SenderUserId = senderUserId;
-        transfer.ReceiverUserId = receiverUserId;
-
-        return transfer;
+        TransferStatusId = transferStatusId;
+        TransferCategoryId = transferCategoryId;
+        SenderUserId = senderUserId;
+        ReceiverUserId = receiverUserId;
     }
 }
