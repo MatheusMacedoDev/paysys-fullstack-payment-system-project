@@ -16,8 +16,6 @@ public class TransfersService : ITransfersService
     private readonly IOptions<UserTypeNamesSettings> _userTypeNamesSettings;
 
     // Repositories
-    private readonly ITransferStatusRepository _transferStatusRepository;
-    private readonly ITransferCategoriesRepository _transferCategoriesRepository;
     private readonly ITransfersRepository _transfersRepository;
     private readonly IUsersRepository _usersRepository;
     private readonly IUserTypesRepository _userTypesRepository;
@@ -29,12 +27,10 @@ public class TransfersService : ITransfersService
     // Unity of Work
     private readonly IUnityOfWork _unityOfWork;
 
-    public TransfersService(IOptions<UserTypeNamesSettings> userTypeNamesSettings, ITransferStatusRepository transferStatusRepository, ITransferCategoriesRepository transferCategoriesRepository, ITransfersRepository transfersRepository, IUsersRepository usersRepository, IUserTypesRepository userTypesRepository, ICommonUserDAO commonUserDAO, ITransferDAO transferDAO, IUnityOfWork unityOfWork)
+    public TransfersService(IOptions<UserTypeNamesSettings> userTypeNamesSettings, ITransfersRepository transfersRepository, IUsersRepository usersRepository, IUserTypesRepository userTypesRepository, ICommonUserDAO commonUserDAO, ITransferDAO transferDAO, IUnityOfWork unityOfWork)
     {
         _userTypeNamesSettings = userTypeNamesSettings;
 
-        _transferStatusRepository = transferStatusRepository;
-        _transferCategoriesRepository = transferCategoriesRepository;
         _transfersRepository = transfersRepository;
         _usersRepository = usersRepository;
         _userTypesRepository = userTypesRepository;
@@ -53,7 +49,7 @@ public class TransfersService : ITransfersService
                 request.transferCategoryName
             );
 
-            _transferCategoriesRepository.CreateTransferCategory(transferCategory);
+            _transfersRepository.CreateTransferCategory(transferCategory);
             _unityOfWork.Commit();
 
             var response = new CreateTransferCategoryResponse(
@@ -73,7 +69,7 @@ public class TransfersService : ITransfersService
     {
         try
         {
-            var transferCategoriesList = await _transferCategoriesRepository.GetAllTransferCategories();
+            var transferCategoriesList = await _transfersRepository.GetAllTransferCategories();
             var response = new GetAllTransferCategoriesResponse(transferCategoriesList);
 
             return response;
@@ -92,7 +88,7 @@ public class TransfersService : ITransfersService
                 request.transferStatusName
             );
 
-            _transferStatusRepository.CreateTransferStatus(transferStatus);
+            _transfersRepository.CreateTransferStatus(transferStatus);
             _unityOfWork.Commit();
 
             var response = new CreateTransferStatusResponse(
@@ -112,7 +108,7 @@ public class TransfersService : ITransfersService
     {
         try
         {
-            var transferStatusList = await _transferStatusRepository.GetAllTransferStatus();
+            var transferStatusList = await _transfersRepository.GetAllTransferStatus();
             var response = new GetAllTransferStatusResponse(transferStatusList);
 
             return response;

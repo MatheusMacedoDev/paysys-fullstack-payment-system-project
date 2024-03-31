@@ -21,8 +21,6 @@ public class TransferServiceTest : DatabaseTestCase
     private readonly ITransfersService _transfersService;
     private readonly IUsersService _usersService;
 
-    private readonly ITransferStatusRepository _transferStatusRepository;
-    private readonly ITransferCategoriesRepository _transfersCategoriesRepository;
     private readonly ITransfersRepository _transfersRepository;
     private readonly IUsersRepository _usersRepository;
     private readonly IUserTypesRepository _userTypesRepositories;
@@ -41,8 +39,6 @@ public class TransferServiceTest : DatabaseTestCase
 
         IOptions<UserTypeNamesSettings> userTypeNamesSettingsOptions = Options.Create(userTypeNamesSettings);
 
-        _transferStatusRepository = new TransferStatusRepository(DbContext);
-        _transfersCategoriesRepository = new TransferCategoriesRepository(DbContext);
         _transfersRepository = new TransfersRepository(DbContext);
         _usersRepository = new UsersRepository(DbContext);
         _userTypesRepositories = new UserTypesRepository(DbContext);
@@ -52,8 +48,6 @@ public class TransferServiceTest : DatabaseTestCase
 
         _transfersService = new TransfersService(
             userTypeNamesSettingsOptions,
-            _transferStatusRepository,
-            _transfersCategoriesRepository,
             _transfersRepository,
             _usersRepository,
             _userTypesRepositories,
@@ -98,11 +92,11 @@ public class TransferServiceTest : DatabaseTestCase
 
         var transferStatus = new TransferStatus("Realizado");
         transferStatusId = transferStatus.TransferStatusId;
-        await _transferStatusRepository.CreateTransferStatus(transferStatus);
+        await _transfersRepository.CreateTransferStatus(transferStatus);
 
         var transferCategory = new TransferCategory("Alimentos");
         transferCategoryId = transferCategory.TransferCategoryId;
-        await _transfersCategoriesRepository.CreateTransferCategory(transferCategory);
+        await _transfersRepository.CreateTransferCategory(transferCategory);
 
         var commonType = new UserType("Comum");
         await _userTypesRepositories.CreateUserType(commonType);
@@ -178,11 +172,11 @@ public class TransferServiceTest : DatabaseTestCase
 
         var transferStatus = new TransferStatus("Realizado");
         transferStatusId = transferStatus.TransferStatusId;
-        await _transferStatusRepository.CreateTransferStatus(transferStatus);
+        await _transfersRepository.CreateTransferStatus(transferStatus);
 
         var transferCategory = new TransferCategory("Alimentos");
         transferCategoryId = transferCategory.TransferCategoryId;
-        await _transfersCategoriesRepository.CreateTransferCategory(transferCategory);
+        await _transfersRepository.CreateTransferCategory(transferCategory);
 
         var commonType = new UserType("Comum");
         var shopkeeperType = new UserType("Lojista");

@@ -38,8 +38,6 @@ var builder = WebApplication.CreateBuilder(args);
     // Repository Injections
     builder.Services.AddScoped<IUserTypesRepository, UserTypesRepository>();
     builder.Services.AddScoped<IUsersRepository, UsersRepository>();
-    builder.Services.AddScoped<ITransferStatusRepository, TransferStatusRepository>();
-    builder.Services.AddScoped<ITransferCategoriesRepository, TransferCategoriesRepository>();
     builder.Services.AddScoped<ITransfersRepository, TransfersRepository>();
 
     // DAOs Injections
