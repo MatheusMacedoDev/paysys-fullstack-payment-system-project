@@ -73,7 +73,15 @@ public class CommonUser : Notifiable<Notification>
 
     public void DecreaseMoney(double amount)
     {
-        Balance -= amount;
+        if (Balance >= amount)
+        {
+            Balance -= amount;
+        }
+        else
+        {
+            throw new ArgumentException("The sender have not enough money to make this transfer.");
+        }
+
     }
 
     public void IncreaseMoney(double amount)

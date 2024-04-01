@@ -143,7 +143,7 @@ public class TransfersService : ITransfersService
                 _userTypeNamesSettings
             );
 
-            await MakeSenderUserValidations(isAdministratorSpecification, senderUserType, transfer.SenderUserId, transfer);
+            MakeSenderUserValidations(isAdministratorSpecification, senderUserType);
             MakeReceiverUserValidations(isAdministratorSpecification, receiverUserType);
 
             await _transfersRepository.CreateTransfer(transfer);
@@ -188,7 +188,7 @@ public class TransfersService : ITransfersService
         return response;
     }
 
-    private async Task MakeSenderUserValidations(IsAdministratorUserSpecification isAdministratorSpecification, UserType senderUserType, Guid senderUserId, Transfer transfer)
+    private void MakeSenderUserValidations(IsAdministratorUserSpecification isAdministratorSpecification, UserType senderUserType)
     {
         // Sender is not administrator validation
 
@@ -210,22 +210,6 @@ public class TransfersService : ITransfersService
         if (senderIsShopkeeper)
         {
             throw new ArgumentException("The shopkeeper is not allowed to send a transfer.");
-        }
-
-        // Sender have enough money to make transfer
-
-        var haveEnoughMoneySpecification = new HaveEnoughMoneySpecification(
-            _userTypeNamesSettings,
-            senderUserId,
-            senderUserType.TypeName!,
-            _commonUserDAO
-        );
-
-        var senderHaveNotEnoughMoney = !(await haveEnoughMoneySpecification.IsSatisfiedBy(transfer));
-
-        if (senderHaveNotEnoughMoney)
-        {
-            throw new ArgumentException("The sender have not enough money to make this transfer.");
         }
     }
 
