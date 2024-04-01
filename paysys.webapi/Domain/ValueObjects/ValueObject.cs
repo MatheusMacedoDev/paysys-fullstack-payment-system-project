@@ -1,6 +1,8 @@
+using Flunt.Notifications;
+
 namespace paysys.webapi.Domain.ValueObjects;
 
-public abstract class ValueObject : IEquatable<ValueObject>
+public abstract class ValueObject : Notifiable<Notification>, IEquatable<ValueObject>
 {
     public static bool operator ==(ValueObject? obj1, ValueObject? obj2)
     {
