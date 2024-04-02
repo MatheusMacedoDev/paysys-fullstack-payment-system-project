@@ -14,7 +14,6 @@ public class CommonUser
     public Guid CommonUserId { get; private set; }
 
     public Name? CommonUserName { get; private set; }
-
     public CPF? CommonUserCPF { get; private set; }
 
     [Required]
