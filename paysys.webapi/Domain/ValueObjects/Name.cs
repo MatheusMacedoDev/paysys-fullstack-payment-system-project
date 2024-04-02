@@ -17,7 +17,7 @@ public class Name : ValueObject
         AddNotifications(new Contract<Name>()
             .IsNotNullOrEmpty(nameText, "Name", "O nome não deve ser nulo ou vazio")
             .IsGreaterOrEqualsThan(nameText, 8, "Name", "O nome deve ter mais que oito letras")
-            .Matches(nameText, @"^[A-Z][a-z]+(\s[A-Z][a-z]+)+$", "Name", "O nome conforme descrito é inválido")
+            .Matches(nameText, @"^(\s?[A-Z][a-z]+|\s[deaos]+)+$", "Name", "O nome conforme descrito é inválido")
         );
 
         if (!IsValid)
