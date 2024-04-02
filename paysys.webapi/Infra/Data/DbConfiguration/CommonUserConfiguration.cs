@@ -12,5 +12,11 @@ public class CommonUserConfiguration : IEntityTypeConfiguration<CommonUser>
             .Property(p => p.NameText)
             .HasColumnName("common_user_name")
             .IsRequired(true);
+
+        builder.OwnsOne(e => e.CommonUserCPF)
+            .Property(p => p.CPFText)
+            .HasColumnName("common_user_cpf")
+            .HasColumnType("CHAR(11)")
+            .IsRequired(true);
     }
 }
