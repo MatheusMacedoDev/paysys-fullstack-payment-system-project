@@ -46,5 +46,6 @@ public class DataContext : DbContext
         modelBuilder.Ignore<Notification>();
 
         modelBuilder.ApplyConfiguration(new AdministratorUserConfiguration());
+        modelBuilder.ApplyConfiguration(new CommonUserConfiguration());
     }
 }
