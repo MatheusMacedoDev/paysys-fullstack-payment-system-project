@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using paysys.webapi.Configuration;
 using paysys.webapi.Domain.Entities;
+using paysys.webapi.Infra.Data.DbConfiguration;
 
 namespace paysys.webapi.Infra.Data;
 
@@ -43,5 +44,7 @@ public class DataContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Ignore<Notification>();
+
+        modelBuilder.ApplyConfiguration(new AdministratorUserConfiguration());
     }
 }
