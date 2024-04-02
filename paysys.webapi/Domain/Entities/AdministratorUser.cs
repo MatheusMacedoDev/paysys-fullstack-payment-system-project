@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Flunt.Notifications;
 using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
+using paysys.webapi.Domain.ValueObjects;
 
 namespace paysys.webapi.Domain.Entities;
 
@@ -15,9 +16,7 @@ public class AdministratorUser : Notifiable<Notification>
     [Column("administrator_id")]
     public Guid AdministratorId { get; private set; }
 
-    [Required]
-    [Column("administrator_name")]
-    public string? AdministratorName { get; private set; }
+    public Name? AdministratorName { get; private set; }
 
     [Required]
     [Column("administrator_cpf", TypeName = "CHAR(11)")]
@@ -32,26 +31,17 @@ public class AdministratorUser : Notifiable<Notification>
     [ForeignKey(nameof(UserId))]
     public User? User { get; set; }
 
+    protected AdministratorUser()
+    {
+    }
+
     public AdministratorUser(string administratorName, string administratorCPF, Guid userId)
     {
         AdministratorId = Guid.NewGuid();
-        ChangeAdministratorName(administratorName);
+        AdministratorName = new Name(administratorName);
         ChangeAdministratorCPF(administratorCPF);
 
         UserId = userId;
-    }
-
-    private void ChangeAdministratorName(string administratorName)
-    {
-        administratorName = administratorName.Trim();
-
-        AddNotifications(new Contract<AdministratorUser>()
-            .IsNotNullOrEmpty(administratorName, "AdministratorName", "O nome do administrador não deve ser nulo ou vazio")
-            .IsGreaterOrEqualsThan(administratorName, 8, "AdministratorName", "O nome do administrador deve ter mais que oito letras")
-            .Matches(administratorName, @"^[A-Z][a-z]+(\s[A-Z][a-z]+)+$", "AdministratorName", "O nome conforme descrito é inválido")
-        );
-
-        AdministratorName = administratorName;
     }
 
     private void ChangeAdministratorCPF(string administratorCPF)
