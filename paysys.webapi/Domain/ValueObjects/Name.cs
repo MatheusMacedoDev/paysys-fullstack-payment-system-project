@@ -20,6 +20,9 @@ public class Name : ValueObject
             .Matches(nameText, @"^[A-Z][a-z]+(\s[A-Z][a-z]+)+$", "Name", "O nome conforme descrito é inválido")
         );
 
+        if (!IsValid)
+            throw new ArgumentException("Nome inválido");
+
         NameText = nameText;
     }
 
