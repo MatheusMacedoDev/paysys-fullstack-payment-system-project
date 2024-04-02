@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Flunt.Notifications;
 using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
+using paysys.webapi.Domain.ValueObjects;
 
 namespace paysys.webapi.Domain.Entities;
 
@@ -15,9 +16,7 @@ public class CommonUser : Notifiable<Notification>
     [Column("common_user_id")]
     public Guid CommonUserId { get; private set; }
 
-    [Required]
-    [Column("common_user_name")]
-    public string? CommonUserName { get; private set; }
+    public Name? CommonUserName { get; private set; }
 
     [Required]
     [Column("common_user_cpf", TypeName = "CHAR(11)")]
@@ -36,27 +35,18 @@ public class CommonUser : Notifiable<Notification>
     [ForeignKey(nameof(UserId))]
     public User? User { get; private set; }
 
+    protected CommonUser()
+    {
+    }
+
     public CommonUser(string commonUserName, string commonUserCPF, Guid userId)
     {
         CommonUserId = Guid.NewGuid();
 
-        ChangeCommonUserName(commonUserName);
+        CommonUserName = new Name(commonUserName);
         ChangeCommonUserCPF(commonUserCPF);
 
         UserId = userId;
-    }
-
-    private void ChangeCommonUserName(string commonUserName)
-    {
-        commonUserName = commonUserName.Trim();
-
-        AddNotifications(new Contract<CommonUser>()
-            .IsNotNullOrEmpty(commonUserName, "CommonUserName", "O nome do usuário comum não deve ser nulo ou vazio")
-            .IsGreaterOrEqualsThan(commonUserName, 8, "CommonUserName", "O nome do usuário comum deve ter mais que oito letras")
-            .Matches(commonUserName, @"^[A-Z][a-z]+(\s[A-Z][a-z]+)+$", "CommonUserName", "O nome conforme descrito é inválido")
-        );
-
-        CommonUserName = commonUserName;
     }
 
     private void ChangeCommonUserCPF(string commonUserCPF)
