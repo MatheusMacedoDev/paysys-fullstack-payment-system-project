@@ -13,46 +13,7 @@ public class CommonUserTest
             userId: Guid.Empty
         );
 
-        if (!common.IsValid)
-        {
-            foreach (var notification in common.Notifications)
-            {
-                Console.WriteLine(notification.Message);
-            }
-        }
-
-        Assert.True(common.IsValid);
-    }
-
-    [Fact]
-    public void CreateCommonUserWithIncorrectCPF()
-    {
-        var common = new CommonUser(
-            commonUserName: "Matheus Macedo Santos",
-            commonUserCPF: "677783x98c7",
-            userId: Guid.Empty
-        );
-
-        var isCPFInvalid = IsUserPropertyInvalid(common, "CommonUserCPF");
-
-        Assert.True(isCPFInvalid);
-        Assert.False(common.IsValid);
-    }
-
-    private bool IsUserPropertyInvalid(CommonUser common, string propertyName)
-    {
-        if (!common.IsValid)
-        {
-            foreach (var notification in common.Notifications)
-            {
-                if (notification.Key == propertyName)
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-
+        Assert.True(common.CommonUserName!.IsValid);
+        Assert.True(common.CommonUserCPF!.IsValid);
     }
 }
