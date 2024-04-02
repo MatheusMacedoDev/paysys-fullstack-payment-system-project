@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Flunt.Notifications;
-using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
 using paysys.webapi.Domain.ValueObjects;
 
@@ -9,8 +7,7 @@ namespace paysys.webapi.Domain.Entities;
 
 [Table("common_users")]
 [Index(nameof(UserId), IsUnique = true)]
-[Index(nameof(CommonUserCPF), IsUnique = true)]
-public class CommonUser : Notifiable<Notification>
+public class CommonUser
 {
     [Key]
     [Column("common_user_id")]
@@ -18,9 +15,7 @@ public class CommonUser : Notifiable<Notification>
 
     public Name? CommonUserName { get; private set; }
 
-    [Required]
-    [Column("common_user_cpf", TypeName = "CHAR(11)")]
-    public string? CommonUserCPF { get; private set; }
+    public CPF? CommonUserCPF { get; private set; }
 
     [Required]
     [Column("balance", TypeName = "MONEY")]
@@ -44,21 +39,9 @@ public class CommonUser : Notifiable<Notification>
         CommonUserId = Guid.NewGuid();
 
         CommonUserName = new Name(commonUserName);
-        ChangeCommonUserCPF(commonUserCPF);
+        CommonUserCPF = new CPF(commonUserCPF);
 
         UserId = userId;
-    }
-
-    private void ChangeCommonUserCPF(string commonUserCPF)
-    {
-        commonUserCPF = commonUserCPF.Trim();
-
-        AddNotifications(new Contract<CommonUser>()
-            .IsNotNullOrEmpty(commonUserCPF, "CommonUserCPF", "O CPF do usuário comum não deve ser nulo ou vazio")
-            .Matches(commonUserCPF, @"^\d{11}$", "CommonUserCPF", "O CPF conforme descrito é inválido")
-        );
-
-        CommonUserCPF = commonUserCPF;
     }
 
     public void DecreaseMoney(double amount)
