@@ -57,7 +57,7 @@ public class UserServiceTest
         var response = await _usersService.CreateAdministrator(request);
 
         var memoryUserEmail = (await _usersRepository.GetUserById(response.userId)).Email;
-        var memoryAdministratorName = (await _usersRepository.GetAdministratorById(response.administratorId)).AdministratorName;
+        var memoryAdministratorName = (await _usersRepository.GetAdministratorById(response.administratorId)).AdministratorName.NameText;
 
         Assert.Equal("matheus@email.com", memoryUserEmail);
         Assert.Equal("Matheus Macedo Santos", memoryAdministratorName);

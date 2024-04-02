@@ -62,7 +62,7 @@ public class UsersService : IUsersService
             var response = new CreateAdministratorResponse(
                 administrator.AdministratorId,
                 user.UserId,
-                administrator.AdministratorName!
+                administrator.AdministratorName.NameText!
             );
 
             return response;
