@@ -12,5 +12,11 @@ public class AdministratorUserConfiguration : IEntityTypeConfiguration<Administr
             .Property(p => p.NameText)
             .HasColumnName("administrator_name")
             .IsRequired(true);
+
+        builder.OwnsOne(e => e.AdministratorCPF)
+            .Property(p => p.CPFText)
+            .HasColumnName("administrator_cpf")
+            .HasColumnType("CHAR(11)")
+            .IsRequired(true);
     }
 }
