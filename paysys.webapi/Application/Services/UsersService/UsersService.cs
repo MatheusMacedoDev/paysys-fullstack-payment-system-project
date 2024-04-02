@@ -62,7 +62,7 @@ public class UsersService : IUsersService
             var response = new CreateAdministratorResponse(
                 administrator.AdministratorId,
                 user.UserId,
-                administrator.AdministratorName.NameText!
+                administrator.AdministratorName!.NameText!
             );
 
             return response;
@@ -98,7 +98,7 @@ public class UsersService : IUsersService
             var response = new CreateCommonUserResponse(
                 commonUser.CommonUserId,
                 user.UserId,
-                commonUser.CommonUserName!
+                commonUser.CommonUserName!.NameText!
             );
 
             return response;

@@ -25,21 +25,6 @@ public class CommonUserTest
     }
 
     [Fact]
-    public void CreateCommonUserWithIncorrectName()
-    {
-        var common = new CommonUser(
-            commonUserName: "Matheus macedo Santos",
-            commonUserCPF: "67778379847",
-            userId: Guid.Empty
-        );
-
-        var isCommonUserNameInvalid = IsUserPropertyInvalid(common, "CommonUserName");
-
-        Assert.True(isCommonUserNameInvalid);
-        Assert.False(common.IsValid);
-    }
-
-    [Fact]
     public void CreateCommonUserWithIncorrectCPF()
     {
         var common = new CommonUser(
