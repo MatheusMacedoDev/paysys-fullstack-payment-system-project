@@ -28,7 +28,7 @@ public class CommonUserTest
     public void CreateCommonUserWithIncorrectCPF()
     {
         var common = new CommonUser(
-            commonUserName: "Matheus macedo Santos",
+            commonUserName: "Matheus Macedo Santos",
             commonUserCPF: "677783x98c7",
             userId: Guid.Empty
         );

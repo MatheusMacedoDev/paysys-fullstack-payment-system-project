@@ -25,10 +25,10 @@ public class AdministratorUserTest
     }
 
     [Fact]
-    public void CreateAdministratorUserWithCPF()
+    public void CreateAdministratorUserWithInvalidCPF()
     {
         var administrator = new AdministratorUser(
-            administratorName: "Matheus Macedo santos",
+            administratorName: "Matheus Macedo Santos",
             administratorCPF: "6777837984e",
             userId: Guid.Empty
         );
