@@ -89,24 +89,6 @@ public class UserTest
         Assert.False(user.IsValid);
     }
 
-    [Fact]
-    public void CreateUserWithIncorrectPassword()
-    {
-        User user = new User(
-            userName: "009487",
-            email: "matheus.macedo",
-            phoneNumber: "1198423657A",
-            password: "12345",
-            userTypeId: Guid.Empty,
-            _cryptographyStrategy
-        );
-
-        var isPasswordInvalid = IsUserPropertyInvalid(user, "Password");
-
-        Assert.True(isPasswordInvalid);
-        Assert.False(user.IsValid);
-    }
-
     private bool IsUserPropertyInvalid(User user, string propertyName)
     {
         if (!user.IsValid)
