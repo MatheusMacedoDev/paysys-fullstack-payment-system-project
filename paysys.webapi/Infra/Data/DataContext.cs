@@ -47,5 +47,6 @@ public class DataContext : DbContext
 
         modelBuilder.ApplyConfiguration(new AdministratorUserConfiguration());
         modelBuilder.ApplyConfiguration(new CommonUserConfiguration());
+        modelBuilder.ApplyConfiguration(new ShopkeeperConfiguration());
     }
 }

@@ -9,7 +9,6 @@ namespace paysys.webapi.Domain.Entities;
 
 [Table("shopkeepers")]
 [Index(nameof(UserId), IsUnique = true)]
-[Index(nameof(ShopkeeperCNJP), IsUnique = true)]
 public class Shopkeeper : Notifiable<Notification>
 {
     [Key]
@@ -38,6 +37,10 @@ public class Shopkeeper : Notifiable<Notification>
 
     [ForeignKey(nameof(UserId))]
     public User? User { get; private set; }
+
+    protected Shopkeeper()
+    {
+    }
 
     public Shopkeeper(string fancyName, string companyName, string shopkeeperCNJP, Guid userId)
     {
