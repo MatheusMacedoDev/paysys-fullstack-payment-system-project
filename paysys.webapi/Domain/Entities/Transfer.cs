@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Flunt.Notifications;
 using Flunt.Validations;
+using paysys.webapi.Utils;
 
 namespace paysys.webapi.Domain.Entities;
 
@@ -75,7 +76,7 @@ public class Transfer : Notifiable<Notification>
 
     private void ChangeTransferDescription(string description)
     {
-        description = description.Trim();
+        description = StringFormatter.BasicClear(description);
 
         AddNotifications(new Contract<Transfer>()
             .IsNotNullOrEmpty(description, "TransferDescription", "A descrição da transferência não pode ser nula ou vazia")

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Flunt.Notifications;
 using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
+using paysys.webapi.Utils;
 
 namespace paysys.webapi.Domain.Entities;
 
@@ -27,7 +28,7 @@ public class TransferStatus : Notifiable<Notification>
 
     private void ChangeTransferStatusName(string statusName)
     {
-        statusName = statusName.Trim();
+        statusName = StringFormatter.BasicClear(statusName);
 
         AddNotifications(new Contract<TransferStatus>()
             .IsNotNullOrEmpty(statusName, "TransferStatusName", "O nome do status da transferência não deve ser nulo ou vazio")

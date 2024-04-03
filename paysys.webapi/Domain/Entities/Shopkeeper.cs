@@ -4,6 +4,7 @@ using Flunt.Notifications;
 using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
 using paysys.webapi.Domain.ValueObjects;
+using paysys.webapi.Utils;
 
 namespace paysys.webapi.Domain.Entities;
 
@@ -58,7 +59,7 @@ public class Shopkeeper : Notifiable<Notification>
 
     private void ChangeFancyName(string fancyName)
     {
-        fancyName = fancyName.Trim();
+        fancyName = StringFormatter.BasicClear(fancyName);
 
         AddNotifications(new Contract<Shopkeeper>()
             .IsNotNullOrEmpty(fancyName, "FancyName", "O nome fantasia não pode ser nulo ou vazio")
@@ -70,7 +71,7 @@ public class Shopkeeper : Notifiable<Notification>
 
     private void ChangeCompanyName(string companyName)
     {
-        companyName = companyName.Trim();
+        companyName = StringFormatter.BasicClear(companyName);
 
         AddNotifications(new Contract<Shopkeeper>()
             .IsNotNullOrEmpty(companyName, "CompanyName", "A razão social não pode ser nula ou vazia")

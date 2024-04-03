@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Flunt.Notifications;
 using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
+using paysys.webapi.Utils;
 
 namespace paysys.webapi.Domain.Entities;
 
@@ -27,7 +28,7 @@ public class TransferCategory : Notifiable<Notification>
 
     private void ChangeTransferCategoryName(string categoryName)
     {
-        categoryName = categoryName.Trim();
+        categoryName = StringFormatter.BasicClear(categoryName);
 
         AddNotifications(new Contract<TransferStatus>()
             .IsNotNullOrEmpty(categoryName, "TransferCategoryName", "O nome da categoria da transferência não deve ser nulo ou vazio")

@@ -4,6 +4,7 @@ using Flunt.Notifications;
 using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
 using paysys.webapi.Application.Strategies.Cryptography;
+using paysys.webapi.Utils;
 
 namespace paysys.webapi.Domain.Entities;
 
@@ -82,7 +83,7 @@ public class User : Notifiable<Notification>
 
     private void ChangeUserName(string userName)
     {
-        userName = userName.Trim();
+        userName = StringFormatter.BasicClear(userName);
 
         AddNotifications(new Contract<User>()
             .IsNotNullOrEmpty(userName, "UserName", "O nome de usuário não deve ser nulo ou vazio")
@@ -96,7 +97,7 @@ public class User : Notifiable<Notification>
 
     private void ChangeEmail(string email)
     {
-        email = email.Trim();
+        email = StringFormatter.BasicClear(email);
 
         AddNotifications(new Contract<User>()
             .IsNotNullOrEmpty(email, "Email", "O e-mail não deve ser nulo ou vazio")
@@ -109,7 +110,7 @@ public class User : Notifiable<Notification>
 
     private void ChangePhoneNumber(string phoneNumber)
     {
-        phoneNumber = phoneNumber.Trim();
+        phoneNumber = StringFormatter.FullyClear(phoneNumber);
 
         AddNotifications(new Contract<User>()
             .IsNotNullOrEmpty(phoneNumber, "PhoneNumber", "O número de telefone não pode ser nulo ou vazio")
@@ -123,8 +124,6 @@ public class User : Notifiable<Notification>
 
     private void ChangePassword(string password, ICryptographyStrategy cryptographyStrategy)
     {
-        password = password.Trim();
-
         AddNotifications(new Contract<User>()
             .IsNotNullOrEmpty(password, "Password", "A senha não pode ser nula ou vazia")
             .IsGreaterOrEqualsThan(password, 10, "Password", "A senha deve conter ao menos dez caracteres")
