@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Flunt.Notifications;
 using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
+using paysys.webapi.Domain.ValueObjects;
 
 namespace paysys.webapi.Domain.Entities;
 
@@ -23,10 +24,7 @@ public class Shopkeeper : Notifiable<Notification>
     [Column("company_name")]
     public string? CompanyName { get; private set; }
 
-
-    [Required]
-    [Column("shopkeeper_cnpj", TypeName = "CHAR(14)")]
-    public string? ShopkeeperCNJP { get; private set; }
+    public CNPJ? ShopkeeperCNJP { get; private set; }
 
     [Required]
     [Column("balance", TypeName = "MONEY")]
@@ -47,7 +45,8 @@ public class Shopkeeper : Notifiable<Notification>
 
         ChangeFancyName(fancyName);
         ChangeCompanyName(companyName);
-        ChangeShopkeeperCNPJ(shopkeeperCNJP);
+
+        ShopkeeperCNJP = new CNPJ(shopkeeperCNJP);
 
         Balance = 0;
 
@@ -78,18 +77,6 @@ public class Shopkeeper : Notifiable<Notification>
         );
 
         CompanyName = companyName;
-    }
-
-    private void ChangeShopkeeperCNPJ(string shopkeeperCNPJ)
-    {
-        shopkeeperCNPJ = shopkeeperCNPJ.Trim();
-
-        AddNotifications(new Contract<Shopkeeper>()
-            .IsNotNullOrEmpty(shopkeeperCNPJ, "ShopkeeperCNPJ", "O CNPJ não pode ser nulo ou vazio")
-            .Matches(shopkeeperCNPJ, @"^\d{14}$", "ShopkeeperCNPJ", "CNPJ inválido")
-        );
-
-        ShopkeeperCNJP = shopkeeperCNPJ;
     }
 
     public void IncreaseMoney(double amount)
