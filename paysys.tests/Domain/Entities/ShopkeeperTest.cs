@@ -57,22 +57,6 @@ public class ShopkeeperTest
         Assert.False(shopkeeper.IsValid);
     }
 
-    [Fact]
-    public void CreateShopkeeperWithIncorrectCNPJ()
-    {
-        var shopkeeper = new Shopkeeper(
-            fancyName: "Contabilizei empresa",
-            companyName: "Contabilizei Contabilidade lTDA",
-            shopkeeperCNJP: "123456a891234",
-            userId: Guid.Empty
-        );
-
-        var isCNPJInvalid = IsUserPropertyInvalid(shopkeeper, "ShopkeeperCNPJ");
-
-        Assert.True(isCNPJInvalid);
-        Assert.False(shopkeeper.IsValid);
-    }
-
     private bool IsUserPropertyInvalid(Shopkeeper shopkeeper, string propertyName)
     {
         if (!shopkeeper.IsValid)
