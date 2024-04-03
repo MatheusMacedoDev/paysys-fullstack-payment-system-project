@@ -1,4 +1,5 @@
 using Flunt.Validations;
+using paysys.webapi.Utils;
 
 namespace paysys.webapi.Domain.ValueObjects;
 
@@ -12,7 +13,7 @@ public class CPF : ValueObject
 
     public CPF(string cpfText)
     {
-        cpfText = cpfText.Trim();
+        cpfText = StringFormatter.FullyClear(cpfText);
 
         AddNotifications(new Contract<CPF>()
             .IsNotNullOrEmpty(cpfText, "CPF", "O CPF não deve ser nulo ou vazio")

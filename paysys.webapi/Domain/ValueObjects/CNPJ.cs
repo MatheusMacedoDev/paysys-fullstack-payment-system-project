@@ -1,4 +1,5 @@
 using Flunt.Validations;
+using paysys.webapi.Utils;
 
 namespace paysys.webapi.Domain.ValueObjects;
 
@@ -12,7 +13,7 @@ public class CNPJ : ValueObject
 
     public CNPJ(string cnpjText)
     {
-        cnpjText = cnpjText.Trim();
+        cnpjText = StringFormatter.FullyClear(cnpjText);
 
         AddNotifications(new Contract<CNPJ>()
             .IsNotNullOrEmpty(cnpjText, "CNPJ", "O CNPJ não pode ser nulo ou vazio")

@@ -1,4 +1,5 @@
 using Flunt.Validations;
+using paysys.webapi.Utils;
 
 namespace paysys.webapi.Domain.ValueObjects;
 
@@ -12,7 +13,7 @@ public class Name : ValueObject
 
     public Name(string nameText)
     {
-        nameText = nameText.Trim();
+        nameText = StringFormatter.BasicClear(nameText);
 
         AddNotifications(new Contract<Name>()
             .IsNotNullOrEmpty(nameText, "Name", "O nome não deve ser nulo ou vazio")
