@@ -4,6 +4,7 @@ using Flunt.Notifications;
 using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
 using paysys.webapi.Application.Strategies.Cryptography;
+using paysys.webapi.Domain.ValueObjects;
 using paysys.webapi.Utils;
 
 namespace paysys.webapi.Domain.Entities;
@@ -29,13 +30,7 @@ public class User : Notifiable<Notification>
     [Column("phone_number", TypeName = "CHAR(11)")]
     public string? PhoneNumber { get; private set; }
 
-    [Required]
-    [Column("hash", TypeName = "BYTEA")]
-    public byte[]? Hash { get; private set; }
-
-    [Required]
-    [Column("salt", TypeName = "BYTEA")]
-    public byte[]? Salt { get; private set; }
+    public Password? Password { get; private set; }
 
     [Required]
     [Column("created_on")]
@@ -54,14 +49,8 @@ public class User : Notifiable<Notification>
     [ForeignKey(nameof(UserTypeId))]
     public UserType? UserType { get; private set; }
 
-    public User(string userName, string email, string phoneNumber, byte[] salt, byte[] hash, Guid userTypeId)
+    protected User()
     {
-        UserId = Guid.NewGuid();
-        Email = email;
-        PhoneNumber = phoneNumber;
-        Salt = salt;
-        Hash = hash;
-        UserTypeId = userTypeId;
     }
 
     public User(string userName, string email, string phoneNumber, string password, Guid userTypeId, ICryptographyStrategy cryptographyStrategy)
@@ -71,7 +60,8 @@ public class User : Notifiable<Notification>
         ChangeUserName(userName);
         ChangeEmail(email);
         ChangePhoneNumber(phoneNumber);
-        ChangePassword(password, cryptographyStrategy);
+
+        Password = new Password(password, cryptographyStrategy);
 
         var currentDateTime = DateTime.UtcNow;
 
@@ -120,20 +110,5 @@ public class User : Notifiable<Notification>
         );
 
         PhoneNumber = phoneNumber;
-    }
-
-    private void ChangePassword(string password, ICryptographyStrategy cryptographyStrategy)
-    {
-        AddNotifications(new Contract<User>()
-            .IsNotNullOrEmpty(password, "Password", "A senha não pode ser nula ou vazia")
-            .IsGreaterOrEqualsThan(password, 10, "Password", "A senha deve conter ao menos dez caracteres")
-            .Matches(password, @"[0-9]+", "Password", "A senha deve conter ao menos um número")
-            .Matches(password, @"[a-z]+", "Password", "A senha deve conter ao menos um letra minúscula")
-            .Matches(password, @"[A-Z]+", "Password", "A senha deve conter ao menos um letra minúscula")
-            .Matches(password, @"[^a-zA-Z0-9]+", "Password", "A senha deve conter ao menos um caractere especial")
-        );
-
-        Salt = cryptographyStrategy.MakeSalt();
-        Hash = cryptographyStrategy.MakeHashedPassword(password, Salt);
     }
 }
