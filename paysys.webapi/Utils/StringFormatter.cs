@@ -19,7 +19,7 @@ public static class StringFormatter
         string cleanText;
 
         cleanText = BasicClear(dirtyText);
-        cleanText = Regex.Replace(cleanText, "[?&^$#@!()+-,:;<>’\'-_*]", String.Empty);
+        cleanText = Regex.Replace(cleanText, "[^A-Za-z0-9]", String.Empty);
 
         return cleanText;
     }
