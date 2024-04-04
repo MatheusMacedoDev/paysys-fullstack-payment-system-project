@@ -7,7 +7,7 @@ public class UserNameTest
     [Fact]
     public void CreateValidUserName()
     {
-        UserName testedUserName = new UserName("Mathe1");
+        UserName testedUserName = new UserName("Mathe14");
 
         if (!testedUserName.IsValid)
         {

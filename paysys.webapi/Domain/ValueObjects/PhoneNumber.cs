@@ -17,7 +17,7 @@ public class PhoneNumber : ValueObject
 
         AddNotifications(new Contract<PhoneNumber>()
             .IsNotNullOrEmpty(phoneNumberText, "PhoneNumber", "O número de telefone não pode ser nulo ou vazio")
-            .Matches(phoneNumberText, "^[0-9]{11}*$", "PhoneNumber", "O número de telefone é inválido")
+            .Matches(phoneNumberText, "^[0-9]{11}$", "PhoneNumber", "O número de telefone é inválido")
         );
 
         if (!IsValid)
