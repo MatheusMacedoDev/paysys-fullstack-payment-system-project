@@ -1,21 +1,17 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Flunt.Notifications;
-using Flunt.Validations;
-using paysys.webapi.Utils;
+using paysys.webapi.Domain.ValueObjects;
 
 namespace paysys.webapi.Domain.Entities;
 
 [Table("transfers")]
-public class Transfer : Notifiable<Notification>
+public class Transfer
 {
     [Key]
     [Column("transfer_id")]
     public Guid TransferId { get; private set; }
 
-    [Required]
-    [Column("transfer_description")]
-    public string? TransferDescription { get; private set; }
+    public Description? TransferDescription { get; private set; }
 
     [Required]
     [Column("transfer_amount", TypeName = "MONEY")]
@@ -61,10 +57,14 @@ public class Transfer : Notifiable<Notification>
     [ForeignKey(nameof(ReceiverUserId))]
     public User? ReceiverUser { get; private set; }
 
+    protected Transfer()
+    {
+    }
+
     public Transfer(string transferDescription, double transferAmount, Guid transferStatusId, Guid transferCategoryId, Guid senderUserId, Guid receiverUserId)
     {
         TransferId = Guid.NewGuid();
-        ChangeTransferDescription(transferDescription);
+        TransferDescription = new Description(transferDescription);
         TransferAmount = transferAmount;
         TransferDateTime = DateTime.UtcNow;
 
@@ -72,18 +72,5 @@ public class Transfer : Notifiable<Notification>
         TransferCategoryId = transferCategoryId;
         SenderUserId = senderUserId;
         ReceiverUserId = receiverUserId;
-    }
-
-    private void ChangeTransferDescription(string description)
-    {
-        description = StringFormatter.BasicClear(description);
-
-        AddNotifications(new Contract<Transfer>()
-            .IsNotNullOrEmpty(description, "TransferDescription", "A descrição da transferência não pode ser nula ou vazia")
-            .IsLowerOrEqualsThan(description, 120, "TransferDescription", "A descrição deve conter no máximo 120 caracteres")
-            .Matches(description, @"^[A-Z](\s?[A-Za-z,.();?!%$#&]+\s?)+$", "TransferDescription", "Descrição inválida")
-        );
-
-        TransferDescription = description;
     }
 }
