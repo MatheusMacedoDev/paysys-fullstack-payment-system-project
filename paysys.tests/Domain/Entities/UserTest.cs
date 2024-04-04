@@ -42,7 +42,7 @@ public class UserTest
             userName: "009487",
             email: "matheus.macedo@email.com",
             phoneNumber: "11984236577",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: Guid.Empty,
             _cryptographyStrategy
         );
@@ -60,7 +60,7 @@ public class UserTest
             userName: "009487",
             email: "matheus.macedo",
             phoneNumber: "11984236577",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: Guid.Empty,
             _cryptographyStrategy
         );
@@ -78,7 +78,7 @@ public class UserTest
             userName: "009487",
             email: "matheus.macedo",
             phoneNumber: "1198423657A",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: Guid.Empty,
             _cryptographyStrategy
         );

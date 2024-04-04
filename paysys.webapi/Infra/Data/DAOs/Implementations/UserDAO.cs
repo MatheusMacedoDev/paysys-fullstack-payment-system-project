@@ -31,8 +31,8 @@ public class UserDAO : IUserDAO
                     SELECT
                         users.user_id AS userId,
                         users.user_name AS userName,
-                        users.hash AS userHash,
-                        users.salt AS userSalt,
+                        users.password_hash AS userHash,
+                        users.password_salt AS userSalt,
                         types.user_type_name AS userTypeName
                     FROM users
                     JOIN user_types AS types

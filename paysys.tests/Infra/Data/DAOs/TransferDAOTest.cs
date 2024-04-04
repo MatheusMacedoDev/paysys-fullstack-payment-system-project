@@ -90,7 +90,7 @@ public class TransferDAOTest : DatabaseTestCase
             userName: "Machadão",
             email: "lucas.machado@email.com",
             phoneNumber: "11947346577",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: commonUserTypeId
         );
 
@@ -131,7 +131,7 @@ public class TransferDAOTest : DatabaseTestCase
             cnpj: "16382209000105",
             email: "lucas.machado@email.com",
             phoneNumber: "11947346577",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: shopkeeperUserTypeId
         );
 
@@ -172,7 +172,7 @@ public class TransferDAOTest : DatabaseTestCase
             userName: "Machadão",
             email: "lucas.machado@email.com",
             phoneNumber: "11947346577",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: commonUserTypeId
         );
 
@@ -217,7 +217,7 @@ public class TransferDAOTest : DatabaseTestCase
             userName: "Math8006",
             email: "matheus@email.com",
             phoneNumber: "11947346577",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: commonUserTypeId
         );
 

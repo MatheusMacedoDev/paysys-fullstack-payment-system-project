@@ -50,7 +50,7 @@ public class UserServiceTest
             "Math21",
             "matheus@email.com",
             "11983425488",
-            "12345",
+            "Matheus@8006",
             Guid.NewGuid()
         );
 
@@ -72,7 +72,7 @@ public class UserServiceTest
             "Machado342",
             "lucas@email.com",
             "974735847",
-            "12345",
+            "Matheus@8006",
             Guid.NewGuid()
         );
 
@@ -95,7 +95,7 @@ public class UserServiceTest
             "AmazonBR1",
             "store@amazon.com",
             "11943827463",
-            "12345",
+            "Matheus@8006",
             Guid.NewGuid()
         );
 

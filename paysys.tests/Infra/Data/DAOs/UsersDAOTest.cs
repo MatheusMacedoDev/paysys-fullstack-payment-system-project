@@ -110,7 +110,7 @@ public class UsersDAOTest : DatabaseTestCase
             userName: "Math8006",
             email: "matheus@email.com",
             phoneNumber: "11947346577",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: commonUserType.UserTypeId
         );
 
@@ -123,7 +123,7 @@ public class UsersDAOTest : DatabaseTestCase
             userName: "MaHahaha",
             email: "rocha@email.com",
             phoneNumber: "11947365477",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: administratorUserType.UserTypeId
         );
 

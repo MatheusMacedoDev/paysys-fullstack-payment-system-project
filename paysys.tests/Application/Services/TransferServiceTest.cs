@@ -109,7 +109,7 @@ public class TransferServiceTest : DatabaseTestCase
             userName: "Math80064",
             email: "matheus22@email.com",
             phoneNumber: "11947346577",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: commonType.UserTypeId
         );
 
@@ -129,7 +129,7 @@ public class TransferServiceTest : DatabaseTestCase
             userName: "Machadão",
             email: "lucas.machado@email.com",
             phoneNumber: "11947346577",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: commonType.UserTypeId
         );
 
@@ -192,7 +192,7 @@ public class TransferServiceTest : DatabaseTestCase
             userName: "Math8006",
             email: "matheus@email.com",
             phoneNumber: "11947346577",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: commonType.UserTypeId
         );
 
@@ -213,7 +213,7 @@ public class TransferServiceTest : DatabaseTestCase
             userName: "uberUser",
             email: "transfer@uber.com",
             phoneNumber: "11958475877",
-            password: "12345",
+            password: "Matheus@8006",
             userTypeId: shopkeeperType.UserTypeId
         );
 
