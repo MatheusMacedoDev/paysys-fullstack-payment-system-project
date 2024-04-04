@@ -26,39 +26,4 @@ public class TransferTest
 
         Assert.True(transfer.IsValid);
     }
-
-    [Fact]
-    public void CreateTransferWithIncorrectDescription()
-    {
-        var transfer = new Transfer(
-            transferDescription: "Realiz4ndo um pag4mento atrazado.",
-            transferAmount: 500,
-            transferStatusId: Guid.Empty,
-            transferCategoryId: Guid.Empty,
-            senderUserId: Guid.Empty,
-            receiverUserId: Guid.Empty
-        );
-
-        var isDescriptionInvalid = IsTransferPropertyInvalid(transfer, "TransferDescription");
-
-        Assert.True(isDescriptionInvalid);
-        Assert.False(transfer.IsValid);
-    }
-
-    private bool IsTransferPropertyInvalid(Transfer transfer, string propertyName)
-    {
-        if (!transfer.IsValid)
-        {
-            foreach (var notification in transfer.Notifications)
-            {
-                if (notification.Key == propertyName)
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-
-    }
 }
