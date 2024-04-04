@@ -155,7 +155,7 @@ public class TransfersService : ITransfersService
 
             var response = new CreateTransferResponse(
                 transferId: transfer.TransferId,
-                transferDescription: transfer.TransferDescription!,
+            transferDescription: transfer.TransferDescription!.DescriptionText!,
                 transferAmount: transfer.TransferAmount,
                 transferDateTime: transfer.TransferDateTime,
                 transferStatusId: transfer.TransferStatusId,

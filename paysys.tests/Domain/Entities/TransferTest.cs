@@ -16,14 +16,6 @@ public class TransferTest
             receiverUserId: Guid.Empty
         );
 
-        if (!transfer.IsValid)
-        {
-            foreach (var notification in transfer.Notifications)
-            {
-                Console.WriteLine(notification.Message);
-            }
-        }
-
-        Assert.True(transfer.IsValid);
+        Assert.True(transfer.TransferDescription!.IsValid);
     }
 }
