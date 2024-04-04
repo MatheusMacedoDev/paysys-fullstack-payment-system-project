@@ -2,7 +2,7 @@ using paysys.webapi.Domain.ValueObjects;
 
 namespace paysys.tests.Domain.ValueObjects;
 
-public class NameTest
+public class DescriptionTest
 {
     [Fact]
     public void CreateValidName()
