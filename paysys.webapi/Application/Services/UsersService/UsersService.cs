@@ -135,7 +135,7 @@ public class UsersService : IUsersService
             var response = new CreateShopkeeperResponse(
                 shopkeeper.ShopkeeperId,
                 user.UserId,
-                shopkeeper.FancyName!
+                shopkeeper.FancyName!.NameText!
             );
 
             return response;
