@@ -52,5 +52,6 @@ public class DataContext : DbContext
         modelBuilder.ApplyConfiguration(new TransferConfiguration());
         modelBuilder.ApplyConfiguration(new TransferCategoryConfiguration());
         modelBuilder.ApplyConfiguration(new TransferStatusConfiguration());
+        modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
     }
 }

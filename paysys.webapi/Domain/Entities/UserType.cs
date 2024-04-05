@@ -14,10 +14,20 @@ public class UserType
 
     public Name? TypeName { get; private set; }
 
+    protected UserType()
+    {
+
+    }
+
     public UserType(string typeName)
     {
         UserTypeId = Guid.NewGuid();
 
+        ChangeTypeName(typeName);
+    }
+
+    public void ChangeTypeName(string typeName)
+    {
         TypeName = new Name(
             nameText: StringFormatter.FormatToTitle(typeName),
             maxCharacters: 4

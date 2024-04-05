@@ -38,7 +38,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("administrator_users");
+                    b.ToTable("administrator_users", (string)null);
                 });
 
             modelBuilder.Entity("paysys.webapi.Domain.Entities.CommonUser", b =>
@@ -61,7 +61,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("common_users");
+                    b.ToTable("common_users", (string)null);
                 });
 
             modelBuilder.Entity("paysys.webapi.Domain.Entities.Shopkeeper", b =>
@@ -84,7 +84,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("shopkeepers");
+                    b.ToTable("shopkeepers", (string)null);
                 });
 
             modelBuilder.Entity("paysys.webapi.Domain.Entities.Transfer", b =>
@@ -128,7 +128,7 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                     b.HasIndex("TransferStatusId");
 
-                    b.ToTable("transfers");
+                    b.ToTable("transfers", (string)null);
                 });
 
             modelBuilder.Entity("paysys.webapi.Domain.Entities.TransferCategory", b =>
@@ -140,7 +140,7 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                     b.HasKey("TransferCategoryId");
 
-                    b.ToTable("transfer_categories");
+                    b.ToTable("transfer_categories", (string)null);
                 });
 
             modelBuilder.Entity("paysys.webapi.Domain.Entities.TransferStatus", b =>
@@ -152,7 +152,7 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                     b.HasKey("TransferStatusId");
 
-                    b.ToTable("transfer_status");
+                    b.ToTable("transfer_status", (string)null);
                 });
 
             modelBuilder.Entity("paysys.webapi.Domain.Entities.User", b =>
@@ -178,7 +178,7 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                     b.HasIndex("UserTypeId");
 
-                    b.ToTable("users");
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("paysys.webapi.Domain.Entities.UserType", b =>
@@ -197,7 +197,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                     b.HasIndex("TypeName")
                         .IsUnique();
 
-                    b.ToTable("user_types");
+                    b.ToTable("user_types", (string)null);
                 });
 
             modelBuilder.Entity("paysys.webapi.Domain.Entities.AdministratorUser", b =>
@@ -208,7 +208,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.CPF", "AdministratorCPF", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.AdministratorUser.AdministratorCPF#paysys.webapi.Domain.ValueObjects.CPF", "AdministratorCPF", b1 =>
                         {
                             b1.Property<Guid>("AdministratorUserAdministratorId")
                                 .HasColumnType("uuid");
@@ -220,13 +220,13 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                             b1.HasKey("AdministratorUserAdministratorId");
 
-                            b1.ToTable("administrator_users");
+                            b1.ToTable("administrator_users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("AdministratorUserAdministratorId");
                         });
 
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.Name", "AdministratorName", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.AdministratorUser.AdministratorName#paysys.webapi.Domain.ValueObjects.Name", "AdministratorName", b1 =>
                         {
                             b1.Property<Guid>("AdministratorUserAdministratorId")
                                 .HasColumnType("uuid");
@@ -238,7 +238,7 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                             b1.HasKey("AdministratorUserAdministratorId");
 
-                            b1.ToTable("administrator_users");
+                            b1.ToTable("administrator_users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("AdministratorUserAdministratorId");
@@ -259,7 +259,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.CPF", "CommonUserCPF", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.CommonUser.CommonUserCPF#paysys.webapi.Domain.ValueObjects.CPF", "CommonUserCPF", b1 =>
                         {
                             b1.Property<Guid>("CommonUserId")
                                 .HasColumnType("uuid");
@@ -271,13 +271,13 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                             b1.HasKey("CommonUserId");
 
-                            b1.ToTable("common_users");
+                            b1.ToTable("common_users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("CommonUserId");
                         });
 
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.Name", "CommonUserName", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.CommonUser.CommonUserName#paysys.webapi.Domain.ValueObjects.Name", "CommonUserName", b1 =>
                         {
                             b1.Property<Guid>("CommonUserId")
                                 .HasColumnType("uuid");
@@ -289,7 +289,7 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                             b1.HasKey("CommonUserId");
 
-                            b1.ToTable("common_users");
+                            b1.ToTable("common_users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("CommonUserId");
@@ -310,7 +310,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.CorporateName", "CompanyName", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.Shopkeeper.CompanyName#paysys.webapi.Domain.ValueObjects.CorporateName", "CompanyName", b1 =>
                         {
                             b1.Property<Guid>("ShopkeeperId")
                                 .HasColumnType("uuid");
@@ -325,13 +325,13 @@ namespace paysys.webapi.Infra.Data.Migrations
                             b1.HasIndex("NameText")
                                 .IsUnique();
 
-                            b1.ToTable("shopkeepers");
+                            b1.ToTable("shopkeepers", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ShopkeeperId");
                         });
 
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.CorporateName", "FancyName", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.Shopkeeper.FancyName#paysys.webapi.Domain.ValueObjects.CorporateName", "FancyName", b1 =>
                         {
                             b1.Property<Guid>("ShopkeeperId")
                                 .HasColumnType("uuid");
@@ -343,13 +343,13 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                             b1.HasKey("ShopkeeperId");
 
-                            b1.ToTable("shopkeepers");
+                            b1.ToTable("shopkeepers", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ShopkeeperId");
                         });
 
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.CNPJ", "ShopkeeperCNJP", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.Shopkeeper.ShopkeeperCNJP#paysys.webapi.Domain.ValueObjects.CNPJ", "ShopkeeperCNJP", b1 =>
                         {
                             b1.Property<Guid>("ShopkeeperId")
                                 .HasColumnType("uuid");
@@ -361,7 +361,7 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                             b1.HasKey("ShopkeeperId");
 
-                            b1.ToTable("shopkeepers");
+                            b1.ToTable("shopkeepers", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ShopkeeperId");
@@ -402,7 +402,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.Description", "TransferDescription", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.Transfer.TransferDescription#paysys.webapi.Domain.ValueObjects.Description", "TransferDescription", b1 =>
                         {
                             b1.Property<Guid>("TransferId")
                                 .HasColumnType("uuid");
@@ -414,7 +414,7 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                             b1.HasKey("TransferId");
 
-                            b1.ToTable("transfers");
+                            b1.ToTable("transfers", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("TransferId");
@@ -433,7 +433,7 @@ namespace paysys.webapi.Infra.Data.Migrations
 
             modelBuilder.Entity("paysys.webapi.Domain.Entities.TransferCategory", b =>
                 {
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.Name", "TransferCategoryName", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.TransferCategory.TransferCategoryName#paysys.webapi.Domain.ValueObjects.Name", "TransferCategoryName", b1 =>
                         {
                             b1.Property<Guid>("TransferCategoryId")
                                 .HasColumnType("uuid");
@@ -448,7 +448,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                             b1.HasIndex("NameText")
                                 .IsUnique();
 
-                            b1.ToTable("transfer_categories");
+                            b1.ToTable("transfer_categories", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("TransferCategoryId");
@@ -459,7 +459,7 @@ namespace paysys.webapi.Infra.Data.Migrations
 
             modelBuilder.Entity("paysys.webapi.Domain.Entities.TransferStatus", b =>
                 {
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.Name", "TransferStatusName", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.TransferStatus.TransferStatusName#paysys.webapi.Domain.ValueObjects.Name", "TransferStatusName", b1 =>
                         {
                             b1.Property<Guid>("TransferStatusId")
                                 .HasColumnType("uuid");
@@ -474,7 +474,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                             b1.HasIndex("NameText")
                                 .IsUnique();
 
-                            b1.ToTable("transfer_status");
+                            b1.ToTable("transfer_status", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("TransferStatusId");
@@ -491,7 +491,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.Email", "Email", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.User.Email#paysys.webapi.Domain.ValueObjects.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uuid");
@@ -506,13 +506,13 @@ namespace paysys.webapi.Infra.Data.Migrations
                             b1.HasIndex("EmailText")
                                 .IsUnique();
 
-                            b1.ToTable("users");
+                            b1.ToTable("users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
                         });
 
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.Password", "Password", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.User.Password#paysys.webapi.Domain.ValueObjects.Password", "Password", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uuid");
@@ -529,13 +529,13 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("users");
+                            b1.ToTable("users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
                         });
 
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.PhoneNumber", "PhoneNumber", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.User.PhoneNumber#paysys.webapi.Domain.ValueObjects.PhoneNumber", "PhoneNumber", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uuid");
@@ -547,13 +547,13 @@ namespace paysys.webapi.Infra.Data.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("users");
+                            b1.ToTable("users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
                         });
 
-                    b.OwnsOne("paysys.webapi.Domain.ValueObjects.UserName", "UserName", b1 =>
+                    b.OwnsOne("paysys.webapi.Domain.Entities.User.UserName#paysys.webapi.Domain.ValueObjects.UserName", "UserName", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uuid");
@@ -568,7 +568,7 @@ namespace paysys.webapi.Infra.Data.Migrations
                             b1.HasIndex("NameText")
                                 .IsUnique();
 
-                            b1.ToTable("users");
+                            b1.ToTable("users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
