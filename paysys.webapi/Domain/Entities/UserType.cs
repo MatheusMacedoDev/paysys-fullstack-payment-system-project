@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Globalization;
 using Flunt.Notifications;
 using Flunt.Validations;
 using Microsoft.EntityFrameworkCore;
+using paysys.webapi.Utils;
 
 namespace paysys.webapi.Domain.Entities;
 
@@ -27,7 +27,7 @@ public class UserType : Notifiable<Notification>
 
     public void ChangeTypeName(string newTypeName)
     {
-        var formatedTypeName = FormatTypeName(newTypeName);
+        var formatedTypeName = StringFormatter.FormatToTitle(newTypeName);
 
         AddNotifications(new Contract<UserType>()
             .IsNotNullOrEmpty(formatedTypeName, "TypeName", "O nome do tipo de usuário não pode ser nulo ou vazio")
@@ -36,13 +36,5 @@ public class UserType : Notifiable<Notification>
         );
 
         TypeName = formatedTypeName;
-    }
-
-    private string FormatTypeName(string name)
-    {
-        var lowerCaseName = name.ToLower();
-        var pascalCaseName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(lowerCaseName);
-
-        return pascalCaseName;
     }
 }

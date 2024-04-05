@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace paysys.webapi.Utils;
@@ -22,5 +23,13 @@ public static class StringFormatter
         cleanText = Regex.Replace(cleanText, "[^A-Za-z0-9]", String.Empty);
 
         return cleanText;
+    }
+
+    public static string FormatToTitle(string text)
+    {
+        var lowerCaseName = text.ToLower();
+        var pascalCaseName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(lowerCaseName);
+
+        return pascalCaseName;
     }
 }
