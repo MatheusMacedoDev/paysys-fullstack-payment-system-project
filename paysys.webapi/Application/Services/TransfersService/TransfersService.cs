@@ -54,7 +54,7 @@ public class TransfersService : ITransfersService
 
             var response = new CreateTransferCategoryResponse(
                 transferCategory.TransferCategoryId,
-                transferCategory.TransferCategoryName!
+                transferCategory.TransferCategoryName!.NameText!
             );
 
             return response;

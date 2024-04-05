@@ -13,6 +13,10 @@ public class TransferCategory
 
     public Name? TransferCategoryName { get; private set; }
 
+    protected TransferCategory()
+    {
+    }
+
     public TransferCategory(string transferCategoryName)
     {
         TransferCategoryId = Guid.NewGuid();

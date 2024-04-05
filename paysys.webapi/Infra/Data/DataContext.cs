@@ -50,5 +50,6 @@ public class DataContext : DbContext
         modelBuilder.ApplyConfiguration(new ShopkeeperConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new TransferConfiguration());
+        modelBuilder.ApplyConfiguration(new TransferCategoryConfiguration());
     }
 }
