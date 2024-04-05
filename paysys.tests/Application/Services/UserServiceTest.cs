@@ -105,7 +105,7 @@ public class UserServiceTest
         var memoryShopkeeperFancyName = (await _usersRepository.GetShopkeeperById(response.shopkeeperId)).FancyName;
 
         Assert.Equal("store@amazon.com", memoryUserEmail);
-        Assert.Equal("Amazon", memoryShopkeeperFancyName);
+        Assert.Equal("Amazon", memoryShopkeeperFancyName!.NameText);
     }
 }
 
