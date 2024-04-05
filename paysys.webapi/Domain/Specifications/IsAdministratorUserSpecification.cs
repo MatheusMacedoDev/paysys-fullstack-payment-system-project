@@ -16,6 +16,6 @@ public class IsAdministratorUserSpecification : Specification<UserType>
 
     public bool IsSatisfiedBy(UserType type)
     {
-        return type.TypeName == AdministratorTypeName;
+        return type.TypeName!.NameText == AdministratorTypeName;
     }
 }

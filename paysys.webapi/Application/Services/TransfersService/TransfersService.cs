@@ -231,12 +231,12 @@ public class TransfersService : ITransfersService
 
     private async Task IncreaseReceiverUserBalance(User receiverUser, UserType receiverUserType, double increaseAmount)
     {
-        if (receiverUserType.TypeName == _userTypeNamesSettings.Value.CommonTypeName)
+        if (receiverUserType.TypeName!.NameText == _userTypeNamesSettings.Value.CommonTypeName)
         {
             CommonUser common = await _usersRepository.GetCommonUserByUserId(receiverUser.UserId);
             common.IncreaseMoney(increaseAmount);
         }
-        else if (receiverUserType.TypeName == _userTypeNamesSettings.Value.ShopkeeperTypeName)
+        else if (receiverUserType.TypeName!.NameText == _userTypeNamesSettings.Value.ShopkeeperTypeName)
         {
             Shopkeeper shopkeeper = await _usersRepository.GetShopkeeperByUserId(receiverUser.UserId);
             shopkeeper.IncreaseMoney(increaseAmount);

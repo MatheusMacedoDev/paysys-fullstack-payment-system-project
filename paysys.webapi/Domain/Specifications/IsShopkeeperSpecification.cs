@@ -16,6 +16,6 @@ public class IsShopkeeperSpecification : Specification<UserType>
 
     public bool IsSatisfiedBy(UserType type)
     {
-        return type.TypeName == ShopkeeperTypeName;
+        return type.TypeName!.NameText == ShopkeeperTypeName;
     }
 }
