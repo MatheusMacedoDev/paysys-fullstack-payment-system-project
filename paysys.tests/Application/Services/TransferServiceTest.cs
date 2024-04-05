@@ -126,7 +126,7 @@ public class TransferServiceTest : DatabaseTestCase
         var createReceiverRequest = new CreateCommonUserRequest(
             commonUserName: "Lucas Santos Machado",
             cpf: "38843546598",
-            userName: "Machadão",
+            userName: "Machadao",
             email: "lucas.machado@email.com",
             phoneNumber: "11947346577",
             password: "Matheus@8006",

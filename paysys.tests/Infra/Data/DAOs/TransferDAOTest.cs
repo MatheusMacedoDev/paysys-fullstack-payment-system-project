@@ -87,7 +87,7 @@ public class TransferDAOTest : DatabaseTestCase
         var createReceiverRequest = new CreateCommonUserRequest(
             commonUserName: "Lucas Santos Machado",
             cpf: "38843546598",
-            userName: "Machadão",
+            userName: "Machadao",
             email: "lucas.machado@email.com",
             phoneNumber: "11947346577",
             password: "Matheus@8006",
@@ -127,7 +127,7 @@ public class TransferDAOTest : DatabaseTestCase
         var createReceiverRequest = new CreateShopkeeperRequest(
             fancyName: "Machado Store",
             companyName: "Machado LTDA",
-            userName: "Machadão",
+            userName: "Machadao",
             cnpj: "16382209000105",
             email: "lucas.machado@email.com",
             phoneNumber: "11947346577",
@@ -169,7 +169,7 @@ public class TransferDAOTest : DatabaseTestCase
         var createReceiverRequest = new CreateCommonUserRequest(
             commonUserName: "Lucas Santos Machado",
             cpf: "38843546598",
-            userName: "Machadão",
+            userName: "Machadao",
             email: "lucas.machado@email.com",
             phoneNumber: "11947346577",
             password: "Matheus@8006",
