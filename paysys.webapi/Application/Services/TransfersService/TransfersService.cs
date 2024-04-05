@@ -93,7 +93,7 @@ public class TransfersService : ITransfersService
 
             var response = new CreateTransferStatusResponse(
                 transferStatus.TransferStatusId,
-                transferStatus.TransferStatusName!
+                transferStatus.TransferStatusName!.NameText!
             );
 
             return response;
