@@ -11,13 +11,13 @@ public class Name : ValueObject
     {
     }
 
-    public Name(string nameText)
+    public Name(string nameText, int maxCharacters = 8)
     {
         nameText = StringFormatter.BasicClear(nameText);
 
         AddNotifications(new Contract<Name>()
             .IsNotNullOrEmpty(nameText, "Name", "O nome não deve ser nulo ou vazio")
-            .IsGreaterOrEqualsThan(nameText, 8, "Name", "O nome deve ter mais que oito letras")
+            .IsGreaterOrEqualsThan(nameText, maxCharacters, "Name", "O nome deve ter mais que oito letras")
             .Matches(nameText, @"^(\s?[A-Z][a-z]+|\s[deaos]+)+$", "Name", "O nome conforme descrito é inválido")
         );
 
