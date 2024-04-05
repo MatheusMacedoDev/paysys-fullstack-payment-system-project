@@ -59,7 +59,7 @@ public class UserServiceTest
         var memoryUserEmail = (await _usersRepository.GetUserById(response.userId)).Email;
         var memoryAdministratorName = (await _usersRepository.GetAdministratorById(response.administratorId)).AdministratorName!.NameText;
 
-        Assert.Equal("matheus@email.com", memoryUserEmail);
+        Assert.Equal("matheus@email.com", memoryUserEmail!.EmailText);
         Assert.Equal("Matheus Macedo Santos", memoryAdministratorName);
     }
 
@@ -81,7 +81,7 @@ public class UserServiceTest
         var memoryUserEmail = (await _usersRepository.GetUserById(response.userId)).Email;
         var memoryCommonUserName = (await _usersRepository.GetCommonUserById(response.commonUserId)).CommonUserName;
 
-        Assert.Equal("lucas@email.com", memoryUserEmail);
+        Assert.Equal("lucas@email.com", memoryUserEmail!.EmailText);
         Assert.Equal("Lucas Santos", memoryCommonUserName!.NameText);
     }
 
@@ -104,7 +104,7 @@ public class UserServiceTest
         var memoryUserEmail = (await _usersRepository.GetUserById(response.userId)).Email;
         var memoryShopkeeperFancyName = (await _usersRepository.GetShopkeeperById(response.shopkeeperId)).FancyName;
 
-        Assert.Equal("store@amazon.com", memoryUserEmail);
+        Assert.Equal("store@amazon.com", memoryUserEmail!.EmailText);
         Assert.Equal("Amazon", memoryShopkeeperFancyName!.NameText);
     }
 }
