@@ -27,4 +27,15 @@ public class CNPJTest
 
         Assert.Throws<ArgumentException>(actual);
     }
+
+    [Fact]
+    public void GetFormattedCNPJ()
+    {
+        CNPJ testedCNPJ = new CNPJ("12345678912345");
+        string expectedGettedCNPJ = "12.345.678/9123-45";
+
+        string gettedCNPJ = testedCNPJ.GetFormattedCNPJ();
+
+        Assert.Equal(expectedGettedCNPJ, gettedCNPJ);
+    }
 }
