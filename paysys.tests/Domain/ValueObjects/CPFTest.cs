@@ -27,4 +27,15 @@ public class CPFTest
 
         Assert.Throws<ArgumentException>(actual);
     }
+
+    [Fact]
+    public void GetCPFTest()
+    {
+        CPF testedCPF = new CPF("53338579837");
+        string expectedGettedCPF = "533.385.798-37";
+
+        string gettedCPF = testedCPF.CPFText!;
+
+        Assert.Equal(expectedGettedCPF, gettedCPF);
+    }
 }
