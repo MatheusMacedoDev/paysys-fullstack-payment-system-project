@@ -26,6 +26,12 @@ public class PhoneNumber : ValueObject
         PhoneNumberText = phoneNumberText;
     }
 
+    public string GetFormattedPhoneNumber()
+    {
+        return $"({PhoneNumberText!.Substring(0, 2)}) {PhoneNumberText.Substring(2, 5)}" +
+               $"-{PhoneNumberText.Substring(7, 4)}";
+    }
+
     protected override IEnumerable<object> GetAtomicValues()
     {
         yield return PhoneNumberText!;
