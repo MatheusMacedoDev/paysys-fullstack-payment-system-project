@@ -34,7 +34,7 @@ public class CPFTest
         CPF testedCPF = new CPF("53338579837");
         string expectedGettedCPF = "533.385.798-37";
 
-        string gettedCPF = testedCPF.CPFText!;
+        string gettedCPF = testedCPF.GetFormattedCPF();
 
         Assert.Equal(expectedGettedCPF, gettedCPF);
     }
