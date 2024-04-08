@@ -26,6 +26,13 @@ public class CNPJ : ValueObject
         CNPJText = cnpjText;
     }
 
+    public string GetFormattedCNPJ()
+    {
+        return $"{CNPJText!.Substring(0, 2)}.{CNPJText.Substring(2, 3)}.{CNPJText.Substring(5, 3)}"
+               + $"/{CNPJText.Substring(8, 4)}-{CNPJText.Substring(12, 2)}";
+
+    }
+
     protected override IEnumerable<object> GetAtomicValues()
     {
         yield return CNPJText!;
