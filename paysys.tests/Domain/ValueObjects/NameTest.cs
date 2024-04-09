@@ -7,7 +7,7 @@ public class NameTest
     [Fact]
     public void CreateValidName()
     {
-        Name testedName = new Name("Matheus Macedo");
+        Name testedName = new Name("Matheus Macedo Brasão");
 
         if (!testedName.IsValid)
         {

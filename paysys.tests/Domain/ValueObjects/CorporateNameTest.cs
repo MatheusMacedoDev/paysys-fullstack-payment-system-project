@@ -7,7 +7,7 @@ public class CorporateNameTest
     [Fact]
     public void CreateValidCorporateName()
     {
-        CorporateName testedCorporateName = new CorporateName("Contabilizei Contabilidade LTDA");
+        CorporateName testedCorporateName = new CorporateName("Contabilizei Contabilidade Teão LTDA");
 
         if (!testedCorporateName.IsValid)
         {

@@ -7,7 +7,7 @@ public class DescriptionTest
     [Fact]
     public void CreateValidName()
     {
-        Description testedDescription = new Description("Realizando um pagamento atrazado.");
+        Description testedDescription = new Description("Realização de um pagamento atrazado.");
 
         if (!testedDescription.IsValid)
         {
