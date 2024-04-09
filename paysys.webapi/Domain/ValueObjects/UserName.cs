@@ -18,7 +18,7 @@ public class UserName : ValueObject
         AddNotifications(new Contract<UserName>()
             .IsNotNullOrEmpty(nameText, "UserName", "O nome de usuário não deve ser nulo ou vazio")
             .IsGreaterThan(nameText, 5, "UserName", "O nome de usuário deve conter mais de cinco carácteres")
-            .Matches(nameText, "^[A-Za-z][a-zA-Z0-9-_.]+$", "UserName", "O nome de usuário deve conter letras")
+            .Matches(nameText, @"^[A-Za-z][\p{L}0-9-_.]+$", "UserName", "O nome de usuário deve conter letras")
         );
 
         if (!IsValid)

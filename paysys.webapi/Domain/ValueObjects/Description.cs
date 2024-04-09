@@ -18,7 +18,7 @@ public class Description : ValueObject
         AddNotifications(new Contract<Description>()
             .IsNotNullOrEmpty(descriptionText, "Description", "A descrição não pode ser nula ou vazia")
             .IsLowerOrEqualsThan(descriptionText, 120, "Description", "A descrição deve conter no máximo 120 caracteres")
-            .Matches(descriptionText, @"^[A-Z](\s?[A-Za-z,.();?!%$#&]+\s?)+$", "Description", "Descrição inválida")
+            .Matches(descriptionText, @"^[A-Z](\s?[\p{L},.();?!%$#&]+\s?)+$", "Description", "Descrição inválida")
         );
 
         if (!IsValid)
