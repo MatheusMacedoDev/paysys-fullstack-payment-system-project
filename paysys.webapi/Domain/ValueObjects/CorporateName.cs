@@ -18,7 +18,7 @@ public class CorporateName : ValueObject
         AddNotifications(new Contract<CorporateName>()
             .IsNotNullOrEmpty(nameText, "CorporateName", "O nome corporativo não pode ser nula ou vazia")
             .IsLowerOrEqualsThan(nameText, 115, "CorporateName", "O nome corporativo não pode exceder 115 caracteres")
-            .Matches(nameText, @"^(\s?[A-Z][a-zA-Z]+\s?)+$", "CorporateName", "Nome corporativo inválido")
+            .Matches(nameText, @"^(\s?[A-Z]\p{L}+\s?)+$", "CorporateName", "Nome corporativo inválido")
         );
 
         if (!IsValid)
