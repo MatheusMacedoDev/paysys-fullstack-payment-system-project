@@ -76,7 +76,8 @@ Primeiramente, deve-se clonar o repositório na sua máquina local com o seguint
 git clone https://github.com/MatheusMacedoDev/paysys-backend.git
 ```
 
-Depois, deve-se baixar todas as dependências do projeto usando o seguinte comando do [.NET CLI](https://learn.microsoft.com/pt-br/dotnet/core/tools/) na raiz do projeto:
+Depois, deve-se baixar todas as dependências do projeto usando o seguinte comando do [.NET CLI](https://learn.microsoft.com/pt-br/dotnet/core/tools/) na raiz do projeto da API (não de testes):
+
 **.NET CLI**
 ```
 dotnet restore
@@ -89,3 +90,15 @@ Então, você deverá modificar o arquivo *appsettings.json*, em especial na par
 },
 ```
 Os seus dados devem ser colocadas substituindo os campos acima. Mais detalhes sobre strings de conexão no Entity Framework Core podem ser vistas [aqui](https://www.macoratti.net/17/05/aspcore_pgsqlef1.htm).
+Logo em seguida, deve-se executar o seguinte comando que vai gerar o banco de dados que foi especificado na string de conexão. Portanto, se houver algum erro na string de coneção, o comando falhará.
+
+**.Net CLI**
+```
+dotnet ef update database
+```
+Por fim, agora é só executar a aplicação usando o seguinte comando
+
+**.Net CLI**
+```
+dotnet watch run
+```
