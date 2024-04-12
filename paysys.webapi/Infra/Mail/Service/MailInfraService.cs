@@ -3,6 +3,7 @@ using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using paysys.webapi.Configuration;
+using paysys.webapi.Infra.Mail.Templates;
 
 namespace paysys.webapi.Infra.Mail.Service;
 
@@ -41,6 +42,17 @@ public class MailInfraService : IMailInfraService
         {
             Console.WriteLine(ex.ToString());
         }
+    }
+
+    public async Task SendMailWithTemplateAsync(string receiverEmail, IMailTemplate mailTemplate)
+    {
+        var mailRequest = new MailRequest(
+            ReceiverEmail: receiverEmail,
+            MailSubject: mailTemplate.Subject,
+            MailBody: mailTemplate.GenerateEmailBody()
+        );
+
+        await SendMailAsync(mailRequest);
     }
 
     private MimeEntity BuildMailBody(string htmlBody)
