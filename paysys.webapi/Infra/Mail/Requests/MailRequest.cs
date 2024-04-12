@@ -1,4 +1,4 @@
-namespace paysys.webapi.Infra.Mail;
+namespace paysys.webapi.Infra.Mail.Requests;
 
 public record MailRequest(
     string? ReceiverEmail,
