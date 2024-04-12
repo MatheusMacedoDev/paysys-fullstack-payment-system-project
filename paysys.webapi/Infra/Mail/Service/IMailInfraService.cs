@@ -1,9 +1,9 @@
-using paysys.webapi.Infra.Mail.Templates;
+using paysys.webapi.Infra.Mail.Requests;
 
 namespace paysys.webapi.Infra.Mail.Service;
 
 public interface IMailInfraService
 {
     Task SendMailAsync(MailRequest request);
-    Task SendMailWithTemplateAsync(string receiverEmail, IMailTemplate mailTemplate);
+    Task SendMailWithTemplateAsync(MailWithTemplateRequest request);
 }
