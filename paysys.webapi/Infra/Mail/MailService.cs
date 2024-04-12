@@ -1,4 +1,5 @@
 using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using paysys.webapi.Configuration;
@@ -29,16 +30,16 @@ public class MailService : IMailService
             {
                 client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
-                await client.ConnectAsync(_smtpSettings.SmtpServer, _smtpSettings.Port);
-                await client.AuthenticateAsync(_smtpSettings.Username, _smtpSettings.Password);
+                await client.ConnectAsync(_smtpSettings.SmtpServer, _smtpSettings.Port, SecureSocketOptions.StartTls);
+                await client.AuthenticateAsync(_smtpSettings.SenderEmail, _smtpSettings.SenderPassword);
 
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw;
+            Console.WriteLine(ex.ToString());
         }
     }
 
