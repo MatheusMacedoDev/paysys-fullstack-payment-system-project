@@ -4,13 +4,13 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 using paysys.webapi.Configuration;
 
-namespace paysys.webapi.Infra.Mail;
+namespace paysys.webapi.Infra.Mail.Service;
 
-public class MailService : IMailService
+public class MailInfraService : IMailInfraService
 {
     private readonly SmtpSettings _smtpSettings;
 
-    public MailService(IOptions<SmtpSettings> smtpSettings)
+    public MailInfraService(IOptions<SmtpSettings> smtpSettings)
     {
         _smtpSettings = smtpSettings.Value;
     }
