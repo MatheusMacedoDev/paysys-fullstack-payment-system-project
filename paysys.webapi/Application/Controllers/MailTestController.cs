@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using paysys.webapi.Infra.Mail;
+using paysys.webapi.Infra.Mail.Service;
 
 namespace paysys.webapi.Application.Controllers;
 
@@ -8,9 +9,9 @@ namespace paysys.webapi.Application.Controllers;
 [Produces("application/json")]
 public class MailTestController : ControllerBase
 {
-    private readonly IMailService _mailService;
+    private readonly IMailInfraService _mailService;
 
-    public MailTestController(IMailService mailService)
+    public MailTestController(IMailInfraService mailService)
     {
         _mailService = mailService;
     }

@@ -12,7 +12,7 @@ using paysys.webapi.Infra.Data.DAOs.Implementation;
 using paysys.webapi.Infra.Data.DAOs.Interfaces;
 using paysys.webapi.Infra.Data.Repositories;
 using paysys.webapi.Infra.Data.UnityOfWork;
-using paysys.webapi.Infra.Mail;
+using paysys.webapi.Infra.Mail.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -35,7 +35,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddDbContext<DataContext>();
 
     // Infra Service Injection
-    builder.Services.AddTransient<IMailService, MailService>();
+    builder.Services.AddTransient<IMailInfraService, MailInfraService>();
 
     // UnityOfWork Injection
     builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
