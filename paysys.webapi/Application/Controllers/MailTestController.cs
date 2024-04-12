@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using paysys.webapi.Infra.Mail;
+using paysys.webapi.Infra.Mail.Requests;
 using paysys.webapi.Infra.Mail.Service;
 
 namespace paysys.webapi.Application.Controllers;
