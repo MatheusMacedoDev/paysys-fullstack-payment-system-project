@@ -20,7 +20,7 @@
 - Swagger (documentação da API)
 - MailKit e MimeKit (envio de e-mails)
 - XUnit (testes unitários e de integração)
-- Handlebars.Net (templates html)
+- Handlebars.Net (templates HTML)
 
 ### Front-end
 Nada para ver ainda...
