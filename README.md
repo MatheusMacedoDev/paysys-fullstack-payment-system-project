@@ -65,7 +65,7 @@ Antes de fazer a instalação algumas ferramentas e softwares são necessárias 
 ### Back-end
 - Um editor de código com suporte a linguagem C#, como: [Visual Studio](https://visualstudio.microsoft.com/pt-br/), [VS Code](https://code.visualstudio.com/) ou [NeoVim](https://neovim.io) (minha opção);
 - Ter .NET 8 ou superior instalado e adicionado ao PATH do sitema, através do [site oficial](https://dotnet.microsoft.com/pt-br/download) ou de um gerenciador de versões de runtimes como o [ASDF](https://asdf-vm.com/);
-- O gerenciador de banco de dados PostgreSQL 16 instalado e configurado através do [instalador oficial](https://www.postgresql.org/download/] ou de uma [imagem docker](https://hub.docker.com/_/postgres).
+- O gerenciador de banco de dados PostgreSQL 16 instalado e configurado através do [instalador oficial](https://www.postgresql.org/download/]) ou de uma [imagem docker](https://hub.docker.com/_/postgres).
 - Ter o [Git](https://git-scm.com/) instalado.
 
 ## :floppy_disk: Instalação
