@@ -7,6 +7,9 @@ using paysys.webapi.Domain.Interfaces.Repositories;
 using paysys.webapi.Infra.Data.DAOs.Interfaces;
 using paysys.webapi.Infra.Data.DAOs.TransferObjects;
 using paysys.webapi.Infra.Data.UnityOfWork;
+using paysys.webapi.Infra.Mail.Requests;
+using paysys.webapi.Infra.Mail.Service;
+using paysys.webapi.Infra.Mail.Templates;
 
 namespace paysys.webapi.Application.Services.UsersService;
 
@@ -23,7 +26,9 @@ public class UsersService : IUsersService
     private readonly ICryptographyStrategy _cryptographyStrategy;
     private readonly ITokenStrategy _tokenStrategy;
 
-    public UsersService(IUsersRepository usersRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, ICommonUserDAO commonUserDAO, IShopkeeperDAO shopkeeperDAO, IAdministratorDAO administratorDAO, ITokenStrategy tokenStrategy, IUserDAO userDAO)
+    private readonly IMailInfraService _mailService;
+
+    public UsersService(IUsersRepository usersRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, ICommonUserDAO commonUserDAO, IShopkeeperDAO shopkeeperDAO, IAdministratorDAO administratorDAO, ITokenStrategy tokenStrategy, IUserDAO userDAO, IMailInfraService mailService)
     {
         _usersRepositories = usersRepository;
         _unityOfWork = unityOfWork;
@@ -35,6 +40,8 @@ public class UsersService : IUsersService
 
         _cryptographyStrategy = cryptographyStrategy;
         _tokenStrategy = tokenStrategy;
+
+        _mailService = mailService;
     }
 
     public async Task<CreateAdministratorResponse> CreateAdministrator(CreateAdministratorRequest request)
@@ -58,6 +65,8 @@ public class UsersService : IUsersService
             await _usersRepositories.CreateAdministratorUser(administrator);
 
             await _unityOfWork.Commit();
+
+            await SendWelcomeEmail(user.UserName!.NameText!, user.Email!.EmailText!);
 
             var response = new CreateAdministratorResponse(
                 administrator.AdministratorId,
@@ -94,6 +103,8 @@ public class UsersService : IUsersService
             await _usersRepositories.CreateCommonUser(commonUser);
 
             await _unityOfWork.Commit();
+
+            await SendWelcomeEmail(user.UserName!.NameText!, user.Email!.EmailText!);
 
             var response = new CreateCommonUserResponse(
                 commonUser.CommonUserId,
@@ -132,6 +143,8 @@ public class UsersService : IUsersService
 
             await _unityOfWork.Commit();
 
+            await SendWelcomeEmail(user.UserName!.NameText!, user.Email!.EmailText!);
+
             var response = new CreateShopkeeperResponse(
                 shopkeeper.ShopkeeperId,
                 user.UserId,
@@ -144,6 +157,16 @@ public class UsersService : IUsersService
         {
             throw;
         }
+    }
+
+    private async Task SendWelcomeEmail(string userName, string userEmail)
+    {
+        var mailRequest = new MailWithTemplateRequest(
+            ReceiverEmail: userEmail,
+            MailTemplate: new WelcomeMailTemplate(userName)
+        );
+
+        await _mailService.SendMailWithTemplateAsync(mailRequest);
     }
 
     public async Task<GetFullAdministratorResponse> GetFullAdministrator(GetFullAdministratorRequest request)
