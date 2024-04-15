@@ -9,6 +9,7 @@ using paysys.webapi.Domain.Interfaces.Repositories;
 using paysys.webapi.Infra.Data.DAOs.Implementation;
 using paysys.webapi.Infra.Data.DAOs.Interfaces;
 using paysys.webapi.Infra.Data.UnityOfWork;
+using paysys.webapi.Infra.Mail.Service;
 
 namespace paysys.tests.Application.Services;
 
@@ -38,7 +39,21 @@ public class UserServiceTest
 
         IUserDAO userDAO = new UserDAO("");
 
-        _usersService = new UsersService(_usersRepository, unityOfWork, cryptographyStrategy, commonUserDAO, shopkeeperDAO, administratorDAO, tokenStrategy, userDAO);
+        var smtpSettings = new SmtpSettings()
+        {
+            SmtpServer = "smtp.ethereal.email",
+            Port = 587,
+            SenderName = "Kyle Stark",
+            SenderEmail = "kyle.stark86@ethereal.email",
+            SenderPassword = "WFQnaA8GPwGBPmY1pm"
+
+        };
+
+        IOptions<SmtpSettings> smtpSettingsOptions = Options.Create(smtpSettings);
+
+        IMailInfraService mailInfraService = new MailInfraService(smtpSettingsOptions);
+
+        _usersService = new UsersService(_usersRepository, unityOfWork, cryptographyStrategy, commonUserDAO, shopkeeperDAO, administratorDAO, tokenStrategy, userDAO, mailInfraService);
     }
 
     [Fact]

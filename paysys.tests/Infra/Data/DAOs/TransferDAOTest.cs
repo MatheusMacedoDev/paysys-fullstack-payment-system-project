@@ -12,6 +12,7 @@ using paysys.webapi.Infra.Data.DAOs.Implementation;
 using paysys.webapi.Infra.Data.DAOs.Interfaces;
 using paysys.webapi.Infra.Data.Repositories;
 using paysys.webapi.Infra.Data.UnityOfWork;
+using paysys.webapi.Infra.Mail.Service;
 
 namespace paysys.tests.Infra.Data.DAOs;
 
@@ -66,6 +67,20 @@ public class TransferDAOTest : DatabaseTestCase
 
         IOptions<TokenSettings> tokenSettingsOptions = Options.Create(tokenSettings);
 
+        var smtpSettings = new SmtpSettings()
+        {
+            SmtpServer = "smtp.ethereal.email",
+            Port = 587,
+            SenderName = "Kyle Stark",
+            SenderEmail = "kyle.stark86@ethereal.email",
+            SenderPassword = "WFQnaA8GPwGBPmY1pm"
+
+        };
+
+        IOptions<SmtpSettings> smtpSettingsOptions = Options.Create(smtpSettings);
+
+        IMailInfraService mailInfraService = new MailInfraService(smtpSettingsOptions);
+
         _usersService = new UsersService(
             _usersRepository,
             new UnityOfWork(DbContext),
@@ -74,7 +89,8 @@ public class TransferDAOTest : DatabaseTestCase
             _shopkeeperDAO,
             new AdministratorDAO(LocalConnetionString!),
             new TokenStrategy(tokenSettingsOptions),
-            new UserDAO(LocalConnetionString!)
+            new UserDAO(LocalConnetionString!),
+            mailInfraService
         );
 
     }

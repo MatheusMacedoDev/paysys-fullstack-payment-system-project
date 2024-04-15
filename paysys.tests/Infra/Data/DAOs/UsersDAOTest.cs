@@ -10,6 +10,7 @@ using paysys.webapi.Infra.Data.DAOs.Implementation;
 using paysys.webapi.Infra.Data.DAOs.Interfaces;
 using paysys.webapi.Infra.Data.Repositories;
 using paysys.webapi.Infra.Data.UnityOfWork;
+using paysys.webapi.Infra.Mail.Service;
 
 namespace paysys.tests.Infra.Data.DAOs;
 
@@ -93,6 +94,20 @@ public class UsersDAOTest : DatabaseTestCase
 
         IOptions<TokenSettings> tokenSettingsOptions = Options.Create(tokenSettings);
 
+        var smtpSettings = new SmtpSettings()
+        {
+            SmtpServer = "smtp.ethereal.email",
+            Port = 587,
+            SenderName = "Kyle Stark",
+            SenderEmail = "kyle.stark86@ethereal.email",
+            SenderPassword = "WFQnaA8GPwGBPmY1pm"
+
+        };
+
+        IOptions<SmtpSettings> smtpSettingsOptions = Options.Create(smtpSettings);
+
+        IMailInfraService mailInfraService = new MailInfraService(smtpSettingsOptions);
+
         var usersService = new UsersService(
             new UsersRepository(DbContext),
             new UnityOfWork(DbContext),
@@ -101,7 +116,8 @@ public class UsersDAOTest : DatabaseTestCase
             new ShopkeeperDAO(LocalConnetionString!),
             new AdministratorDAO(LocalConnetionString!),
             new TokenStrategy(tokenSettingsOptions),
-            new UserDAO(LocalConnetionString!)
+            new UserDAO(LocalConnetionString!),
+            mailInfraService
         );
 
         var createCommonUserRequest = new CreateCommonUserRequest(
