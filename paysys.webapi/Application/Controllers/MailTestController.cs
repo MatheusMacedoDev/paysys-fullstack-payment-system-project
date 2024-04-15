@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using paysys.webapi.Infra.Mail.Requests;
 using paysys.webapi.Infra.Mail.Service;
+using paysys.webapi.Infra.Mail.Templates;
 
 namespace paysys.webapi.Application.Controllers;
 
@@ -28,6 +29,26 @@ public class MailTestController : ControllerBase
             );
 
             await _mailService.SendMailAsync(request);
+
+            return Ok("E-mail sended!");
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpPost("SendWelcomeEmail")]
+    public async Task<IActionResult> SendWelcomeEmail(string userName, string receiverEmail)
+    {
+        try
+        {
+            var request = new MailWithTemplateRequest(
+                ReceiverEmail: receiverEmail,
+                MailTemplate: new WelcomeMailTemplate(userName)
+            );
+
+            await _mailService.SendMailWithTemplateAsync(request);
 
             return Ok("E-mail sended!");
         }
