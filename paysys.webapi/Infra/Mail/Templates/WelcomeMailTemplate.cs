@@ -16,9 +16,9 @@ public class WelcomeMailTemplate : IMailTemplate
     public string GenerateEmailBody()
     {
         string source =
-            @"<div>
-                <h1>Seja bem-vindo, {{UserName}}</h1>
-                <p>Agora você faz parte dos nossos clientes e tem acesso à todos os serviços.</p>
+            @"<div style=""background-image: linear-gradient(#FFF, #EEF7F3); width: 100%; height: 100%; display: flex; flex-direction: column; flex; align-items: center; padding: 16px"">
+                <h1 style=""color: #13423E; font-size: 48px; text-align: center"">Seja bem-vindo ao PaySys, {{UserName}}</h1>
+                <p style=""color: #13423E; font-size: 20px; text-align: center"">Agora você faz parte dos nossos clientes e tem acesso à todos os serviços.</p>
             </div>";
 
         var template = Handlebars.Compile(source);
