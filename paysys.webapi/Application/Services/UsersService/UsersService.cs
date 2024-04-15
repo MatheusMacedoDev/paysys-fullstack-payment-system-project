@@ -66,7 +66,7 @@ public class UsersService : IUsersService
 
             await _unityOfWork.Commit();
 
-            await SendWelcomeEmail(user.UserName!.NameText!, user.Email!.EmailText!);
+            await SendWelcomeEmail(administrator.AdministratorName!.NameText!, user.Email!.EmailText!);
 
             var response = new CreateAdministratorResponse(
                 administrator.AdministratorId,
@@ -104,7 +104,7 @@ public class UsersService : IUsersService
 
             await _unityOfWork.Commit();
 
-            await SendWelcomeEmail(user.UserName!.NameText!, user.Email!.EmailText!);
+            await SendWelcomeEmail(commonUser.CommonUserName!.NameText!, user.Email!.EmailText!);
 
             var response = new CreateCommonUserResponse(
                 commonUser.CommonUserId,
@@ -143,7 +143,7 @@ public class UsersService : IUsersService
 
             await _unityOfWork.Commit();
 
-            await SendWelcomeEmail(user.UserName!.NameText!, user.Email!.EmailText!);
+            await SendWelcomeEmail(shopkeeper.FancyName!.NameText!, user.Email!.EmailText!);
 
             var response = new CreateShopkeeperResponse(
                 shopkeeper.ShopkeeperId,
