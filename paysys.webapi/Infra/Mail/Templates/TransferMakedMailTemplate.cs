@@ -31,7 +31,7 @@ public class TransferMakedMailTemplate : IMailTemplate
                     Em {{TransferDate}}, foi realizado um pagamento da sua conta,
                     no valor de {{TransferAmount}}. Os dados de destino são:
                 </p>
-                <ul style=""text-decoration: none"">
+                <ul style=""list-style-type: none"">
                     <li style=""color: #13423E; font-size: 16px"">
                         <strong>Nome do recebedor:</strong>
                         {{ReceiverName}}
