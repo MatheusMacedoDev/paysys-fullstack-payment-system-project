@@ -5,17 +5,17 @@ namespace paysys.webapi.Infra.Mail.Templates;
 
 public class TransferMakedMailTemplate : IMailTemplate
 {
-    private readonly string _senderName;
-    private readonly string _receiverName;
+    private readonly string _transferSenderName;
+    private readonly string _transferReceiverName;
     private readonly DateTime _transferDateTime;
     private readonly double _transferAmount;
 
     public string Subject { get => "Transferência realizada"; }
 
-    public TransferMakedMailTemplate(string senderName, string receiverName, DateTime transferDateTime, double transferAmount)
+    public TransferMakedMailTemplate(string transferSenderName, string transferReceiverName, DateTime transferDateTime, double transferAmount)
     {
-        _senderName = senderName;
-        _receiverName = receiverName;
+        _transferSenderName = transferSenderName;
+        _transferReceiverName = transferReceiverName;
         _transferDateTime = transferDateTime;
         _transferAmount = transferAmount;
     }
@@ -25,7 +25,7 @@ public class TransferMakedMailTemplate : IMailTemplate
         string source =
             @"<div style=""background-image: linear-gradient(#FFF, #EEF7F3); width: 100%; height: 100%; display: flex; flex-direction: column; padding: 16px"">
                 <h1 style=""color: #13423E; font-size: 24px"">
-                    Olá, {{SenderName}}
+                    Olá, {{TransferSenderName}}
                 </h1>
                 <p style=""color: #13423E; font-size: 18px"">
                     Em {{TransferDate}}, foi realizado um pagamento da sua conta,
@@ -34,7 +34,7 @@ public class TransferMakedMailTemplate : IMailTemplate
                 <ul style=""list-style-type: none"">
                     <li style=""color: #13423E; font-size: 16px"">
                         <strong>Nome do recebedor:</strong>
-                        {{ReceiverName}}
+                        {{TransferReceiverName}}
                     </li>
                     <li style=""color: #13423E; font-size: 16px"">
                         <strong>Valor:</strong>
@@ -51,8 +51,8 @@ public class TransferMakedMailTemplate : IMailTemplate
 
         var data = new
         {
-            SenderName = _senderName,
-            ReceiverName = _receiverName,
+            TransferSenderName = _transferSenderName,
+            TransferReceiverName = _transferReceiverName,
             TransferDate = _transferDateTime.Date.ToString("dd/MM/yyyy"),
             TransferDateTime = _transferDateTime.ToString(),
             TransferAmount = _transferAmount.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"))
