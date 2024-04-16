@@ -1,3 +1,4 @@
+using System.Globalization;
 using HandlebarsDotNet;
 
 namespace paysys.webapi.Infra.Mail.Templates;
@@ -23,23 +24,23 @@ public class TransferMakedMailTemplate : IMailTemplate
     {
         string source =
             @"<div style=""background-image: linear-gradient(#FFF, #EEF7F3); width: 100%; height: 100%; display: flex; flex-direction: column; padding: 16px"">
-                <h1 style=""color: #13423E; font-size: 24px; text-align: center"">
+                <h1 style=""color: #13423E; font-size: 24px"">
                     Olá, {{SenderName}}
                 </h1>
-                <p style=""color: #13423E; font-size: 20px; text-align: center"">
+                <p style=""color: #13423E; font-size: 18px"">
                     Em {{TransferDate}}, foi realizado um pagamento da sua conta,
                     no valor de {{TransferAmount}}. Os dados de destino são:
                 </p>
-                <ul>
-                    <li>
+                <ul style=""text-decoration: none"">
+                    <li style=""color: #13423E; font-size: 16px"">
                         <strong>Nome do recebedor:</strong>
                         {{ReceiverName}}
                     </li>
-                    <li>
+                    <li style=""color: #13423E; font-size: 16px"">
                         <strong>Valor:</strong>
                         {{TransferAmount}}
                     </li>
-                    <li>
+                    <li style=""color: #13423E; font-size: 16px"">
                         <strong>Data e horário:</strong>
                         {{TransferDateTime}}
                     </li>
@@ -54,7 +55,7 @@ public class TransferMakedMailTemplate : IMailTemplate
             ReceiverName = _receiverName,
             TransferDate = _transferDateTime.Date.ToString("dd/MM/yyyy"),
             TransferDateTime = _transferDateTime.ToString(),
-            TransferAmount = _transferAmount
+            TransferAmount = _transferAmount.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"))
         };
 
         var result = template(data);
