@@ -57,4 +57,29 @@ public class MailTestController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+
+    [HttpPost("SendTransactionMakedEmail")]
+    public async Task<IActionResult> SendTransactionmakedEmail(string senderName, string mailReceiverEmail, string receiverName, DateTime transferDateTime, double transferAmount)
+    {
+        try
+        {
+            var request = new MailWithTemplateRequest(
+                ReceiverEmail: mailReceiverEmail,
+                MailTemplate: new TransferMakedMailTemplate(
+                    senderName,
+                    receiverName,
+                    transferDateTime,
+                    transferAmount
+                )
+            );
+
+            await _mailService.SendMailWithTemplateAsync(request);
+
+            return Ok("E-mail sended!");
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }
