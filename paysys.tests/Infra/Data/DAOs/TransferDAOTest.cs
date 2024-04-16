@@ -49,24 +49,6 @@ public class TransferDAOTest : DatabaseTestCase
         _shopkeeperDAO = new ShopkeeperDAO(LocalConnetionString!);
         _transferDAO = new TransferDAO(LocalConnetionString!);
 
-        _transfersService = new TransfersService(
-            userTypeNamesSettingsOptions,
-            _transfersRepository,
-            _usersRepository,
-            _userTypesRepositories,
-            _commonUserDAO,
-            _transferDAO,
-            new UnityOfWork(DbContext)
-        );
-
-        var tokenSettings = new TokenSettings()
-        {
-            SecurityKey = "my_security_key_is_here_for_me_1234544",
-            HoursToExpiration = 2
-        };
-
-        IOptions<TokenSettings> tokenSettingsOptions = Options.Create(tokenSettings);
-
         var smtpSettings = new SmtpSettings()
         {
             SmtpServer = "smtp.ethereal.email",
@@ -80,6 +62,25 @@ public class TransferDAOTest : DatabaseTestCase
         IOptions<SmtpSettings> smtpSettingsOptions = Options.Create(smtpSettings);
 
         IMailInfraService mailInfraService = new MailInfraService(smtpSettingsOptions);
+
+        _transfersService = new TransfersService(
+            userTypeNamesSettingsOptions,
+            _transfersRepository,
+            _usersRepository,
+            _userTypesRepositories,
+            _commonUserDAO,
+            _transferDAO,
+            new UnityOfWork(DbContext),
+            mailInfraService
+        );
+
+        var tokenSettings = new TokenSettings()
+        {
+            SecurityKey = "my_security_key_is_here_for_me_1234544",
+            HoursToExpiration = 2
+        };
+
+        IOptions<TokenSettings> tokenSettingsOptions = Options.Create(tokenSettings);
 
         _usersService = new UsersService(
             _usersRepository,
