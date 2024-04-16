@@ -7,6 +7,9 @@ using paysys.webapi.Domain.Interfaces.Repositories;
 using paysys.webapi.Domain.Specifications;
 using paysys.webapi.Infra.Data.DAOs.Interfaces;
 using paysys.webapi.Infra.Data.UnityOfWork;
+using paysys.webapi.Infra.Mail.Requests;
+using paysys.webapi.Infra.Mail.Service;
+using paysys.webapi.Infra.Mail.Templates;
 
 namespace paysys.webapi.Application.Services.TransfersService;
 
@@ -27,7 +30,10 @@ public class TransfersService : ITransfersService
     // Unity of Work
     private readonly IUnityOfWork _unityOfWork;
 
-    public TransfersService(IOptions<UserTypeNamesSettings> userTypeNamesSettings, ITransfersRepository transfersRepository, IUsersRepository usersRepository, IUserTypesRepository userTypesRepository, ICommonUserDAO commonUserDAO, ITransferDAO transferDAO, IUnityOfWork unityOfWork)
+    // Infra Services
+    private readonly IMailInfraService _mailInfraService;
+
+    public TransfersService(IOptions<UserTypeNamesSettings> userTypeNamesSettings, ITransfersRepository transfersRepository, IUsersRepository usersRepository, IUserTypesRepository userTypesRepository, ICommonUserDAO commonUserDAO, ITransferDAO transferDAO, IUnityOfWork unityOfWork, IMailInfraService mailInfraService)
     {
         _userTypeNamesSettings = userTypeNamesSettings;
 
@@ -39,6 +45,8 @@ public class TransfersService : ITransfersService
         _transferDAO = transferDAO;
 
         _unityOfWork = unityOfWork;
+
+        _mailInfraService = mailInfraService;
     }
 
     public CreateTransferCategoryResponse CreateTransferCategory(CreateTransferCategoryRequest request)
@@ -115,7 +123,6 @@ public class TransfersService : ITransfersService
         }
         catch (Exception)
         {
-
             throw;
         }
     }
@@ -151,11 +158,19 @@ public class TransfersService : ITransfersService
             await DecreaseSenderUserBalance(senderUser, transfer.TransferAmount);
             await IncreaseReceiverUserBalance(receiverUser, receiverUserType, transfer.TransferAmount);
 
+            await SendTransferMakedEmailToTransferSender(
+                mailReceiverEmail: senderUser.Email!.EmailText!,
+                transferSenderName: senderUser.UserName!.NameText!,
+                transferReceiverName: receiverUser.UserName!.NameText!,
+                transferDateTime: transfer.TransferDateTime,
+                transferAmount: transfer.TransferAmount
+            );
+
             await _unityOfWork.Commit();
 
             var response = new CreateTransferResponse(
                 transferId: transfer.TransferId,
-            transferDescription: transfer.TransferDescription!.DescriptionText!,
+                transferDescription: transfer.TransferDescription!.DescriptionText!,
                 transferAmount: transfer.TransferAmount,
                 transferDateTime: transfer.TransferDateTime,
                 transferStatusId: transfer.TransferStatusId,
@@ -172,21 +187,6 @@ public class TransfersService : ITransfersService
         }
     }
 
-    public async Task<GetUserTransferHistoryResponse> GetUserTransferHistory(GetUserTransferHistoryRequest request)
-    {
-        var transferHistory = await _transferDAO.GetUserTransferHistory(request.userId);
-        var response = new GetUserTransferHistoryResponse(transferHistory);
-
-        return response;
-    }
-
-    public async Task<GetFullTransferResponse> GetFullTransfer(GetFullTransferRequest request)
-    {
-        var fullTransfer = await _transferDAO.GetFullTransfer(request.transferId, request.userId);
-        var response = new GetFullTransferResponse(fullTransfer);
-
-        return response;
-    }
 
     private void MakeSenderUserValidations(IsAdministratorUserSpecification isAdministratorSpecification, UserType senderUserType)
     {
@@ -247,4 +247,43 @@ public class TransfersService : ITransfersService
         }
     }
 
+    private async Task SendTransferMakedEmailToTransferSender(string mailReceiverEmail, string transferSenderName, string transferReceiverName, DateTime transferDateTime, double transferAmount)
+    {
+        try
+        {
+            var mailRequest = new MailWithTemplateRequest(
+                    ReceiverEmail: mailReceiverEmail,
+                    MailTemplate: new TransferMakedMailTemplate(
+                        transferSenderName,
+                        transferReceiverName,
+                        transferDateTime,
+                        transferAmount
+                        )
+                    );
+
+            await _mailInfraService.SendMailWithTemplateAsync(mailRequest);
+
+
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<GetUserTransferHistoryResponse> GetUserTransferHistory(GetUserTransferHistoryRequest request)
+    {
+        var transferHistory = await _transferDAO.GetUserTransferHistory(request.userId);
+        var response = new GetUserTransferHistoryResponse(transferHistory);
+
+        return response;
+    }
+
+    public async Task<GetFullTransferResponse> GetFullTransfer(GetFullTransferRequest request)
+    {
+        var fullTransfer = await _transferDAO.GetFullTransfer(request.transferId, request.userId);
+        var response = new GetFullTransferResponse(fullTransfer);
+
+        return response;
+    }
 }
