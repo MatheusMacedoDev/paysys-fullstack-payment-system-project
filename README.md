@@ -44,7 +44,7 @@ Aqui estão descritas todas as funcionalidades do projeto:
 - [x] Listar histórico de transferências de um usuário específico;
 - [x] Listar dados de uma transferência específica;
 - [x] Enviar e-mail de boas-vindas para novos usuários;
-- [ ] Enviar um e-mail para assim que uma tranferência é realizada envolvendo o usuário;
+- [x] Enviar um e-mail assim que uma tranferência é realizada envolvendo o usuário;
 - [ ] Transferir dados sensíveis para variáveis de ambiente;
 - [ ] Adicionar autorização para todas as rotas.
 
