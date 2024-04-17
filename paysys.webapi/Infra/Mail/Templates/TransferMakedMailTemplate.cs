@@ -135,7 +135,7 @@ public class TransferMakedMailTemplate : IMailTemplate
             TransferReceiverName = _transferReceiverName,
             TransferSenderName = _transferSenderName,
             TransferDate = _transferDateTime.Date.ToString("dd/MM/yyyy"),
-            TransferDateTime = _transferDateTime.ToString(),
+            TransferDateTime = _transferDateTime.ToString("dd/MM/yyyy HH:mm"),
             TransferAmount = _transferAmount.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"))
         };
 
