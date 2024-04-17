@@ -168,6 +168,15 @@ public class TransfersService : ITransfersService
                 transferAmount: transfer.TransferAmount
             );
 
+            await SendTransferMakedEmail(
+                transferMailTo: TransferMailTo.TransferReceiver,
+                mailReceiverEmail: senderUser.Email!.EmailText!,
+                transferSenderName: senderUser.UserName!.NameText!,
+                transferReceiverName: receiverUser.UserName!.NameText!,
+                transferDateTime: transfer.TransferDateTime,
+                transferAmount: transfer.TransferAmount
+            );
+
             await _unityOfWork.Commit();
 
             var response = new CreateTransferResponse(
