@@ -10,6 +10,7 @@ using paysys.webapi.Infra.Data.UnityOfWork;
 using paysys.webapi.Infra.Mail.Requests;
 using paysys.webapi.Infra.Mail.Service;
 using paysys.webapi.Infra.Mail.Templates;
+using static paysys.webapi.Infra.Mail.Templates.TransferMakedMailTemplate;
 
 namespace paysys.webapi.Application.Services.TransfersService;
 
@@ -158,7 +159,8 @@ public class TransfersService : ITransfersService
             await DecreaseSenderUserBalance(senderUser, transfer.TransferAmount);
             await IncreaseReceiverUserBalance(receiverUser, receiverUserType, transfer.TransferAmount);
 
-            await SendTransferMakedEmailToTransferSender(
+            await SendTransferMakedEmail(
+                transferMailTo: TransferMailTo.TransferSender,
                 mailReceiverEmail: senderUser.Email!.EmailText!,
                 transferSenderName: senderUser.UserName!.NameText!,
                 transferReceiverName: receiverUser.UserName!.NameText!,
@@ -247,19 +249,20 @@ public class TransfersService : ITransfersService
         }
     }
 
-    private async Task SendTransferMakedEmailToTransferSender(string mailReceiverEmail, string transferSenderName, string transferReceiverName, DateTime transferDateTime, double transferAmount)
+    private async Task SendTransferMakedEmail(string mailReceiverEmail, string transferSenderName, string transferReceiverName, DateTime transferDateTime, double transferAmount, TransferMailTo transferMailTo)
     {
         try
         {
             var mailRequest = new MailWithTemplateRequest(
-                    ReceiverEmail: mailReceiverEmail,
-                    MailTemplate: new TransferMakedMailTemplate(
-                        transferSenderName,
-                        transferReceiverName,
-                        transferDateTime,
-                        transferAmount
-                        )
-                    );
+                ReceiverEmail: mailReceiverEmail,
+                MailTemplate: new TransferMakedMailTemplate(
+                    transferSenderName,
+                    transferReceiverName,
+                    transferDateTime,
+                    transferAmount,
+                    transferMailTo
+                )
+            );
 
             await _mailInfraService.SendMailWithTemplateAsync(mailRequest);
 
