@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using paysys.webapi.Infra.Mail.Requests;
 using paysys.webapi.Infra.Mail.Service;
 using paysys.webapi.Infra.Mail.Templates;
+using static paysys.webapi.Infra.Mail.Templates.TransferMakedMailTemplate;
 
 namespace paysys.webapi.Application.Controllers;
 
@@ -58,22 +59,12 @@ public class MailTestController : ControllerBase
         }
     }
 
-    [HttpPost("SendTransactionMakedEmail")]
-    public async Task<IActionResult> SendTransactionmakedEmail(string senderName, string mailReceiverEmail, string receiverName, DateTime transferDateTime, double transferAmount)
+    [HttpPost("SendTransactionMakedToSenderEmail")]
+    public async Task<IActionResult> SendTransactionMakedToSenderEmail(string senderName, string mailReceiverEmail, string receiverName, DateTime transferDateTime, double transferAmount)
     {
         try
         {
-            var request = new MailWithTemplateRequest(
-                ReceiverEmail: mailReceiverEmail,
-                MailTemplate: new TransferMakedMailTemplate(
-                    senderName,
-                    receiverName,
-                    transferDateTime,
-                    transferAmount
-                )
-            );
-
-            await _mailService.SendMailWithTemplateAsync(request);
+            await SendTransactionMakedEmail(senderName, receiverName, mailReceiverEmail, transferDateTime, transferAmount, TransferMailTo.TransferSender);
 
             return Ok("E-mail sended!");
         }
@@ -81,5 +72,36 @@ public class MailTestController : ControllerBase
         {
             return BadRequest(error.Message);
         }
+    }
+
+    [HttpPost("SendTransactionMakedToReceiverEmail")]
+    public async Task<IActionResult> SendTransactionMakedToReceiverEmail(string senderName, string mailReceiverEmail, string receiverName, DateTime transferDateTime, double transferAmount)
+    {
+        try
+        {
+            await SendTransactionMakedEmail(senderName, receiverName, mailReceiverEmail, transferDateTime, transferAmount, TransferMailTo.TransferReceiver);
+
+            return Ok("E-mail sended!");
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    private async Task SendTransactionMakedEmail(string senderName, string receiverName, string mailReceiverEmail, DateTime transferDateTime, double transferAmount, TransferMailTo transferMailTo)
+    {
+        var request = new MailWithTemplateRequest(
+            ReceiverEmail: mailReceiverEmail,
+            MailTemplate: new TransferMakedMailTemplate(
+                senderName,
+                receiverName,
+                transferDateTime,
+                transferAmount,
+                transferMailTo
+            )
+        );
+
+        await _mailService.SendMailWithTemplateAsync(request);
     }
 }
