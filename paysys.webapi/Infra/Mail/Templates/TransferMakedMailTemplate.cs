@@ -26,18 +26,52 @@ public class TransferMakedMailTemplate : IMailTemplate
 
     public string GenerateEmailBody()
     {
+        var handlebars = Handlebars.Create();
+
+        string emailReceiverName = "";
+        string otherPartName = "";
+        string transferDescriptionText = "";
+
+        if (_transferMailTo == TransferMailTo.TransferSender)
+        {
+            emailReceiverName = _transferSenderName;
+            otherPartName = @"
+                <strong>Nome do recebedor:</strong>
+                {{TransferReceiverName}}
+            ";
+            transferDescriptionText = @"
+                Em {{TransferDate}}, foi realizado um pagamento da sua conta,
+                no valor de {{TransferAmount}}. Os dados de destino são:
+            ";
+        }
+
+        if (_transferMailTo == TransferMailTo.TransferReceiver)
+        {
+            emailReceiverName = _transferReceiverName;
+            otherPartName = @"
+                <strong>Nome do pagador:</strong>
+                {{TransferSenderName}}
+            ";
+            transferDescriptionText = @"
+                Em {{TransferDate}}, foi realizado um pagamento para a sua conta,
+                no valor de {{TransferAmount}}. Os dados do pagamento são:
+            ";
+        }
+
+        handlebars.RegisterTemplate("Other_Part_Name_Template", otherPartName);
+        handlebars.RegisterTemplate("Transfer_Description_Text_Template", transferDescriptionText);
+
         string source =
             @"<div style=""background-image: linear-gradient(#FFF, #EEF7F3); width: 100%; height: 100%; display: flex; flex-direction: column; padding: 16px"">
                 <h1 style=""color: #13423E; font-size: 24px"">
                     Olá, {{EmailReceiverName}}
                 </h1>
                 <p style=""color: #13423E; font-size: 18px"">
-                    {{TransferDescription}}
+                    {{>Transfer_Description_Text_Template}}
                 </p>
                 <ul style=""list-style-type: none"">
                     <li style=""color: #13423E; font-size: 16px"">
-                        <strong>Nome do recebedor:</strong>
-                        {{TransferReceiverName}}
+                        {{>Other_Part_Name_Template}}
                     </li>
                     <li style=""color: #13423E; font-size: 16px"">
                         <strong>Valor:</strong>
@@ -50,33 +84,13 @@ public class TransferMakedMailTemplate : IMailTemplate
                 </ul>
             </div>";
 
-        var template = Handlebars.Compile(source);
-
-        string emailReceiverName = "";
-        string transferDescription = "";
-
-        if (_transferMailTo == TransferMailTo.TransferSender)
-        {
-            emailReceiverName = _transferSenderName;
-            transferDescription = @$"
-                Em {{TransferDate}}, foi realizado um pagamento da sua conta,
-                no valor de {{TransferAmount}}. Os dados de destino são:
-            ";
-        }
-
-        if (_transferMailTo == TransferMailTo.TransferReceiver)
-        {
-            emailReceiverName = _transferReceiverName;
-            transferDescription = @$"
-                Em {{TransferDate}}, foi realizado um pagamento da para a sua conta,
-                no valor de {{TransferAmount}}. Os dados do pagamento são:
-            ";
-        }
+        var template = handlebars.Compile(source);
 
         var data = new
         {
             EmailReceiverName = emailReceiverName,
-            TransferDescription = transferDescription,
+            TransferReceiverName = _transferReceiverName,
+            TransferSenderName = _transferSenderName,
             TransferDate = _transferDateTime.Date.ToString("dd/MM/yyyy"),
             TransferDateTime = _transferDateTime.ToString(),
             TransferAmount = _transferAmount.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"))
