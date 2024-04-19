@@ -10,14 +10,19 @@ namespace paysys.webapi.Infra.Mail.Service;
 public class MailInfraService : IMailInfraService
 {
     private readonly SmtpSettings _smtpSettings;
+    private readonly bool _disableService;
 
-    public MailInfraService(IOptions<SmtpSettings> smtpSettings)
+    public MailInfraService(IOptions<SmtpSettings> smtpSettings, bool disableService = true)
     {
         _smtpSettings = smtpSettings.Value;
+        _disableService = disableService;
     }
 
     public async Task SendMailAsync(MailRequest request)
     {
+        if (_disableService)
+            return;
+
         try
         {
             var message = new MimeMessage();
