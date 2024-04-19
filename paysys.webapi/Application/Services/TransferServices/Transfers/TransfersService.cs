@@ -11,7 +11,7 @@ using paysys.webapi.Infra.Mail.Requests;
 using paysys.webapi.Infra.Mail.Service;
 using paysys.webapi.Infra.Mail.Templates;
 
-namespace paysys.webapi.Application.Services.TransfersService;
+namespace paysys.webapi.Application.Services.TransferServices.Transfer;
 
 public class TransfersService : ITransfersService
 {
