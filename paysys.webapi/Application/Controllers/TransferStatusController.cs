@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using paysys.webapi.Application.Contracts.Requests;
-using paysys.webapi.Application.Services.TransfersService;
+using paysys.webapi.Application.Services.TransferServices.Statuses;
 
 namespace paysys.webapi.Application.Controllers;
 
@@ -9,11 +9,11 @@ namespace paysys.webapi.Application.Controllers;
 [Produces("application/json")]
 public class TransferStatusController : ControllerBase
 {
-    private readonly ITransfersService _transfersService;
+    private readonly ITransferStatusesService _transferStatusesService;
 
-    public TransferStatusController(ITransfersService transfersService)
+    public TransferStatusController(ITransferStatusesService transferStatusesService)
     {
-        _transfersService = transfersService;
+        _transferStatusesService = transferStatusesService;
     }
 
     [HttpPost("transfer-status")]
@@ -21,7 +21,7 @@ public class TransferStatusController : ControllerBase
     {
         try
         {
-            var response = _transfersService.CreateTransferStatus(request);
+            var response = _transferStatusesService.CreateTransferStatus(request);
 
             return Ok(response);
         }
@@ -36,7 +36,7 @@ public class TransferStatusController : ControllerBase
     {
         try
         {
-            var response = await _transfersService.GetAllTransferStatus();
+            var response = await _transferStatusesService.GetAllTransferStatus();
 
             return Ok(response);
         }

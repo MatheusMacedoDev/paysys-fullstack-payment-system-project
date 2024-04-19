@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using paysys.webapi.Application.Contracts.Requests;
-using paysys.webapi.Application.Services.TransfersService;
+using paysys.webapi.Application.Services.TransferServices.Transfers;
 
 namespace paysys.webapi.Application.Controllers;
 

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using paysys.webapi.Infra.Mail.Requests;
 using paysys.webapi.Infra.Mail.Service;
 using paysys.webapi.Infra.Mail.Templates;
-using static paysys.webapi.Infra.Mail.Templates.TransferMakedMailTemplate;
 
 namespace paysys.webapi.Application.Controllers;
 

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using paysys.webapi.Application.Contracts.Requests;
-using paysys.webapi.Application.Services.TransfersService;
+using paysys.webapi.Application.Services.TransferServices.Categories;
 
 namespace paysys.webapi.Application.Controllers;
 
@@ -9,11 +9,11 @@ namespace paysys.webapi.Application.Controllers;
 [Produces("application/json")]
 public class TransferCategoriesController : ControllerBase
 {
-    private readonly ITransfersService _transfersService;
+    private readonly ITransferCategoriesService _transferCategoriesService;
 
-    public TransferCategoriesController(ITransfersService transfersService)
+    public TransferCategoriesController(ITransferCategoriesService transferCategoriesServices)
     {
-        _transfersService = transfersService;
+        _transferCategoriesService = transferCategoriesServices;
     }
 
     [HttpPost("transfer-categories")]
@@ -21,7 +21,7 @@ public class TransferCategoriesController : ControllerBase
     {
         try
         {
-            var response = _transfersService.CreateTransferCategory(request);
+            var response = _transferCategoriesService.CreateTransferCategory(request);
 
             return Ok(response);
         }
@@ -36,7 +36,7 @@ public class TransferCategoriesController : ControllerBase
     {
         try
         {
-            var response = await _transfersService.GetAllTransferCategories();
+            var response = await _transferCategoriesService.GetAllTransferCategories();
 
             return Ok(response);
         }
