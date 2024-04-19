@@ -106,7 +106,7 @@ public class UsersDAOTest : DatabaseTestCase
 
         IOptions<SmtpSettings> smtpSettingsOptions = Options.Create(smtpSettings);
 
-        IMailInfraService mailInfraService = new MailInfraService(smtpSettingsOptions);
+        IMailInfraService mailInfraService = new MailInfraService(smtpSettingsOptions, disableService: true);
 
         var usersService = new UsersService(
             new UsersRepository(DbContext),

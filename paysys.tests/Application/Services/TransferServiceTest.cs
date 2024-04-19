@@ -59,7 +59,7 @@ public class TransferServiceTest : DatabaseTestCase
 
         IOptions<SmtpSettings> smtpSettingsOptions = Options.Create(smtpSettings);
 
-        IMailInfraService mailInfraService = new MailInfraService(smtpSettingsOptions);
+        IMailInfraService mailInfraService = new MailInfraService(smtpSettingsOptions, disableService: true);
 
         _transfersService = new TransfersService(
             userTypeNamesSettingsOptions,

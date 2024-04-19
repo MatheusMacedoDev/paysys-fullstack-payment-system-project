@@ -51,7 +51,7 @@ public class UserServiceTest
 
         IOptions<SmtpSettings> smtpSettingsOptions = Options.Create(smtpSettings);
 
-        IMailInfraService mailInfraService = new MailInfraService(smtpSettingsOptions);
+        IMailInfraService mailInfraService = new MailInfraService(smtpSettingsOptions, disableService: true);
 
         _usersService = new UsersService(_usersRepository, unityOfWork, cryptographyStrategy, commonUserDAO, shopkeeperDAO, administratorDAO, tokenStrategy, userDAO, mailInfraService);
     }
