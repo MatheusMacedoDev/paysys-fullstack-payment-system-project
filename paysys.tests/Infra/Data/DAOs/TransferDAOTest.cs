@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Options;
 using paysys.tests.Infra.Data.Database;
 using paysys.webapi.Application.Contracts.Requests;
-using paysys.webapi.Application.Services.TransfersService;
+using paysys.webapi.Application.Services.TransferServices.Transfers;
 using paysys.webapi.Application.Services.UsersService;
 using paysys.webapi.Application.Strategies.Cryptography;
 using paysys.webapi.Application.Strategies.Token;
