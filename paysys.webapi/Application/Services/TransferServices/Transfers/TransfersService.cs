@@ -49,45 +49,6 @@ public class TransfersService : ITransfersService
         _mailInfraService = mailInfraService;
     }
 
-    public CreateTransferStatusResponse CreateTransferStatus(CreateTransferStatusRequest request)
-    {
-        try
-        {
-            var transferStatus = new TransferStatus(
-                request.transferStatusName
-            );
-
-            _transfersRepository.CreateTransferStatus(transferStatus);
-            _unityOfWork.Commit();
-
-            var response = new CreateTransferStatusResponse(
-                transferStatus.TransferStatusId,
-                transferStatus.TransferStatusName!.NameText!
-            );
-
-            return response;
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
-
-    public async Task<GetAllTransferStatusResponse> GetAllTransferStatus()
-    {
-        try
-        {
-            var transferStatusList = await _transfersRepository.GetAllTransferStatus();
-            var response = new GetAllTransferStatusResponse(transferStatusList);
-
-            return response;
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
-
     public async Task<CreateTransferResponse> CreateTransfer(CreateTransferRequest request)
     {
         try
