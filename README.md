@@ -1,4 +1,8 @@
-# PaySys Back-end
+<p align="center">
+        <img src="https://github.com/MatheusMacedoDev/paysys-backend/assets/67438868/d9906410-5d4a-4f30-903a-a5f4d8c5e0c2" /> 
+        <h1 align="center">PaySys</h1>
+</p>
+
 [![Portfólio - Matheus Macedo Santos](https://img.shields.io/badge/Portf%C3%B3lio-Matheus%20Macedo-931ad9)](https://github.com/MatheusMacedoDev) &nbsp;
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/MatheusMacedoDev/paysys-backend/blob/main/LICENSE)
 
