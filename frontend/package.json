@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/eslint-plugin-next": "^14.2.3",
     "eslint-plugin-react-hooks": "^4.6.2",
     "next": "14.2.3",
     "react": "^18",

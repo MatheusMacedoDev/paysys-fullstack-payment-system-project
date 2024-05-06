@@ -1,8 +1,9 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
+import reactPlugin from 'eslint-plugin-react';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import nextPlugin from '@next/eslint-plugin-next';
 
 export default [
     {
@@ -12,8 +13,9 @@ export default [
             }
         },
         plugins: {
-            react,
-            reactHooks
+            react: reactPlugin,
+            'react-hooks': reactHooksPlugin,
+            '@next/next': nextPlugin
         },
         languageOptions: {
             parserOptions: {
@@ -27,10 +29,12 @@ export default [
             }
         },
         rules: {
+            ...nextPlugin.configs.recommended.rules,
+            ...nextPlugin.configs['core-web-vitals'].rules,
             'react/jsx-uses-react': 'off',
             'react/jsx-uses-vars': 'error',
-            'reactHooks/rules-of-hooks': 'error',
-            'reactHooks/exhaustive-deps': 'warn',
+            'react-hooks/rules-of-hooks': 'error',
+            'react-hooks/exhaustive-deps': 'warn',
             'react/button-has-type': 'error',
             'react/hook-use-state': 'error'
         }
