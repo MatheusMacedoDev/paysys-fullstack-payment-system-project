@@ -9,8 +9,14 @@ export default function Footer() {
                 <PaySysLogoRounded />
                 <CopyrightText />
             </div>
-            <FooterSection sectionTitle="Redes Sociais" />
-            <FooterSection sectionTitle="Contatos" />
+
+            <FooterSection.Container>
+                <FooterSection.Title>Redes Sociais</FooterSection.Title>
+            </FooterSection.Container>
+
+            <FooterSection.Container>
+                <FooterSection.Title>Contato</FooterSection.Title>
+            </FooterSection.Container>
         </footer>
     );
 }

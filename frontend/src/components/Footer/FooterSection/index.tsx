@@ -1,21 +1,9 @@
-import { ReactNode } from 'react';
+import Container from './Container';
+import Title from './Title';
 
-interface SectionItem {
-    sectionItemIcon: ReactNode;
-    sectionItemData: string;
-}
+const FooterSection = {
+    Container,
+    Title
+};
 
-interface FooterSectionProps {
-    sectionTitle: string;
-    sectionItems?: Array<SectionItem>;
-}
-
-export default function FooterSection({ sectionTitle }: FooterSectionProps) {
-    return (
-        <section>
-            <h3 className="font-semibold text-lg text-gray-800">
-                {sectionTitle}
-            </h3>
-        </section>
-    );
-}
+export default FooterSection;
