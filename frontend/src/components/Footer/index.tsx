@@ -3,6 +3,7 @@ import CopyrightText from './CopyrightText';
 import FooterSection from './FooterSection';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import {
     faFacebookF,
     faInstagram,
@@ -10,8 +11,10 @@ import {
     faYoutube,
     faWhatsapp
 } from '@fortawesome/free-brands-svg-icons';
+
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import Button from '../Button';
 
 export default function Footer() {
     return (
@@ -104,6 +107,8 @@ export default function Footer() {
                     />
                 </FooterSection.ItemsWrapper>
             </FooterSection.Container>
+
+            <Button title="Abrir cadastro" />
         </footer>
     );
 }
