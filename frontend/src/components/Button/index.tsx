@@ -4,6 +4,7 @@ interface ButtonProps {
     title: string;
     buttonStyle?: 'light' | 'dark';
     buttonSize?: 'small';
+    className?: string;
     actionFn?: () => void;
 }
 
@@ -22,12 +23,13 @@ export default function Button({
     title,
     buttonStyle = 'light',
     buttonSize = 'small',
+    className,
     actionFn
 }: ButtonProps) {
     const colorStyle = buttonColorStyles[buttonStyle];
     const sizeStyle = buttonSizeStyles[buttonSize];
 
-    const style = twMerge(buttonFixedStyle, colorStyle, sizeStyle);
+    const style = twMerge(buttonFixedStyle, colorStyle, sizeStyle, className);
 
     return (
         <button type="button" onClick={actionFn} className={style}>

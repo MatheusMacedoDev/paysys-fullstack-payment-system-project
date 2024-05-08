@@ -108,7 +108,7 @@ export default function Footer() {
                 </FooterSection.ItemsWrapper>
             </FooterSection.Container>
 
-            <Button title="Abrir cadastro" />
+            <Button title="Abrir cadastro" className="my-auto" />
         </footer>
     );
 }
