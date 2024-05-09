@@ -31,7 +31,14 @@
 
 ### Front-end
 
-Nada para ver ainda...
+- Next.js (framework React)
+- Tailwind CSS (framework CSS)
+- Tailwind Merge (une strings tailwind evitando conflitos)
+- PostCSS (transforma JS em CSS)
+- TypeScript (adição de tipos ao JavaScript)
+- ESLint (linter para JavaScript e TypeScript)
+- Prettier (formatador de código)
+- Font Awesome (ícones)
 
 ### Implantação
 
