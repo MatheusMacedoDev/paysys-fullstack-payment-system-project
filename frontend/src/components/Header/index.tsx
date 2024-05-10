@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import MobileMenuButton from './MobileMenuButton';
 
 export default function Header() {
     return (
@@ -13,6 +12,8 @@ export default function Header() {
                 width="70"
                 height="70"
             />
+
+            <MobileMenuButton />
         </header>
     );
 }
