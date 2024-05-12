@@ -12,7 +12,7 @@ const buttonColorStyles = {
 
 const buttonSizeStyles = {
     small: 'w-32 h-10  font-bold text-sm',
-    medium: 'w-52 h-12 font-bold text-lg',
+    medium: 'w-full sm:w-52 h-12 font-bold text-lg',
     big: 'w-80 h-16 font-extrabold text-3xl'
 };
 

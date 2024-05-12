@@ -6,7 +6,7 @@ import Image from 'next/image';
 export default function Home() {
     return (
         <HomeContainer>
-            <HomeSection.Container>
+            <HomeSection.Container className="flex-col-reverse">
                 <HomeSection.ArticleGroup>
                     <HomeSection.Heading>
                         Faça pagamentos com simplicidade
@@ -27,6 +27,7 @@ export default function Home() {
                 <Image
                     src="undraw-credit-card-payment.svg"
                     alt="Pessoas fazendo uma transferência usando cartão de crédito."
+                    className="w-full lg:w-auto"
                     width={526}
                     height={352}
                 />
@@ -36,6 +37,7 @@ export default function Home() {
                 <Image
                     src="undraw-shopping-bags.svg"
                     alt="Pessoas carregando compras."
+                    className="w-full lg:w-auto"
                     width={492}
                     height={342}
                 />
