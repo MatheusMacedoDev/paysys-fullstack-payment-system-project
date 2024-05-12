@@ -5,5 +5,7 @@ interface HeadingProps {
 }
 
 export default function Heading({ children }: HeadingProps) {
-    return <h2 className="font-black text-6xl text-green-300">{children}</h2>;
+    return (
+        <h2 className="font-black lg:text-5xl text-green-300">{children}</h2>
+    );
 }
