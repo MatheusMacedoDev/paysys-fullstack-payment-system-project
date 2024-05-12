@@ -18,7 +18,7 @@ import Button from '../Button';
 
 export default function Footer() {
     return (
-        <footer className="lg:h-72 px-12 lg:px-28 py-14 lg:py-16 bg-gradient-to-t from-green-100 to-green-200">
+        <footer className="lg:h-72 px-12 lg:px-28 xl:px-48 py-14 lg:py-16 bg-gradient-to-t from-green-100 to-green-200">
             <div className="flex items-center flex-col lg:flex-row gap-16">
                 <div className="flex flex-col justify-between items-center lg:items-start gap-9 lg:gap-8 text-center">
                     <PaySysLogoRounded />
