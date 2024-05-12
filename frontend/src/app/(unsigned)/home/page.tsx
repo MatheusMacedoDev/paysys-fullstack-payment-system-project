@@ -1,6 +1,7 @@
 import Button from '@/components/Button';
 import HomeContainer from './HomeContainer';
 import HomeSection from './HomeSection';
+import Image from 'next/image';
 
 export default function Home() {
     return (
@@ -23,8 +24,21 @@ export default function Home() {
                         buttonColor="dark"
                     />
                 </HomeSection.ArticleGroup>
+                <Image
+                    src="undraw-credit-card-payment.svg"
+                    alt="Pessoas fazendo uma transferência usando cartão de crédito."
+                    width={526}
+                    height={352}
+                />
             </HomeSection.Container>
+
             <HomeSection.Container>
+                <Image
+                    src="undraw-shopping-bags.svg"
+                    alt="Pessoas carregando compras."
+                    width={492}
+                    height={342}
+                />
                 <HomeSection.ArticleGroup>
                     <HomeSection.Heading>
                         Beneficios para lojistas

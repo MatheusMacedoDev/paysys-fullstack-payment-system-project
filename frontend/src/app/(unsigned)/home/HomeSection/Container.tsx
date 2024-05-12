@@ -5,5 +5,7 @@ interface ContainerProps {
 }
 
 export default function Container({ children }: ContainerProps) {
-    return <div className="flex justify-between w-full">{children}</div>;
+    return (
+        <div className="flex justify-between gap-x-28 w-full">{children}</div>
+    );
 }
