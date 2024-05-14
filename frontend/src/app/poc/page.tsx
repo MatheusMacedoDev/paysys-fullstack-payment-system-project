@@ -10,6 +10,11 @@ export default function pocPage() {
             <div className="flex items-center justify-center py-20">
                 <Form.Container>
                     <Form.Title>Formulário</Form.Title>
+                    <Form.InputsGroup>
+                        <Form.Input placeholder="Input 1" />
+                        <Form.Input placeholder="Input 2" />
+                        <Form.Input placeholder="Input 3" />
+                    </Form.InputsGroup>
                 </Form.Container>
             </div>
 
