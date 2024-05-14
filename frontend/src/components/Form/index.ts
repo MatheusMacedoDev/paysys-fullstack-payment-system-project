@@ -1,5 +1,6 @@
 import Container from './Container';
+import Title from './Title';
 
-const Form = { Container };
+const Form = { Container, Title };
 
 export default Form;

@@ -8,7 +8,9 @@ export default function pocPage() {
             <Header />
 
             <div className="flex items-center justify-center py-20">
-                <Form.Container>Matheus Macedo</Form.Container>
+                <Form.Container>
+                    <Form.Title>Formulário</Form.Title>
+                </Form.Container>
             </div>
 
             <Footer />
