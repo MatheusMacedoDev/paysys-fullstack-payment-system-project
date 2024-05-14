@@ -1,6 +1,7 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
+import AsideNavigatorModal from './modals/AsideNavigatorModal';
 
 interface UnsignedLayoutProps {
     children: ReactNode;
@@ -8,12 +9,16 @@ interface UnsignedLayoutProps {
 
 export default function UnsignedLayout({ children }: UnsignedLayoutProps) {
     return (
-        <div className="flex flex-col min-h-screen">
-            <Header />
+        <>
+            <AsideNavigatorModal />
 
-            <main className="flex-1 flex-col">{children}</main>
+            <div className="flex flex-col min-h-screen">
+                <Header />
 
-            <Footer />
-        </div>
+                <main className="flex-1 flex-col">{children}</main>
+
+                <Footer />
+            </div>
+        </>
     );
 }
