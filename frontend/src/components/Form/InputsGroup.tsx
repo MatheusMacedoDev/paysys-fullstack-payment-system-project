@@ -5,5 +5,5 @@ interface InputsGroupProps {
 }
 
 export default function InputsGroup({ children }: InputsGroupProps) {
-    return <div className="w-full my-14 flex flex-col gap-y-8">{children}</div>;
+    return <div className="w-full my-20 flex flex-col gap-y-8">{children}</div>;
 }
