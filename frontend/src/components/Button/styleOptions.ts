@@ -11,9 +11,9 @@ const buttonColorStyles = {
 };
 
 const buttonSizeStyles = {
-    small: 'w-32 h-10  font-bold text-sm',
+    small: 'w-32 h-10 font-bold text-sm',
     medium: 'w-full sm:w-52 h-12 font-bold text-lg',
-    big: 'w-80 h-16 font-extrabold text-3xl'
+    big: 'w-full lg:w-72 h-16 lg:h-14 font-extrabold text-2xl lg:text-[26px]'
 };
 
 export function getMergedStyle(
