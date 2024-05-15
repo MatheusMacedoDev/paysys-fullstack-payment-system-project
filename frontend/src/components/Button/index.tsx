@@ -1,24 +1,31 @@
+import type { ComponentProps } from 'react';
+
 import { ButtonColor, ButtonSize, getMergedStyle } from './styleOptions';
 
-interface ButtonProps {
+interface ButtonProps extends ComponentProps<'button'> {
     title: string;
     buttonColor?: ButtonColor;
     buttonSize?: ButtonSize;
     className?: string;
-    actionFn?: () => void;
+    isSubmitButton?: boolean;
 }
 
 export default function Button({
     title,
     buttonColor = 'light',
     buttonSize = 'small',
+    isSubmitButton = false,
     className,
-    actionFn
+    ...rest
 }: ButtonProps) {
     const style = getMergedStyle(buttonColor, buttonSize, className);
 
     return (
-        <button type="button" onClick={actionFn} className={style}>
+        <button
+            type={isSubmitButton ? 'submit' : 'button'}
+            className={style}
+            {...rest}
+        >
             {title}
         </button>
     );
