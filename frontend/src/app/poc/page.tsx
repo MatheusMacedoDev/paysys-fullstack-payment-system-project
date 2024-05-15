@@ -13,8 +13,10 @@ export default function pocPage() {
                     <Form.Title>Formulário</Form.Title>
                     <Form.InputsGroup>
                         <Form.Input placeholder="Input 1" icon={faUser} />
-                        <Form.Input placeholder="Input 2" />
-                        <Form.Input placeholder="Input 3" />
+                        <Form.SplitedGroup>
+                            <Form.Input placeholder="Input 2" />
+                            <Form.Input placeholder="Input 3" />
+                        </Form.SplitedGroup>
                     </Form.InputsGroup>
                 </Form.Container>
             </div>
