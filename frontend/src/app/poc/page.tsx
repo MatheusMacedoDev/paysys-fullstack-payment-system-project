@@ -8,7 +8,7 @@ export default function pocPage() {
         <div className="w-screen h-screen">
             <Header />
 
-            <div className="flex items-center justify-center py-20">
+            <Form.Background>
                 <Form.Container sendButtonTitle="Ação">
                     <Form.Title>Formulário</Form.Title>
                     <Form.InputsGroup>
@@ -19,7 +19,7 @@ export default function pocPage() {
                         </Form.SplitedGroup>
                     </Form.InputsGroup>
                 </Form.Container>
-            </div>
+            </Form.Background>
 
             <Footer />
         </div>
