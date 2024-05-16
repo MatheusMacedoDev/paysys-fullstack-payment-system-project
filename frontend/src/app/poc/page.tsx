@@ -12,6 +12,13 @@ export default function pocPage() {
                 <Form.Container sendButtonTitle="Ação">
                     <Form.Title>Formulário</Form.Title>
                     <Form.InputsGroup>
+                        <Form.Select
+                            placeholder="Selecione..."
+                            data={[
+                                { value: '1', displayText: 'Opção 1' },
+                                { value: '2', displayText: 'Opção 2' }
+                            ]}
+                        />
                         <Form.Input placeholder="Input 1" icon={faUser} />
                         <Form.SplitedGroup>
                             <Form.Input placeholder="Input 2" />
