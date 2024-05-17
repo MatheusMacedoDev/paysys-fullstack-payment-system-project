@@ -5,12 +5,24 @@ import SelectItemModel from '@/components/Form/Select/SelectItemModel';
 import { faEnvelope, faKey, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 
+enum UserType {
+    CommonUser = 0,
+    ShopkeeperUser = 1
+}
+
 export default function Register() {
-    const [selectedUserType, setSelectedUserType] = useState<SelectItemModel>();
+    const [selectedUserType, setSelectedUserType] = useState<UserType>();
 
     useEffect(() => {
         console.log(JSON.stringify(selectedUserType));
     }, [selectedUserType]);
+
+    function selectUserType(selectedItem: SelectItemModel) {
+        const value = selectedItem.value;
+        const userType: UserType = value;
+
+        setSelectedUserType(userType);
+    }
 
     return (
         <Form.Background>
@@ -21,26 +33,25 @@ export default function Register() {
                         placeholder="Qual seu tipo de usuário?"
                         data={[
                             {
-                                value: '1',
-                                displayText: 'Comum'
+                                value: UserType.CommonUser,
+                                displayText: 'Não sou um lojista'
                             },
                             {
-                                value: '2',
-                                displayText: 'Lojista'
+                                value: UserType.ShopkeeperUser,
+                                displayText: 'Sou um lojista'
                             }
                         ]}
-                        value={selectedUserType!}
-                        onChange={setSelectedUserType}
+                        onChange={selectUserType}
                     />
 
-                    {selectedUserType?.displayText === 'Comum' && (
+                    {selectedUserType === UserType.CommonUser && (
                         <Form.SplitedGroup>
                             <Form.Input placeholder="Nome" />
                             <Form.Input placeholder="CPF" />
                         </Form.SplitedGroup>
                     )}
 
-                    {selectedUserType?.displayText === 'Lojista' && (
+                    {selectedUserType === UserType.ShopkeeperUser && (
                         <>
                             <Form.SplitedGroup>
                                 <Form.Input placeholder="Nome Fantasia" />
