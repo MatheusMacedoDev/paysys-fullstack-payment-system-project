@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import SelectItemModel from './SelectItemModel';
 import SelectToggle from './SelectToggle';
