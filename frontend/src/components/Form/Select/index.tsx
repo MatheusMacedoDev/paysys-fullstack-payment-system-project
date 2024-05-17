@@ -8,11 +8,17 @@ import MenuDropdown from './MenuDropdown';
 interface SelectProps {
     placeholder: string;
     data: Array<SelectItemModel>;
+    value: SelectItemModel;
+    onChange: (selectedItem: SelectItemModel) => void;
 }
 
-export default function Select({ placeholder, data }: SelectProps) {
+export default function Select({
+    placeholder,
+    data,
+    value,
+    onChange
+}: SelectProps) {
     const [isDropdownOpened, setIsDropdownOpened] = useState<boolean>(false);
-    const [selectedItem, setSelectedItem] = useState<SelectItemModel>();
 
     function toggleDropdown() {
         setIsDropdownOpened(!isDropdownOpened);
@@ -26,7 +32,7 @@ export default function Select({ placeholder, data }: SelectProps) {
         <div className="relative">
             <SelectToggle
                 isDropdownOpened={isDropdownOpened}
-                selectedItemMenu={selectedItem}
+                selectedItemMenu={value}
                 placeholder={placeholder}
                 handleToggleDropdown={toggleDropdown}
             />
@@ -34,7 +40,7 @@ export default function Select({ placeholder, data }: SelectProps) {
                 isDropdownOpened={isDropdownOpened}
                 data={data}
                 handleCloseDropdown={closeDropdown}
-                handleSelectItem={setSelectedItem}
+                handleSelectItem={onChange}
             />
         </div>
     );
