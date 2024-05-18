@@ -1,20 +1,11 @@
 'use client';
 
-import Form from '@/components/Form';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
-import { zodResolver } from '@hookform/resolvers/zod';
+import Form from '@/components/Form';
+
 import { FormProvider, useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-const makeLoginSchema = z.object({
-    email: z
-        .string()
-        .email('Formato de e-mail inválido.')
-        .min(1, 'O e-mail é obrigatório.'),
-    password: z.string().min(1, 'A senha é obrigatória.')
-});
-
-type MakeLoginData = z.infer<typeof makeLoginSchema>;
+import { zodResolver } from '@hookform/resolvers/zod';
+import { MakeLoginData, makeLoginSchema } from '@/validations/loginValidations';
 
 export default function Login() {
     const makeLoginForm = useForm<MakeLoginData>({
