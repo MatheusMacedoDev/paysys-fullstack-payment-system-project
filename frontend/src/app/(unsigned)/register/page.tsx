@@ -8,17 +8,14 @@ import SelectItemModel from '@/components/Form/Select/SelectItemModel';
 import {
     BaseRegisterData,
     CommonUserRegisterData,
-    ShopkeeperRegisterData,
-    baseRegisterSchema,
-    commonUserRegisterSchema,
-    shopkeeperRegisterSchema
+    ShopkeeperRegisterData
 } from '@/validations/registerValidations';
 
 import { useEffect, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { FormProvider } from 'react-hook-form';
+import { useRegisterForm } from './useRegisterForm';
 
-enum UserType {
+export enum UserType {
     CommonUser = 'CommonUser',
     ShopkeeperUser = 'ShopkeeperUser'
 }
@@ -26,28 +23,7 @@ enum UserType {
 export default function Register() {
     const [selectedUserType, setSelectedUserType] = useState<UserType>();
 
-    const baseRegisterForm = useForm<BaseRegisterData>({
-        resolver: zodResolver(baseRegisterSchema)
-    });
-
-    const commonUserRegisterForm = useForm<CommonUserRegisterData>({
-        resolver: zodResolver(commonUserRegisterSchema)
-    });
-
-    const shopkeeperRegisterForm = useForm<ShopkeeperRegisterData>({
-        resolver: zodResolver(shopkeeperRegisterSchema)
-    });
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let registerForm: any = baseRegisterForm;
-
-    if (selectedUserType === UserType.CommonUser) {
-        registerForm = commonUserRegisterForm;
-    }
-
-    if (selectedUserType === UserType.ShopkeeperUser) {
-        registerForm = shopkeeperRegisterForm;
-    }
+    const registerForm = useRegisterForm(selectedUserType!);
 
     const {
         handleSubmit,
