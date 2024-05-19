@@ -27,12 +27,14 @@ export default function Register() {
 
     const {
         handleSubmit,
+        getValues,
         formState: { errors }
     } = registerForm;
 
     useEffect(() => {
         console.log(errors);
-    }, [errors]);
+        console.log(getValues());
+    }, [errors, getValues]);
 
     function selectUserType(selectedItem: SelectItemModel) {
         const value = selectedItem.value;
@@ -75,7 +77,11 @@ export default function Register() {
                         {selectedUserType === UserType.CommonUser && (
                             <Form.SplitedGroup>
                                 <Form.Input name="name" placeholder="Nome" />
-                                <Form.Input name="cpf" placeholder="CPF" />
+                                <Form.Input
+                                    name="cpf"
+                                    mask="999.999.999-99"
+                                    placeholder="CPF"
+                                />
                             </Form.SplitedGroup>
                         )}
 
@@ -91,7 +97,11 @@ export default function Register() {
                                         placeholder="Razão Social"
                                     />
                                 </Form.SplitedGroup>
-                                <Form.Input name="cnpj" placeholder="CNPJ" />
+                                <Form.Input
+                                    name="cnpj"
+                                    mask="99.999.999/9999-99"
+                                    placeholder="CNPJ"
+                                />
                             </>
                         )}
 
@@ -102,6 +112,7 @@ export default function Register() {
                         />
                         <Form.Input
                             name="phoneNumber"
+                            mask="(99) 99999-9999"
                             placeholder="Telefone"
                             icon={faPhone}
                         />
