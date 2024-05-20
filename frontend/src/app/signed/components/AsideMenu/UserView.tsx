@@ -6,7 +6,8 @@ export default function UserView() {
         <div className="flex items-center gap-5">
             <div className="w-16 h-16 rounded-full bg-green-300 flex justify-center items-center">
                 <FontAwesomeIcon
-                    className="text-green-950 w-8 h-8"
+                    className="text-green-950"
+                    size="2x"
                     icon={faUser}
                 />
             </div>

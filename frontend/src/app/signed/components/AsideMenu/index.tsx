@@ -7,8 +7,13 @@ import {
     faHouse,
     faRocket
 } from '@fortawesome/free-solid-svg-icons';
+import { ReactNode } from 'react';
 
-export default function AsideMenu() {
+interface AsideMenuProps {
+    children: ReactNode;
+}
+
+export default function AsideMenu({ children }: AsideMenuProps) {
     return (
         <aside className="bg-gray-900 w-80 h-screen hidden lg:block fixed shadow-xl rounded-tr-xl rounded-br-xl p-10">
             <UserView />
@@ -27,6 +32,8 @@ export default function AsideMenu() {
                         itemIcon={faCircleInfo}
                     />
                 </Navigator.Section>
+
+                {children}
             </Navigator.Container>
         </aside>
     );
