@@ -25,7 +25,7 @@ export default function Home() {
                     />
                 </HomeSection.ArticleGroup>
                 <Image
-                    src="undraw-credit-card-payment.svg"
+                    src="/undraw-credit-card-payment.svg"
                     alt="Pessoas fazendo uma transferência usando cartão de crédito."
                     className="w-full lg:w-auto"
                     width={526}
@@ -35,7 +35,7 @@ export default function Home() {
 
             <HomeSection.Container>
                 <Image
-                    src="undraw-shopping-bags.svg"
+                    src="/undraw-shopping-bags.svg"
                     alt="Pessoas carregando compras."
                     className="w-full lg:w-auto"
                     width={492}

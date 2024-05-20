@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-import { ReactNode, Suspense } from 'react';
+import { ReactNode } from 'react';
 import AsideNavigatorModal from './modals/AsideNavigatorModal';
+import Header from './components/Header';
 
 interface UnsignedLayoutProps {
     children: ReactNode;
