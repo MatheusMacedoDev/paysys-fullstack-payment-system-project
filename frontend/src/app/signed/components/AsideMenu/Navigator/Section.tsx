@@ -2,17 +2,17 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReactNode } from 'react';
 
-interface NavigatorSectionProps {
+interface SectionProps {
     sectionTitle: string;
     sectionIcon: IconProp;
     children: ReactNode;
 }
 
-export default function NavigatorSection({
+export default function Section({
     sectionTitle,
     sectionIcon,
     children
-}: NavigatorSectionProps) {
+}: SectionProps) {
     return (
         <section className="text-green-300 space-y-8">
             <div className="flex items-center gap-2">
