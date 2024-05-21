@@ -10,9 +10,15 @@ import {
 import AsideMenu from './AsideMenu';
 import { Navigator } from './AsideMenu/Navigator';
 
-export default function CommonUserAsideMenu() {
+interface CommonUserAsideMenuProps {
+    isMobile: boolean;
+}
+
+export default function CommonUserAsideMenu({
+    isMobile
+}: CommonUserAsideMenuProps) {
     return (
-        <AsideMenu>
+        <AsideMenu isMobile={isMobile}>
             <Navigator.Section
                 sectionTitle="Transações"
                 sectionIcon={faRightLeft}

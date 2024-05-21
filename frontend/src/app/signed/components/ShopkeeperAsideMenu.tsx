@@ -6,9 +6,15 @@ import {
 import AsideMenu from './AsideMenu';
 import { Navigator } from './AsideMenu/Navigator';
 
-export default function ShopkeeperAsideMenu() {
+interface ShopkeeperAsideMenuProps {
+    isMobile: boolean;
+}
+
+export default function ShopkeeperAsideMenu({
+    isMobile
+}: ShopkeeperAsideMenuProps) {
     return (
-        <AsideMenu>
+        <AsideMenu isMobile={isMobile}>
             <Navigator.Section
                 sectionTitle="Recebimentos"
                 sectionIcon={faMoneyBillWave}

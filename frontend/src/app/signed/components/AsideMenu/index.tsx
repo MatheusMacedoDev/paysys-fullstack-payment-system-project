@@ -1,5 +1,6 @@
 import UserView from '../UserView';
 import BalanceView from './BalanceView';
+import CloseMenuButton from './CloseMenuButton';
 import { Navigator } from './Navigator';
 
 import {
@@ -11,13 +12,21 @@ import { ReactNode } from 'react';
 
 interface AsideMenuProps {
     children: ReactNode;
+    isMobile: boolean;
 }
 
-export default function AsideMenu({ children }: AsideMenuProps) {
+export default function AsideMenu({
+    children,
+    isMobile = false
+}: AsideMenuProps) {
     return (
-        <aside className="bg-gray-900 w-80 h-screen hidden lg:block sticky shadow-xl rounded-tr-xl rounded-br-xl p-10">
-            <UserView size="big" />
+        <aside
+            className={`bg-gray-900 w-80 h-screen ${isMobile ? '' : 'hidden'} lg:block sticky shadow-xl rounded-tr-xl rounded-br-xl p-10`}
+        >
+            <UserView size={isMobile ? 'medium' : 'big'} />
             <BalanceView />
+
+            {isMobile && <CloseMenuButton />}
 
             <Navigator.Container>
                 <Navigator.Section sectionTitle="Início" sectionIcon={faRocket}>
