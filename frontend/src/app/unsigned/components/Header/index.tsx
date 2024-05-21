@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
-import MobileMenuButton from './MobileMenuButton';
 import DesktopMenu from './DesktopMenu';
+import MobileMenuButton from '@/components/MobileMenuButton';
 
 export default function Header() {
     return (
@@ -16,7 +16,7 @@ export default function Header() {
 
             <DesktopMenu />
 
-            <MobileMenuButton />
+            <MobileMenuButton href="?navigator=true" />
         </header>
     );
 }
