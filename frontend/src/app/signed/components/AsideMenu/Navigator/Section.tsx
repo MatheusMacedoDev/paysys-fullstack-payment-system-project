@@ -14,7 +14,7 @@ export default function Section({
     children
 }: SectionProps) {
     return (
-        <section className="text-green-300 space-y-8">
+        <section className="text-green-300 space-y-7">
             <div className="flex items-center gap-2">
                 <FontAwesomeIcon className="text-2xl" icon={sectionIcon} />
                 <span className="font-extrabold text-xl">{sectionTitle}</span>
