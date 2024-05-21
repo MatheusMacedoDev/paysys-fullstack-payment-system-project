@@ -1,5 +1,5 @@
+import UserView from '../UserView';
 import BalanceView from './BalanceView';
-import UserView from './UserView';
 import { Navigator } from './Navigator';
 
 import {
@@ -16,7 +16,7 @@ interface AsideMenuProps {
 export default function AsideMenu({ children }: AsideMenuProps) {
     return (
         <aside className="bg-gray-900 w-80 h-screen hidden lg:block sticky shadow-xl rounded-tr-xl rounded-br-xl p-10">
-            <UserView />
+            <UserView size="big" />
             <BalanceView />
 
             <Navigator.Container>
