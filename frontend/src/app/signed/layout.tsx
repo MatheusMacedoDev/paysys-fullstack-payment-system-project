@@ -16,12 +16,12 @@ export default function SignedLayout({ children }: SignedLayoutProps) {
     >('Administrator');
 
     return (
-        <div className="w-screen min-h-screen">
+        <div className="w-screen min-h-screen flex">
             {userType === 'Common' && <CommonUserAsideMenu />}
             {userType === 'Shopkeeper' && <ShopkeeperAsideMenu />}
             {userType === 'Administrator' && <AdministratorAsideMenu />}
 
-            <main>{children}</main>
+            <main className="w-full overflow-scroll">{children}</main>
         </div>
     );
 }
