@@ -6,6 +6,8 @@ interface BackgroundProps {
 
 export default function Background({ children }: BackgroundProps) {
     return (
-        <div className="flex items-center justify-center py-20">{children}</div>
+        <div className="w-full h-full flex items-center justify-center py-20">
+            {children}
+        </div>
     );
 }

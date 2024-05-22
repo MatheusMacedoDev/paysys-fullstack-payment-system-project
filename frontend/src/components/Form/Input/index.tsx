@@ -22,7 +22,7 @@ export default function Input({ name, mask, icon, ...rest }: InputProps) {
     `;
 
     return (
-        <div className="relative">
+        <div className="relative flex flex-1">
             {mask ? (
                 <InputMask
                     mask={mask}
