@@ -3,7 +3,7 @@ import { DataCard } from '../../components/DataCard';
 
 export default function AboutPage() {
     return (
-        <div className="flex flex-col items-center h-screen p-6 lg:p-10">
+        <>
             <Image
                 src="/undraw-team-spirit.svg"
                 alt="Equipe reunida demonstrando o espírito de equipe."
@@ -41,6 +41,6 @@ export default function AboutPage() {
                     description="Tudo pode ser feito em poucos passos."
                 />
             </DataCard.SmallCardGroup>
-        </div>
+        </>
     );
 }

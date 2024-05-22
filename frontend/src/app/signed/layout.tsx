@@ -46,7 +46,9 @@ export default function SignedLayout({ children }: SignedLayoutProps) {
                     </>
                 )}
 
-                <main className="w-full overflow-scroll">{children}</main>
+                <main className="w-full h-screen overflow-scroll flex flex-col items-center p-6 lg:p-10">
+                    {children}
+                </main>
             </div>
         </div>
     );
