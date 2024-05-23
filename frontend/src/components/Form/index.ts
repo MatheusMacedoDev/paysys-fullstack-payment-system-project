@@ -4,6 +4,7 @@ import Input from './Input';
 import InputsGroup from './InputsGroup';
 import Select from './Select';
 import SplitedGroup from './SplitedGroup';
+import TextArea from './TextArea';
 import Title from './Title';
 
 const Form = {
@@ -12,6 +13,7 @@ const Form = {
     Title,
     InputsGroup,
     Input,
+    TextArea,
     Select,
     SplitedGroup
 };
