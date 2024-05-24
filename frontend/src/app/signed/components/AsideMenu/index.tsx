@@ -21,7 +21,7 @@ export default function AsideMenu({
 }: AsideMenuProps) {
     return (
         <aside
-            className={`bg-gray-900 w-80 h-screen ${isMobile ? '' : 'hidden'} lg:block sticky shadow-xl rounded-tr-xl rounded-br-xl p-10`}
+            className={`bg-gray-900 w-[300px] lg:w-[360px] ${!isMobile ? 'xl:w-[400px]' : ''} h-screen ${isMobile ? '' : 'hidden'} lg:block sticky shadow-xl rounded-tr-xl rounded-br-xl p-10`}
         >
             <UserView size={isMobile ? 'medium' : 'big'} />
             <BalanceView />
