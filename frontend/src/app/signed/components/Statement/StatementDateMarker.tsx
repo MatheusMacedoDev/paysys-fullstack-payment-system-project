@@ -1,4 +1,4 @@
-import Line from './Line';
+import Line from '../Line';
 
 interface StatementDateMarker {
     date: string;

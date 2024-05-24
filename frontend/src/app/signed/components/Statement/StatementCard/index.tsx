@@ -2,7 +2,7 @@ import { faUtensils } from '@fortawesome/free-solid-svg-icons';
 import StatementIcon from './StatementIcon';
 import StatementDataView, { StatementDataViewProps } from './StatementDataView';
 import StatementValue, { StatementValueProps } from './StatementValue';
-import Line from '../Line';
+import Line from '../../Line';
 
 interface StatementCardProps
     extends StatementDataViewProps,
