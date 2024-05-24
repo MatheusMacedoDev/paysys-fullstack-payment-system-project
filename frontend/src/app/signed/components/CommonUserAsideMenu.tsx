@@ -22,12 +22,12 @@ export default function CommonUserAsideMenu({
                 <Navigator.Item
                     itemTitle="Realizar pagamento"
                     itemIcon={faCoins}
-                    itemHref="/"
+                    itemHref="/signed/common/payment"
                 />
                 <Navigator.Item
                     itemTitle="Extrato"
                     itemIcon={faFileInvoiceDollar}
-                    itemHref="/"
+                    itemHref="/signed/common/statement"
                 />
             </Navigator.Section>
         </AsideMenu>

@@ -31,12 +31,12 @@ export default function AsideMenu({
             <Navigator.Container>
                 <Navigator.Section sectionTitle="Início" sectionIcon={faRocket}>
                     <Navigator.Item
-                        itemHref="/"
+                        itemHref="/signed/home"
                         itemTitle="Casa"
                         itemIcon={faHouse}
                     />
                     <Navigator.Item
-                        itemHref="/"
+                        itemHref="/signed/about"
                         itemTitle="Sobre"
                         itemIcon={faCircleInfo}
                     />
