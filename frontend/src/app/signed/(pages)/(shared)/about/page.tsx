@@ -1,5 +1,5 @@
+import { DataCard } from '@/app/signed/components/DataCard';
 import Image from 'next/image';
-import { DataCard } from '../../components/DataCard';
 
 export default function AboutPage() {
     return (
