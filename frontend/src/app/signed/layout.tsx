@@ -15,7 +15,7 @@ export default function SignedLayout({ children }: SignedLayoutProps) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [userType, setUserType] = useState<
         'Common' | 'Shopkeeper' | 'Administrator'
-    >('Common');
+    >('Administrator');
 
     return (
         <div className="w-screen min-h-screen">
