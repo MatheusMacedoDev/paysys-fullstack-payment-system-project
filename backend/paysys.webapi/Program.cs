@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using paysys.webapi.Application.Services.TransferServices.Categories;
 using paysys.webapi.Application.Services.TransferServices.Statuses;
@@ -88,6 +89,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
+    ApplyMigrations(app);
+
     // Swagger Config
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -98,6 +101,31 @@ var app = builder.Build();
     app.UseAuthorization();
 
     app.MapControllers();
+}
+
+void ApplyMigrations(WebApplication app)
+{
+    Console.WriteLine("Task: Update database");
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+
+        var pendingMigrations = dbContext.Database.GetPendingMigrations();
+
+        if (pendingMigrations.Any())
+        {
+            Console.WriteLine("Applying pending migrations...");
+
+            dbContext.Database.Migrate();
+
+            Console.WriteLine("Migrations applied successfully.");
+
+            return;
+        }
+
+        Console.WriteLine("No pending migrations found.");
+    }
 }
 
 app.Run();

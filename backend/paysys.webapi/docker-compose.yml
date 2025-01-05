@@ -1,0 +1,50 @@
+services:
+  api:
+    container_name: paysys.webapi.image
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 5000:8080
+    depends_on:
+      - paysys-db
+    networks:
+      paysys-network:
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /
+
+  paysys-db:
+    image: postgres:16.1
+    shm_size: 128mb
+    ports:
+      - "5433:5433"
+    environment:
+      POSTGRES_PASSWORD: T0rt4d3l1m40
+    volumes:
+      - "paysys-db-vulume:/dev/shm"
+    networks:
+      paysys-network:
+        aliases:
+          - "sql"
+
+  paysys-pgadmin:
+    image: dpage/pgadmin4:8.1
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "matheus.macedo.developer@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "@T0rt4d3l1m40"
+    ports:
+      - "15432:80"
+    depends_on:
+      - paysys-db
+    networks:
+      - paysys-network
+
+volumes:
+  paysys-db-vulume:
+
+networks:
+  paysys-network:
+    driver: bridge
