@@ -29,9 +29,10 @@ var builder = WebApplication.CreateBuilder(args);
         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
         .Build();
 
+    ConfigureConnectionString(builder, configuration);
+
     builder.Services.Configure<TokenSettings>(options => configuration.GetSection("SecurityToken").Bind(options));
     builder.Services.Configure<UserTypeNamesSettings>(options => configuration.GetSection("UserTypeNames").Bind(options));
-    builder.Services.Configure<ConnectionStringSettings>(options => configuration.GetSection("ConnectionStrings").Bind(options));
     builder.Services.Configure<SmtpSettings>(options => configuration.GetSection("Smtp").Bind(options));
 
     // DbContext Injection
@@ -101,6 +102,26 @@ var app = builder.Build();
     app.UseAuthorization();
 
     app.MapControllers();
+}
+
+void ConfigureConnectionString(WebApplicationBuilder builder, IConfigurationRoot configuration)
+{
+    DotNetEnv.Env.Load();
+
+
+    if (DotNetEnv.Env.GetBool("IS_PRODUCTION"))
+    {
+        string deployedConnectionString = DotNetEnv.Env.GetString("DEPLOYED_CONNECTION_STRING");
+
+        builder.Services.Configure<ConnectionStringSettings>(options =>
+        {
+            options.LocalConnection = deployedConnectionString;
+        });
+
+        return;
+    }
+
+    builder.Services.Configure<ConnectionStringSettings>(options => configuration.GetSection("ConnectionStrings").Bind(options));
 }
 
 void ApplyMigrations(WebApplication app)
