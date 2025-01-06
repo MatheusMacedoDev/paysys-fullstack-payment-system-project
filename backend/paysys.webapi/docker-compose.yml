@@ -1,9 +1,9 @@
+name: paysys
+
 services:
   api:
-    container_name: paysys.webapi.image
-    build:
-      dockerfile: Dockerfile
-      context: .
+    container_name: paysys.webapi
+    build: "./"
     ports:
       - 5000:8080
     depends_on:
