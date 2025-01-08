@@ -5,9 +5,9 @@ using paysys.webapi.Infra.Mail.Templates;
 
 namespace paysys.webapi.Application.Controllers;
 
-[Route("api/mail-test")]
-[ApiController]
-[Produces("application/json")]
+/*[Route("api/mail-test")]*/
+/*[ApiController]*/
+/*[Produces("application/json")]*/
 public class MailTestController : ControllerBase
 {
     private readonly IMailInfraService _mailService;
@@ -17,7 +17,7 @@ public class MailTestController : ControllerBase
         _mailService = mailService;
     }
 
-    [HttpPost]
+    /*[HttpPost]*/
     public async Task<IActionResult> SendEmail(string receiverEmail)
     {
         try
@@ -38,7 +38,7 @@ public class MailTestController : ControllerBase
         }
     }
 
-    [HttpPost("SendWelcomeEmail")]
+    /*[HttpPost("SendWelcomeEmail")]*/
     public async Task<IActionResult> SendWelcomeEmail(string userName, string receiverEmail)
     {
         try
@@ -58,7 +58,7 @@ public class MailTestController : ControllerBase
         }
     }
 
-    [HttpPost("SendTransactionMakedToSenderEmail")]
+    /*[HttpPost("SendTransactionMakedToSenderEmail")]*/
     public async Task<IActionResult> SendTransactionMakedToSenderEmail(string senderName, string mailReceiverEmail, string receiverName, DateTime transferDateTime, double transferAmount)
     {
         try
@@ -73,7 +73,7 @@ public class MailTestController : ControllerBase
         }
     }
 
-    [HttpPost("SendTransactionMakedToReceiverEmail")]
+    /*[HttpPost("SendTransactionMakedToReceiverEmail")]*/
     public async Task<IActionResult> SendTransactionMakedToReceiverEmail(string senderName, string mailReceiverEmail, string receiverName, DateTime transferDateTime, double transferAmount)
     {
         try
