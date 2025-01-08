@@ -1,26 +1,11 @@
 name: paysys
 
 services:
-  api:
-    container_name: paysys.webapi
-    build: "./"
-    ports:
-      - 5000:8080
-    depends_on:
-      - paysys-db
-    networks:
-      paysys-network:
-    develop:
-      watch:
-        - action: sync
-          path: .
-          target: /
-
   paysys-db:
     image: postgres:16.1
     shm_size: 128mb
     ports:
-      - "5433:5433"
+      - "5433:5432"
     environment:
       POSTGRES_PASSWORD: T0rt4d3l1m40
     volumes:
