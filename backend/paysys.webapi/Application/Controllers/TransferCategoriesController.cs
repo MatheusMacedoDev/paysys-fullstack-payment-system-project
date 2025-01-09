@@ -35,9 +35,9 @@ public class TransferCategoriesController : ControllerBase
     }
 
     /// <summary>
-    /// Retorna uma lista de todas as categorias de tranferência
+    /// Retorna uma lista de todas as categorias de transferência
     /// </summary>
-    /// <returns>Uma lista de todas as categorias de tranferência</returns>
+    /// <returns>Uma lista de todas as categorias de transferência</returns>
     [HttpGet]
     public async Task<IActionResult> GetAllTransferCategories()
     {
