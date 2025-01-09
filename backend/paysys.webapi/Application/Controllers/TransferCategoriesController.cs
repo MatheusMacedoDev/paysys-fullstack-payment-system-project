@@ -16,7 +16,10 @@ public class TransferCategoriesController : ControllerBase
         _transferCategoriesService = transferCategoriesServices;
     }
 
-    [HttpPost("transfer-categories")]
+    /// <summary>
+    /// Cria uma categoria de transferência
+    /// </summary>
+    [HttpPost]
     public IActionResult CreateTransferCategory([FromBody] CreateTransferCategoryRequest request)
     {
         try
@@ -31,7 +34,11 @@ public class TransferCategoriesController : ControllerBase
         }
     }
 
-    [HttpGet("transfer-categories")]
+    /// <summary>
+    /// Retorna uma lista de todas as categorias de tranferência
+    /// </summary>
+    /// <returns>Uma lista de todas as categorias de tranferência</returns>
+    [HttpGet]
     public async Task<IActionResult> GetAllTransferCategories()
     {
         try

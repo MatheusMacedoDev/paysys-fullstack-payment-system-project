@@ -1,0 +1,367 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>paysys.webapi</name>
+    </assembly>
+    <members>
+        <member name="M:paysys.webapi.Application.Controllers.TransferCategoriesController.CreateTransferCategory(paysys.webapi.Application.Contracts.Requests.CreateTransferCategoryRequest)">
+            <summary>
+            Cria uma categoria de transferência
+            </summary>
+        </member>
+        <member name="M:paysys.webapi.Application.Controllers.TransferCategoriesController.GetAllTransferCategories">
+            <summary>
+            Retorna uma lista de todas as categorias de tranferência
+            </summary>
+            <returns>Uma lista de todas as categorias de tranferência</returns>
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.CreatingUserTypesTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingUserTypesTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingUserTypesTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingUserTypesTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.CreatingUsersTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingUsersTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingUsersTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingUsersTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.RemovingUserRealNameColumn">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RemovingUserRealNameColumn.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RemovingUserRealNameColumn.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RemovingUserRealNameColumn.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.CreatingAdministratorUserTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingAdministratorUserTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingAdministratorUserTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingAdministratorUserTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.CreatingCommonUsersTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingCommonUsersTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingCommonUsersTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingCommonUsersTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.CreatingShopekeepersTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingShopekeepersTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingShopekeepersTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingShopekeepersTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.RenamingAllAdministratorUserTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllAdministratorUserTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllAdministratorUserTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllAdministratorUserTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.RenamingAllCommonUserTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllCommonUserTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllCommonUserTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllCommonUserTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.RenamingAllShopkeepersTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllShopkeepersTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllShopkeepersTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllShopkeepersTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.RenamingAllUsersTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllUsersTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllUsersTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllUsersTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.RenamingAllUserTypesTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllUserTypesTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllUserTypesTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingAllUserTypesTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.FixingShopkeepersTableName">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.FixingShopkeepersTableName.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.FixingShopkeepersTableName.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.FixingShopkeepersTableName.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.CreatingTransfers">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingTransfers.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingTransfers.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingTransfers.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.CreatingTransferCategoriesAndStatusTables">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingTransferCategoriesAndStatusTables.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingTransferCategoriesAndStatusTables.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.CreatingTransferCategoriesAndStatusTables.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.TurningTransferStatusNameAndTransferCategoryNameUnique">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.TurningTransferStatusNameAndTransferCategoryNameUnique.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.TurningTransferStatusNameAndTransferCategoryNameUnique.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.TurningTransferStatusNameAndTransferCategoryNameUnique.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.AddingBalanceForCommonUsersTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.AddingBalanceForCommonUsersTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.AddingBalanceForCommonUsersTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.AddingBalanceForCommonUsersTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.ChangingTransfersTableName">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.ChangingTransfersTableName.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.ChangingTransfersTableName.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.ChangingTransfersTableName.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.RenamingTransferIdColumn">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingTransferIdColumn.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingTransferIdColumn.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.RenamingTransferIdColumn.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.AddingIsUniqueForSomeTables">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.AddingIsUniqueForSomeTables.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.AddingIsUniqueForSomeTables.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.AddingIsUniqueForSomeTables.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.TurningAdministratorNameValueObject">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.TurningAdministratorNameValueObject.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.TurningAdministratorNameValueObject.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.TurningAdministratorNameValueObject.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.AddingNameValueObjectToCommonUser">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.AddingNameValueObjectToCommonUser.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.AddingNameValueObjectToCommonUser.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.AddingNameValueObjectToCommonUser.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.MappingCPFValueObjectIntoCommonAndAdministratorUsers">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingCPFValueObjectIntoCommonAndAdministratorUsers.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingCPFValueObjectIntoCommonAndAdministratorUsers.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingCPFValueObjectIntoCommonAndAdministratorUsers.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.MappingCNPJValueObjectIntoShopkeepersTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingCNPJValueObjectIntoShopkeepersTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingCNPJValueObjectIntoShopkeepersTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingCNPJValueObjectIntoShopkeepersTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.MappingPasswordValueObjectIntoUser">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingPasswordValueObjectIntoUser.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingPasswordValueObjectIntoUser.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingPasswordValueObjectIntoUser.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.MappingDescriptionValueObjectIntoTransfersTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingDescriptionValueObjectIntoTransfersTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingDescriptionValueObjectIntoTransfersTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingDescriptionValueObjectIntoTransfersTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.MappingLastValueObjectsToShopkeeper">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingLastValueObjectsToShopkeeper.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingLastValueObjectsToShopkeeper.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingLastValueObjectsToShopkeeper.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.MappingNameValueObjectsToTransferCategory">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingNameValueObjectsToTransferCategory.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingNameValueObjectsToTransferCategory.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingNameValueObjectsToTransferCategory.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.MappingNameValueObjectToTransferStatus">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingNameValueObjectToTransferStatus.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingNameValueObjectToTransferStatus.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingNameValueObjectToTransferStatus.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:paysys.webapi.Infra.Data.Migrations.MappingLastValueObjectsIntoUserTable">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingLastValueObjectsIntoUserTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingLastValueObjectsIntoUserTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:paysys.webapi.Infra.Data.Migrations.MappingLastValueObjectsIntoUserTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
