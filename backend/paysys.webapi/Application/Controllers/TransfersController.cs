@@ -16,7 +16,10 @@ public class TransfersController : ControllerBase
         _transfersService = transfersService;
     }
 
-    [HttpPost("transfers")]
+    /// <summary>
+    /// Registra uma nova transferência
+    /// </summary>
+    [HttpPost]
     public IActionResult CreateTransfer([FromBody] CreateTransferRequest request)
     {
         try
@@ -31,7 +34,11 @@ public class TransfersController : ControllerBase
         }
     }
 
-    [HttpGet("transfers/getUserTransferHistory/{userId:Guid}")]
+    /// <summary>
+    /// Lista o histórico de transferência de um usuário
+    /// </summary>
+    /// <returns>Uma lista de transferências</returns>
+    [HttpGet("getUserTransferHistory")]
     public IActionResult GetUserTransferHistory([FromRoute] Guid userId)
     {
         try
@@ -47,10 +54,14 @@ public class TransfersController : ControllerBase
         }
     }
 
-    [HttpGet("transfers/getUserTransferHistory/{transferId:Guid}/{userId:Guid}")]
+    /// <summary>
+    /// Exibe os dados completos de uma única transferência de um usuário
+    /// </summary>
+    /// <returns>Dados de uma transferências</returns>
+    [HttpGet("{transferId:Guid}/users/{userId:Guid}")]
     public IActionResult GetFullTransfer(
-        [FromRoute] Guid transferId,
-        [FromRoute] Guid userId)
+        Guid transferId,
+        Guid userId)
     {
         try
         {
