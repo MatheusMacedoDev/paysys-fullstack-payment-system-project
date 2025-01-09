@@ -16,7 +16,10 @@ public class TransferStatusController : ControllerBase
         _transferStatusesService = transferStatusesService;
     }
 
-    [HttpPost("transfer-status")]
+    /// <summary>
+    /// Registra um novo status de transferência
+    /// </summary>
+    [HttpPost]
     public IActionResult CreateTransferStatus([FromBody] CreateTransferStatusRequest request)
     {
         try
@@ -31,7 +34,11 @@ public class TransferStatusController : ControllerBase
         }
     }
 
-    [HttpGet("transfer-status")]
+    /// <summary>
+    /// Retorna uma lista de todas os status de transferência
+    /// </summary>
+    /// <returns>Uma lista de todas os status de tranferência</returns>
+    [HttpGet]
     public async Task<IActionResult> GetAllTransferStatus()
     {
         try
