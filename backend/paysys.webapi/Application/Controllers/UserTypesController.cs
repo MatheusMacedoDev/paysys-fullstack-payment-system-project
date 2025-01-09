@@ -20,6 +20,10 @@ public class UserTypesController : ControllerBase
         _unityOfWork = unityOfWork;
     }
 
+    /// <summary>
+    /// Retorna uma lista de todos os tipos de usuários
+    /// </summary>
+    /// <returns>Uma lista de todos os administradores</returns>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -35,6 +39,10 @@ public class UserTypesController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retorna os dados de um tipo de usuário específico
+    /// </summary>
+    /// <returns>Os dados de um tipo de usuário</returns>
     [HttpGet("{userTypeId:Guid}")]
     public async Task<IActionResult> GetById(Guid userTypeId)
     {
@@ -50,6 +58,9 @@ public class UserTypesController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Cria um novo tipo de usuário
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateUserTypeRequest request)
     {
@@ -68,6 +79,9 @@ public class UserTypesController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Atualiza os dados de um tipo de usuário
+    /// </summary>
     [HttpPut]
     public async Task<IActionResult> UpdateUserTypeName([FromBody] UpdateUserTypeNameRequest request)
     {
@@ -84,6 +98,9 @@ public class UserTypesController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Remove um tipo de usuário
+    /// </summary>
     [HttpDelete("{userTypeId:Guid}")]
     public async Task<IActionResult> Delete(Guid userTypeId)
     {
