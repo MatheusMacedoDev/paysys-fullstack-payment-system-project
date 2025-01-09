@@ -1,7 +1,9 @@
+using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using paysys.webapi.Application.Services.TransferServices.Categories;
 using paysys.webapi.Application.Services.TransferServices.Statuses;
 using paysys.webapi.Application.Services.TransferServices.Transfers;
@@ -21,7 +23,25 @@ var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddControllers().AddNewtonsoftJson();
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(s =>
+    {
+        s.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Version = "v1.0",
+            Title = "PaySys API",
+            Description = "Sistema de pagamentos no qual se concentram usuários comuns, lojistas e administradores. Em resumo, os administradores gerenciam os usuários, os lojistas somente recebem pagamentos e os usuários comuns efetuam tranferências para usuários do mesmo tipo ou lojistas.",
+            Contact = new OpenApiContact()
+            {
+                Name = "Matheus Macedo Santos",
+                Email = "contact@matheus.macedo.dev.br",
+            },
+            License = new OpenApiLicense() { Name = "MIT License", Url = new Uri("https://opensource.org/licenses/MIT") }
+        });
+
+        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        s.IncludeXmlComments(xmlPath);
+    });
 
     // Configurations
     var configuration = new ConfigurationBuilder()
@@ -94,7 +114,11 @@ var app = builder.Build();
 
     // Swagger Config
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(ui =>
+    {
+        ui.SwaggerEndpoint("/swagger/v1/swagger.json", "PaySys API");
+        ui.RoutePrefix = string.Empty;
+    });
 
     app.UseHttpsRedirection();
 
