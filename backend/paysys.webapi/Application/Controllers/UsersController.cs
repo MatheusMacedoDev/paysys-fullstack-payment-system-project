@@ -16,6 +16,9 @@ public class UsersController : ControllerBase
         _usersService = usersService;
     }
 
+    /// <summary>
+    /// Registra um novo usuário administrador
+    /// </summary>
     [HttpPost("administrator")]
     public async Task<IActionResult> CreateAdministrator([FromBody] CreateAdministratorRequest request)
     {
@@ -31,7 +34,11 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpGet("administrator/listShort")]
+    /// <summary>
+    /// Retorna uma lista de todos os administradores
+    /// </summary>
+    /// <returns>Uma lista de todos os administradores</returns>
+    [HttpGet("administrator")]
     public async Task<IActionResult> GetShortAdministrators()
     {
         try
@@ -46,6 +53,10 @@ public class UsersController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retorna os dados de um administrador específico
+    /// </summary>
+    /// <returns>Os dados de um administrador específico</returns>
     [HttpGet("administrator/{administratorId}")]
     public async Task<IActionResult> GetFullAdministrator([FromRoute] Guid administratorId)
     {
@@ -65,6 +76,9 @@ public class UsersController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Registra um novo usuário comum
+    /// </summary>
     [HttpPost("common")]
     public async Task<IActionResult> CreateCommonUser([FromBody] CreateCommonUserRequest request)
     {
@@ -80,7 +94,11 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpGet("common/listShort")]
+    /// <summary>
+    /// Retorna uma lista de todos os usuários comuns
+    /// </summary>
+    /// <returns>Uma lista de todos os usuários comuns</returns>
+    [HttpGet("common")]
     public async Task<IActionResult> GetShortCommonUsers()
     {
         try
@@ -95,6 +113,10 @@ public class UsersController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retorna os dados de um usuário comum específico
+    /// </summary>
+    /// <returns>Os dados de um usuário comum específico</returns>
     [HttpGet("common/{commonUserId}")]
     public async Task<IActionResult> GetFullCommonUser([FromRoute] Guid commonUserId)
     {
@@ -114,6 +136,9 @@ public class UsersController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Registra um novo usuário lojista
+    /// </summary>
     [HttpPost("shopkeeper")]
     public async Task<IActionResult> CreateShopkeeper([FromBody] CreateShopkeeperRequest request)
     {
@@ -129,7 +154,11 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpGet("shopkeeper/listShort")]
+    /// <summary>
+    /// Retorna uma lista de todos os lojistas
+    /// </summary>
+    /// <returns>Uma lista de todos os lojistas</returns>
+    [HttpGet("shopkeeper")]
     public async Task<IActionResult> GetShortShopkeepers()
     {
         try
@@ -144,6 +173,10 @@ public class UsersController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retorna os dados de um lojista específico
+    /// </summary>
+    /// <returns>Os dados de um lojista específico</returns>
     [HttpGet("shopkeeper/{shopkeeperId}")]
     public async Task<IActionResult> GetFullShopkeeper([FromRoute] Guid shopkeeperId)
     {
@@ -163,6 +196,10 @@ public class UsersController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Realiza login no sistema
+    /// </summary>
+    /// <returns>Retorna o token JWT do usuário</returns>
     [HttpPost("login")]
     public async Task<IActionResult> MakeLogin([FromBody] LoginRequest request)
     {
