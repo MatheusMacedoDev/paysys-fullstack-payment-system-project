@@ -46,6 +46,7 @@ public class DataContext : DbContext
         modelBuilder.Ignore<Notification>();
 
         applyModelConfiguration(modelBuilder);
+        seedAllData(modelBuilder);
     }
 
     protected void applyModelConfiguration(ModelBuilder modelBuilder)
@@ -58,5 +59,36 @@ public class DataContext : DbContext
         modelBuilder.ApplyConfiguration(new TransferCategoryConfiguration());
         modelBuilder.ApplyConfiguration(new TransferStatusConfiguration());
         modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
+    }
+
+    protected void seedAllData(ModelBuilder modelBuilder)
+    {
+        seedUserTypeData(modelBuilder);
+    }
+
+    protected void seedUserTypeData(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<UserType>(type =>
+        {
+            var administratorTypeId = Guid.NewGuid();
+            var shopkeeperTypeId = Guid.NewGuid();
+            var commonTypeId = Guid.NewGuid();
+
+            type.HasData(
+                [
+                new UserType(administratorTypeId),
+                new UserType(shopkeeperTypeId),
+                new UserType(commonTypeId)
+                ]
+            );
+
+            type.OwnsOne(t => t.TypeName)
+                .HasData([
+                    new { UserTypeId = administratorTypeId, NameText = "Administrador" },
+                    new { UserTypeId = shopkeeperTypeId, NameText = "Lojista" },
+                    new { UserTypeId = commonTypeId, NameText = "Comum" }
+                ]
+            );
+        });
     }
 }

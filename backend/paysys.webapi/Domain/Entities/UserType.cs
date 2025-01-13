@@ -16,7 +16,11 @@ public class UserType
 
     protected UserType()
     {
+    }
 
+    public UserType(Guid userTypeId)
+    {
+        UserTypeId = userTypeId;
     }
 
     public UserType(string typeName)
