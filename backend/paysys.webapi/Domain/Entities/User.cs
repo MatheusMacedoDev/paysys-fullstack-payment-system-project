@@ -38,11 +38,9 @@ public class User
     {
     }
 
-    public User(Guid userTypeId)
+    public User(Guid userId, Guid userTypeId, DateTime currentDateTime)
     {
-        UserId = Guid.NewGuid();
-
-        var currentDateTime = DateTime.UtcNow;
+        UserId = userId;
 
         CreatedOn = currentDateTime;
         LastUpdatedOn = currentDateTime;

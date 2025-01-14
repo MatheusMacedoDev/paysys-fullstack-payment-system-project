@@ -9,12 +9,17 @@ public class TransferCategory
 {
     [Key]
     [Column("transfer_category_id")]
-    public Guid TransferCategoryId { get; set; }
+    public Guid TransferCategoryId { get; private set; }
 
     public Name? TransferCategoryName { get; private set; }
 
     protected TransferCategory()
     {
+    }
+
+    public TransferCategory(Guid transferCategoryId)
+    {
+        TransferCategoryId = transferCategoryId;
     }
 
     public TransferCategory(string transferCategoryName)

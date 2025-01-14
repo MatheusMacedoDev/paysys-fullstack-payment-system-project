@@ -70,6 +70,7 @@ public class DataContext : DbContext
     {
         seedUserTypeData(modelBuilder);
         seedUserData(modelBuilder);
+        seedTransferCategoryData(modelBuilder);
     }
 
     protected void seedUserTypeData(ModelBuilder modelBuilder)
@@ -99,19 +100,25 @@ public class DataContext : DbContext
         modelBuilder.Entity<User>(type =>
         {
             var cryptographyStrategy = new CryptographyStrategy();
-            var passwordSalt = cryptographyStrategy.MakeSalt();
-            var passwordHash = cryptographyStrategy.MakeHashedPassword("Senha@1234", passwordSalt);
+            var passwordSalt = new byte[] { 220, 94, 212, 255, 55, 103, 101, 178, 34, 111, 184, 195, 232, 110, 5, 22 };
+            var passwordHash = new byte[] { 170, 88, 154, 122, 54, 152, 158, 118, 158, 154, 197, 61, 246, 108, 72, 60, 147, 232, 130, 253, 231, 194, 27, 66, 162, 185, 117, 175, 80, 1, 127, 174 };
 
             var administratorUser = new User(
-                userTypeId: _administratorUserTypeId
+                userId: new Guid("3c56843f-fd7a-41bd-8e14-a6b4832fa6fb"),
+                userTypeId: _administratorUserTypeId,
+                currentDateTime: new DateTime(2025, 1, 14, 16, 56, 38, 553, DateTimeKind.Utc).AddTicks(4826)
             );
 
             var shopkeeperUser = new User(
-                userTypeId: _shopkeeperUserTypeId
+                userId: new Guid("46121131-1507-4470-83ea-dd0439c51b4c"),
+                userTypeId: _shopkeeperUserTypeId,
+                currentDateTime: new DateTime(2025, 1, 14, 16, 56, 38, 553, DateTimeKind.Utc).AddTicks(4837)
             );
 
             var commonUser = new User(
-                userTypeId: _commonUserTypeId
+                userId: new Guid("8499d00f-fac1-4296-9b2c-d2143cbf1563"),
+                userTypeId: _commonUserTypeId,
+                currentDateTime: new DateTime(2025, 1, 14, 16, 56, 38, 553, DateTimeKind.Utc).AddTicks(4845)
             );
 
             type.HasData(
@@ -151,6 +158,35 @@ public class DataContext : DbContext
                     new { UserId = administratorUser.UserId, Hash = passwordHash, Salt = passwordSalt },
                     new { UserId = shopkeeperUser.UserId, Hash = passwordHash, Salt = passwordSalt },
                     new { UserId = commonUser.UserId, Hash = passwordHash, Salt = passwordSalt }
+                ]
+            );
+        });
+    }
+
+    protected void seedTransferCategoryData(ModelBuilder modelBuilder)
+    {
+        var foodCategoryId = new Guid("9bba9f3e-234f-4ec5-aac3-d2e99f46a59a");
+        var transportationCategoryId = new Guid("2e6c6eaf-5d25-4241-b1b0-7d3433824861");
+        var hotelsCategoryId = new Guid("384b4ec9-f5ac-406e-b2a2-52733dcc73de");
+        var techCategoryId = new Guid("bc7e2062-9aad-4e59-afdb-52733ac514e4");
+
+        modelBuilder.Entity<TransferCategory>(type =>
+        {
+            type.HasData(
+                [
+                    new TransferCategory(foodCategoryId),
+                    new TransferCategory(transportationCategoryId),
+                    new TransferCategory(hotelsCategoryId),
+                    new TransferCategory(techCategoryId)
+                ]
+            );
+
+            type.OwnsOne(c => c.TransferCategoryName)
+                .HasData([
+                    new { TransferCategoryId = foodCategoryId, NameText = "Alimentação" },
+                    new { TransferCategoryId = transportationCategoryId, NameText = "Transporte" },
+                    new { TransferCategoryId = hotelsCategoryId, NameText = "Hotelaria" },
+                    new { TransferCategoryId = techCategoryId, NameText = "Tecnologia" }
                 ]
             );
         });
