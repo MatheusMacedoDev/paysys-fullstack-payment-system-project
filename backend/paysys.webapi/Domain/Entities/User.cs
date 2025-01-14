@@ -38,6 +38,19 @@ public class User
     {
     }
 
+    public User(Guid userTypeId)
+    {
+        UserId = Guid.NewGuid();
+
+        var currentDateTime = DateTime.UtcNow;
+
+        CreatedOn = currentDateTime;
+        LastUpdatedOn = currentDateTime;
+
+        UserTypeId = userTypeId;
+    }
+
+
     public User(string userName, string email, string phoneNumber, string password, Guid userTypeId, ICryptographyStrategy cryptographyStrategy)
     {
         UserId = Guid.NewGuid();
