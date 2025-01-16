@@ -61,6 +61,18 @@ public class Transfer
     {
     }
 
+    public Transfer(Guid transferId, double transferAmount, DateTime transferDateTime, Guid transferStatusId, Guid transferCategoryId, Guid senderUserId, Guid receiverUserId)
+    {
+        TransferId = transferId;
+        TransferAmount = transferAmount;
+        TransferDateTime = transferDateTime;
+
+        TransferStatusId = transferStatusId;
+        TransferCategoryId = transferCategoryId;
+        SenderUserId = senderUserId;
+        ReceiverUserId = receiverUserId;
+    }
+
     public Transfer(string transferDescription, double transferAmount, Guid transferStatusId, Guid transferCategoryId, Guid senderUserId, Guid receiverUserId)
     {
         TransferId = Guid.NewGuid();
