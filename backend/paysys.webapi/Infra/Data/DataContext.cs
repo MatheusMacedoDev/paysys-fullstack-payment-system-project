@@ -71,6 +71,7 @@ public class DataContext : DbContext
         seedUserTypeData(modelBuilder);
         seedUserData(modelBuilder);
         seedTransferCategoryData(modelBuilder);
+        seedTransferStatusData(modelBuilder);
     }
 
     protected void seedUserTypeData(ModelBuilder modelBuilder)
@@ -187,6 +188,26 @@ public class DataContext : DbContext
                     new { TransferCategoryId = transportationCategoryId, NameText = "Transporte" },
                     new { TransferCategoryId = hotelsCategoryId, NameText = "Hotelaria" },
                     new { TransferCategoryId = techCategoryId, NameText = "Tecnologia" }
+                ]
+            );
+        });
+    }
+
+    protected void seedTransferStatusData(ModelBuilder modelBuilder)
+    {
+        var transferDoneStatusId = new Guid("5e55e212-6419-4c21-b9b6-6fa65e636978");
+
+        modelBuilder.Entity<TransferStatus>(type =>
+        {
+            type.HasData(
+                [
+                    new TransferStatus(transferDoneStatusId)
+                ]
+            );
+
+            type.OwnsOne(s => s.TransferStatusName)
+                .HasData([
+                    new { TransferStatusId = transferDoneStatusId, NameText = "Concluída" },
                 ]
             );
         });

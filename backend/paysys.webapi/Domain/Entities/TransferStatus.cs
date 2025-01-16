@@ -17,6 +17,11 @@ public class TransferStatus
     {
     }
 
+    public TransferStatus(Guid transferStatusId)
+    {
+        TransferStatusId = transferStatusId;
+    }
+
     public TransferStatus(string transferStatusName)
     {
         TransferStatusId = Guid.NewGuid();
