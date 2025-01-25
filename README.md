@@ -4,12 +4,14 @@
 </p>
 
 <p align="center">
-        <a aria-label="Portfólio - Matheus Macedo Santos" href="https://github.com/MatheusMacedoDev"><img src="https://img.shields.io/badge/Portf%C3%B3lio-Matheus%20Macedo-931ad9" /></a> <a aria-label="License: MIT" href="https://github.com/MatheusMacedoDev/paysys-backend/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green)" /></a>
+        <a aria-label="Portfólio - Matheus Macedo Santos" href="https://matheusmacedo.dev.br/"><img src="https://img.shields.io/badge/Portf%C3%B3lio-Matheus%20Macedo-931ad9" /></a> <a aria-label="License: MIT" href="https://github.com/MatheusMacedoDev/paysys-backend/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green)" /></a>
 </p>
 
 ## :bulb: Sobre o Projeto
 
-**PaySys** é uma abreviação de **Payment System (Sistema de Pagamento)**, o que resume as funcionalidades da aplicação. O sistema foi feito baseado no [Desafio Back-end do PicPay](https://github.com/PicPay/picpay-desafio-backend), porém suas features não se limitam a um **PicPay Simplificado**, abrangindo um escopo relativamente maior que foi pensado no uso atual e posterior do projeto. De início, os requisitos da aplicação foram pensados como um desafio para a minha própria evolução, me forçando a fazer um projeto utilizando de diversas boas práticas (como **Domain-Driven Design**, **Test-Driven Design** e os princípios **SOLID** no geral), além de tecnologias nunca antes usadas por mim. Trabalhei por meses nesse projeto e, chegando próximo ao fim do back-end do mesmo, espero este sistema sirva como um dos projetos de meu [Portfólio Pessoal](https://github.com/MatheusMacedoDev).
+**PaySys** é uma abreviação de **Payment System (Sistema de Pagamento)**, o que resume as funcionalidades da aplicação. O sistema foi feito baseado no [Desafio Back-end do PicPay](https://github.com/PicPay/picpay-desafio-backend), porém suas features não se limitam a um **PicPay Simplificado**, abrangindo um escopo relativamente maior que foi pensado no uso atual e posterior do projeto. De início, os requisitos da aplicação foram pensados como um desafio para a minha própria evolução, me forçando a fazer um projeto utilizando de diversas boas práticas (como **Domain-Driven Design**, **Test-Driven Design** e os princípios **SOLID** no geral), além de tecnologias nunca antes usadas por mim. Trabalhei por meses nesse projeto e, chegando próximo ao fim do back-end do mesmo, espero este sistema sirva como um dos projetos de meu [Portfólio Pessoal](https://matheusmacedo.dev.br/).
+
+**Implantação:** [Link para o projeto funcionando](https://paysys-fullstack-payment-system-project.onrender.com/index.html)
 
 ![PaySys Figma](https://github.com/MatheusMacedoDev/paysys-backend/assets/67438868/25cd8af5-cf6c-4378-937b-d865bb9a8a30)
 
@@ -28,6 +30,9 @@
 - MailKit e MimeKit (envio de e-mails)
 - XUnit (testes unitários e de integração)
 - Handlebars.Net (templates HTML)
+- Docker (conteinerização)
+- Docker Compose (lida com vários contêineres)
+- Render (deploy)
 
 ### Front-end
 
