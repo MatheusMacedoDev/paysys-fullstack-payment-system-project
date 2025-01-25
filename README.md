@@ -67,8 +67,8 @@ Aqui estão descritas todas as funcionalidades do projeto:
 - [x] Listar dados de uma transferência específica;
 - [x] Enviar e-mail de boas-vindas para novos usuários;
 - [x] Enviar um e-mail assim que uma tranferência é realizada envolvendo o usuário;
-- [ ] Transferir dados sensíveis para variáveis de ambiente;
-- [ ] Adicionar autorização para todas as rotas.
+- [x] Transferir dados sensíveis para variáveis de ambiente;
+- [ ] Adicionar autorização para todas as rotas (desabilitado por usabilidade).
 
 ## :book: Planejamento
 
